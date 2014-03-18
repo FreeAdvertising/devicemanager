@@ -23,7 +23,7 @@
 		if(IS_DEV){
 			$_tmp = array();
 			$_tmp["head"] = file('.git/HEAD', FILE_USE_INCLUDE_PATH);
-			$_tmp["fetch_head"] = file('.git/FETCH_HEAD', FILE_USE_INCLUDE_PATH);
+			$_tmp["fetch_head"] = (@file('.git/FETCH_HEAD', FILE_USE_INCLUDE_PATH) ? file('.git/FETCH_HEAD', FILE_USE_INCLUDE_PATH) : array(md5(time())));
 
 			$parts = explode("/", $_tmp["head"][0]);
 			

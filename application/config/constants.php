@@ -36,7 +36,7 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-define("IS_DEV", ($_SERVER["HTTP_HOST"] != "freepass.wearefree.ca"));
+define("IS_DEV", ($_SERVER["REMOTE_ADDR"] == "127.0.0.1"));
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

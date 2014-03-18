@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="<?php echo sprintf("%s/bootstrap/css/bootstrap-colorpicker.min.css", $template_path); ?>" />
 		<link rel="stylesheet" href="<?php echo sprintf("%s/bootstrap/css/custom.css", $template_path); ?>" />
 
-		<title>FreePass | Free Advertising</title>
+		<title><?php echo $this->hydra->get("product_name"); ?> | Free Advertising</title>
 	</head>
 	<body>
 		<div class="container">
