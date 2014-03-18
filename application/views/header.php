@@ -32,36 +32,11 @@
 				<?php if($this->hydra->isAuthenticated()): ?>
 					<nav class="collapse navbar-collapse" id="main-nav">
 						<ul class="nav navbar-nav">
-						 	<!--<li class="dropdown">
-						 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <b class="caret"></b></a>
-						 		<ul class="dropdown-menu">
-						 			<li class="<?php echo ($page == "" ? 'active' : ''); ?>"><?php echo anchor("/lists/records", "Records"); ?></li>
-						 			<li class="divider"></li>
-						 			<li class="<?php echo ($page == "clients" ? 'active' : ''); ?>"><?php echo anchor("/lists/clients", "Clients"); ?></li>
-						 			<li class="<?php echo ($page == "categories" ? 'active' : ''); ?>"><?php echo anchor("/lists/categories", "Categories"); ?></li>
-						 			
-
-						 			<?php if($this->hydra->isAdmin()): ?>
-							 			<li class="divider"></li>
-							 			<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("/lists/users", "Users"); ?></li>
-							 		<?php endif; ?>
-						 		</ul>
-						 	</li>
-						 	<li class="dropdown">
-						 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">New <b class="caret"></b></a>
-						 		<ul class="dropdown-menu">
-						 			<li class="<?php echo ($page == "add" || $page == "edit" && $subpage == "id" || $page == "add" ? 'active"' : ''); ?>"><?php echo anchor("/add", "Record"); ?></li>
-						 			<li class="<?php echo ($page == "edit" && $subpage == "cid" || $page == "client" ? 'active"' : ''); ?>"><?php echo anchor("/client", "Client"); ?></li>
-						 			<li class="<?php echo ($page == "edit" && $subpage == "caid" || $page == "category" ? 'active"' : ''); ?>"><?php echo anchor("/category", "Category"); ?></li>
-
-						 			<?php if($this->hydra->isAdmin()): ?>
-						 				<li class="<?php echo ($page == "edit" && $subpage == "uid" ? 'active"' : ''); ?>"><?php echo anchor("/user", "User"); ?></li>
-						 			<?php endif; ?>
-						 		</ul>
-						 	</li>-->
-						 </ul>
-
-
+							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
+							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Check In/Out"); ?></li>
+							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Reservations"); ?></li>
+						</ul>
+						
 						<ul class="nav navbar-nav navbar-right">
 							<!--<li class="<?php echo ($page == "preferences" ? 'active' : ''); ?> preferences"><?php echo anchor("/preferences", "Preferences"); ?></li>-->
 							<li class="<?php echo ($page == 'help' ? 'active' : ''); ?>"><?php echo anchor("/help", "Help"); ?></li>
@@ -74,6 +49,7 @@
 			<div class="jumbotron">
 				 <h1>Free</h1>
 			</div>
-		
+
 			<div class="panel panel-free">
 				<div class="panel-body">
+					
