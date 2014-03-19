@@ -1,7 +1,7 @@
 ##
 # Create Product tables
 #
-
+# freepass tables
 CREATE DATABASE `freepass` ;
 
 CREATE TABLE `freepass`.`clients` (
@@ -58,7 +58,9 @@ CREATE TABLE `freepass`.`rel_starred_categories` (
   `category_id` INT NOT NULL,
   PRIMARY KEY (`rel_id`));
 
-# INCOMPLETE
+##
+# device_manager tables
+# 
 CREATE TABLE `freepass`.`device_manager_devices` (
   `device_id` INT NOT NULL AUTO_INCREMENT,
   `uuid` VARCHAR(8) NOT NULL,
