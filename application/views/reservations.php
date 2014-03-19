@@ -1,51 +1,54 @@
-<section class="main col-md-12">
+<section class="main col-md-9">
 	<div class="row">
-		<h3>Filters <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-		<div class="btn-group filters">
-			<button type="button" class="btn btn-success success" style="width: 25%">Available</button>
-			<button type="button" class="btn btn-info info" style="width: 25%">Maintenance</button>
-			<button type="button" class="btn btn-danger danger" style="width: 25%">Checked Out</button>
-			<button type="button" class="btn btn-warning warning " style="width: 25%">Reserved</button>
-		</div>
-
 		<table class="table list-devices">
 			<thead>
 				<th width="85%">Device UUID</th>
-				<th>Status</th>
+				<th>Apps</th>
 				<th>OS</th>
 			</thead>
 			<tbody>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-success"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-success"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-warning"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-danger"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-danger"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-info"></span></td>
+					<td><?php echo anchor("/device/_ID_/apps", "View"); ?></td>
 					<td>{ICON}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+</section>
+
+<section class="sidebar col-md-3">
+	<aside class="module">
+		<div class="list-group">
+			<h3 class="list-group-item">Filter by User</h3>
+			<?php for($i = 0; $i < sizeof($users); $i++): ?>
+				<a href="#" class="list-group-item"><?php echo $users[$i]->username; ?> <span class="all badge">0</span></a>
+			<?php endfor; ?>
+		</div>
+	</aside>
 </section>

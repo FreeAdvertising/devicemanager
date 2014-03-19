@@ -1,4 +1,4 @@
-<section class="main col-md-8">
+<section class="main col-md-9">
 	<div class="row">
 		<?php if($this->hydra->isAdmin()): ?>
 			<div class="admin quicklinks col-md-12">
@@ -45,20 +45,20 @@
 	</div>
 </section>
 
-<section class="sidebar col-md-4">
+<section class="sidebar col-md-3">
 	<aside class="module">
 		<div class="list-group">
 			<h3 class="list-group-item">My Devices</h3>
-			<a href="#" class="list-group-item">XXXXXXXX <span class="all">March 11th, 2014</span></a>
+			<a href="#" class="list-group-item">XXXXXXXX</a>
 
 			<h3 class="list-group-item">My Reserved Devices</h3>
-			<a href="#" class="list-group-item">XXXXXXXX <span class="all">March 18th, 2014</span></a>
-			<a href="#" class="list-group-item">XXXXXXXX <span class="all">March 12th, 2014</span></a>
-			<a href="#" class="list-group-item">XXXXXXXX <span class="all">March 8th, 2014</span></a>
+			<a href="#" class="list-group-item">XXXXXXXX</a>
+			<a href="#" class="list-group-item">XXXXXXXX</a>
+			<a href="#" class="list-group-item">XXXXXXXX</a>
 
 			<h3 class="list-group-item">My Maintenance Tickets</h3>
-			<a href="#" class="list-group-item">Task#XX <span class="all">March 10th, 2014</span></a>
-			<a href="#" class="list-group-item">Task#XX <span class="all">March 11th, 2014</span></a>
+			<a href="#" class="list-group-item">Task#XX</a>
+			<a href="#" class="list-group-item">Task#XX</a>
 		</div>
 	</aside>
 </section>

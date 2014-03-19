@@ -10,7 +10,7 @@
 		</div>
 
 		<script type="text/javascript">
-			var FP = function(){
+			var Product = function(){
 				this.ajax_url = "<?php echo base_url(); ?>";
 
 				this.init();

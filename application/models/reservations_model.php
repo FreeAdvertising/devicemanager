@@ -6,8 +6,10 @@
 			return parent::__construct();
 		}
 
-		public function getRecords(){
-			return array();
+		public function getUsers(){
+			$query = $this->db->query("SELECT * FROM users");
+
+			return $query->result_object();
 		}
 	}
 

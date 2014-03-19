@@ -1,9 +1,9 @@
 /*
- * FP
+ * Product
  *
  * Object prototype
  */
- 	FP.prototype = {
+ 	Product.prototype = {
  		init: function(){
  			this.Store.init();
  		},
@@ -11,7 +11,7 @@
  		Store: {
  			init: function(){
 	 			this.engine = window.localStorage;
-	 			this.prefix = "FPStore.";
+	 			this.prefix = "DMStore.";
 	 			
 	 			return this;
 	 		},
@@ -129,4 +129,4 @@
 	 	}
  	};
 
-	var FPInstance = new FP();
+	var ProductInstance = new Product();

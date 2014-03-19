@@ -54,6 +54,9 @@
 
 						<ul class="nav navbar-nav navbar-right">
 							<li class="<?php echo ($page == 'help' ? 'active' : ''); ?>"><?php echo anchor("/help", "Help"); ?></li>
+							<?php if(false === $this->hydra->isAdmin()): ?>
+								<li><a href="mailto:ryan@wearefree.ca?Subject=Feedback">Feedback</a></li>
+							<?php endif; ?>
 						</ul>
 					 	
 					 	<?php echo anchor("/logout", "Logout", array("class" => "btn btn-default navbar-right logout navbar-btn")); ?>
