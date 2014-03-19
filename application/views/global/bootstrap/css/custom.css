@@ -10,7 +10,9 @@ td {
 	margin-right: 15px;
 }
 
-
+.panel-body h3 {
+	margin-top: 0px;
+}
 
 ul.dropdown-menu {
 	margin-top: 2px !important;
@@ -145,4 +147,9 @@ span.status-circle {
 
 .filters {
 	width: 100%;
+	margin-bottom: 2em;
+}
+
+.filters button.active {
+	color: rgba(255,255,255,0.7);
 }

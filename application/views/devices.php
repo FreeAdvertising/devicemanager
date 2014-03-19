@@ -1,6 +1,6 @@
 <section class="main col-md-12">
 	<div class="row">
-		<h2>Filters <a href="#" class="reset-filters label label-default hidden">Reset</a></h2>
+		<h3>Filters <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
 		<div class="btn-group filters">
 			<button type="button" class="btn btn-success success" style="width: 25%">Available</button>
 			<button type="button" class="btn btn-info info" style="width: 25%">Maintenance</button>

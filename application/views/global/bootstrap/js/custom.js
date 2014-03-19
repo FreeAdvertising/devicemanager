@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", function(evt){
 			
 		for(var i = 0; i < _devices.length; i++){
 			_devices[i].classList.remove("hidden");
-			//console.log(_devices[i].querySelector("span.status-circle").classList.contains("alert-"+ _class));
+			
 			if(! _devices[i].querySelector("span.status-circle").classList.contains("alert-"+ _class)){
 				_devices[i].classList.add("hidden");
 
