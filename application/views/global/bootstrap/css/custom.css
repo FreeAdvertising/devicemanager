@@ -128,9 +128,22 @@ a[data-toggle="collapse"] {
 	margin: 0px;
 }
 
-.module .all {
+.all {
 	float: right;
 	text-transform: uppercase;
 	font-size: 0.7em;
 	padding-top: 4px;
+}
+
+span.status-circle {
+	border-radius: 100px;
+	height: 20px;
+	width: 20px;
+	display: block;
+	margin: 0 auto;
+}
+
+.progress-bar a {
+	color: white;
+	text-shadow: none;
 }

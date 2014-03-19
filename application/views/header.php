@@ -33,7 +33,7 @@
 					<nav class="collapse navbar-collapse" id="main-nav">
 						<ul class="nav navbar-nav">
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
-							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Check In/Out"); ?></li>
+							<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "Check In/Out"); ?></li>
 							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Reservations"); ?></li>
 
 							<?php if($this->hydra->isAdmin()): ?>
@@ -55,9 +55,13 @@
 			</div>
 
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
-					<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
-				</div>
+				<?php if($page == ""): ?>
+					<div class="panel-heading">
+						<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
+						<?php if($this->hydra->isAuthenticated()): ?>
+							<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
 				<div class="panel-body">
 					

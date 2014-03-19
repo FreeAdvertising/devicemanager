@@ -57,8 +57,8 @@
 			<a href="#" class="list-group-item">XXXXXXXX <span class="all">March 8th, 2014</span></a>
 
 			<h3 class="list-group-item">My Maintenance Tickets</h3>
-			<a href="#" class="list-group-item">XXXXXXXX - Task#XX <span class="all">March 10th, 2014</span></a>
-			<a href="#" class="list-group-item">XXXXXXXX - Task#XX <span class="all">March 11th, 2014</span></a>
+			<a href="#" class="list-group-item">Task#XX <span class="all">March 10th, 2014</span></a>
+			<a href="#" class="list-group-item">Task#XX <span class="all">March 11th, 2014</span></a>
 		</div>
 	</aside>
 </section>
