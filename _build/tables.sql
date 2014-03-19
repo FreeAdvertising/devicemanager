@@ -67,7 +67,7 @@ CREATE TABLE `freepass`.`device_manager_devices` (
   `os` INT NOT NULL, #ENUM
   `meta_ram` INT NOT NULL,
   `meta_hdd` INT NOT NULL,
-  `meta_tracked_apps_id` INT NOT NULL, #foreign key: _tracked_applications
+  #`meta_tracked_apps_id` INT NOT NULL, #foreign key: _tracked_applications
   #`meta_maintenance_id` INT NOT NULL, #foreign key: _maintenance_tasks
   `date_checkout` DATE NOT NULL,
   `date_checkin` DATE NOT NULL,
@@ -78,22 +78,27 @@ CREATE TABLE `freepass`.`device_manager_devices` (
 
 CREATE TABLE `freepass`.`device_manager_tracked_applications` (
   `app_id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` INT NOT NULL, #foreign key
+  `name` INT NOT NULL,
+  `description` INT NOT NULL,
   `` INT NOT NULL,
   PRIMARY KEY (`app_id`));
 
 CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` INT NOT NULL, #foreign key: _devices.device_id
   `assignee` INT NOT NULL,
   `created_by` INT NOT NULL,
   `description` BLOB NOT NULL,
-  `category` INT NOT NULL, #foreign key
+  `category` INT NOT NULL, #foreign key: _maintenance_task_categories.category_id
   `status` INT NOT NULL, #ENUM
   PRIMARY KEY (`app_id`));
 
 CREATE TABLE `freepass`.`device_manager_maintenance_task_categories` (
-  `app_id` INT NOT NULL AUTO_INCREMENT,
-  `` INT NOT NULL,
-  PRIMARY KEY (`app_id`));
+  `category_id` INT NOT NULL AUTO_INCREMENT,
+  `name` INT NOT NULL,
+  `description` INT NOT NULL,
+  PRIMARY KEY (`category_id`));
 
 ##
 # Modify existing Product tables
