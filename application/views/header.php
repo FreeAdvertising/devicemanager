@@ -35,8 +35,12 @@
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
 							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Check In/Out"); ?></li>
 							<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Reservations"); ?></li>
+
+							<?php if($this->hydra->isAdmin()): ?>
+								<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("#", "Maintenance Tasks"); ?></li>
+							<?php endif; ?>
 						</ul>
-						
+
 						<ul class="nav navbar-nav navbar-right">
 							<!--<li class="<?php echo ($page == "preferences" ? 'active' : ''); ?> preferences"><?php echo anchor("/preferences", "Preferences"); ?></li>-->
 							<li class="<?php echo ($page == 'help' ? 'active' : ''); ?>"><?php echo anchor("/help", "Help"); ?></li>
@@ -50,6 +54,10 @@
 				 <h1>Free</h1>
 			</div>
 
-			<div class="panel panel-free">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
+					<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
+				</div>
 				<div class="panel-body">
 					
