@@ -1,7 +1,9 @@
-# create freepass db
+##
+# Create Product tables
+#
+
 CREATE DATABASE `freepass` ;
 
-# create clients table
 CREATE TABLE `freepass`.`clients` (
   `client_id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NULL,
@@ -10,7 +12,6 @@ CREATE TABLE `freepass`.`clients` (
   PRIMARY KEY (`client_id`),
   UNIQUE INDEX `client_id_UNIQUE` (`client_id` ASC));
 
-# create records table
 CREATE TABLE `freepass`.`records` (
   `record_id` INT NOT NULL AUTO_INCREMENT,
   `client_id` INT NOT NULL,
@@ -22,7 +23,6 @@ CREATE TABLE `freepass`.`records` (
   `desc` VARCHAR(45) NULL,
   PRIMARY KEY (`record_id`));
 
-# create users table
 CREATE TABLE `freepass`.`users` (
   `userid` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
@@ -58,7 +58,46 @@ CREATE TABLE `freepass`.`rel_starred_categories` (
   `category_id` INT NOT NULL,
   PRIMARY KEY (`rel_id`));
 
+# INCOMPLETE
+CREATE TABLE `freepass`.`device_manager_devices` (
+  `device_id` INT NOT NULL AUTO_INCREMENT,
+  `uuid` VARCHAR(8) NOT NULL,
+  `os` INT NOT NULL, #ENUM
+  `meta_ram` INT NOT NULL,
+  `meta_hdd` INT NOT NULL,
+  `meta_tracked_apps_id` INT NOT NULL, #foreign key: _tracked_applications
+  #`meta_maintenance_id` INT NOT NULL, #foreign key: _maintenance_tasks
+  `date_checkout` DATE NOT NULL,
+  `date_checkin` DATE NOT NULL,
+  `last_checkedout_by` INT NOT NULL,
+  `status` INT NOT NULL, #ENUM
+  `location` INT NOT NULL, #ENUM
+  PRIMARY KEY (`device_id`));
 
+CREATE TABLE `freepass`.`device_manager_tracked_applications` (
+  `app_id` INT NOT NULL AUTO_INCREMENT,
+  `` INT NOT NULL,
+  PRIMARY KEY (`app_id`));
+
+CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
+  `task_id` INT NOT NULL AUTO_INCREMENT,
+  `assignee` INT NOT NULL,
+  `created_by` INT NOT NULL,
+  `description` BLOB NOT NULL,
+  `category` INT NOT NULL, #foreign key
+  `status` INT NOT NULL, #ENUM
+  PRIMARY KEY (`app_id`));
+
+CREATE TABLE `freepass`.`device_manager_maintenance_task_categories` (
+  `app_id` INT NOT NULL AUTO_INCREMENT,
+  `` INT NOT NULL,
+  PRIMARY KEY (`app_id`));
+
+##
+# Modify existing Product tables
+# (these changes are already added to the table schemas, should only be run on
+# existing data)
+# 
 
 # insert default users
 #INSERT INTO `freepass`.`users`(`username`, `password`) VALUES("marynika", )
@@ -74,6 +113,4 @@ CREATE TABLE `freepass`.`rel_starred_categories` (
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
 #ALTER TABLE `freepass`.`categories` ADD COLUMN `colour` VARCHAR(45) NOT NULL AFTER `name`;
-
-# ????? NOT COMMITTED LIVE YET:
 #ALTER TABLE `freepass`.`records` CHANGE COLUMN `password` `password` VARCHAR(88) NOT NULL ;
