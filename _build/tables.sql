@@ -84,6 +84,11 @@ CREATE TABLE `freepass`.`device_manager_tracked_applications` (
   `` INT NOT NULL,
   PRIMARY KEY (`app_id`));
 
+CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
+  `rel_id` INT NOT NULL AUTO_INCREMENT,
+  #NOT SURE WHAT SHOULD BE IN HERE YET...
+  PRIMARY KEY (`rel+id`));
+
 CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL, #foreign key: _devices.device_id
