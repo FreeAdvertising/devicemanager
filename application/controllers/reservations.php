@@ -18,7 +18,7 @@
 			$this->load->view('header', $data);
 			
 			if($this->hydra->isAuthenticated()){
-				$this->load->view('devices');
+				$this->load->view('reservations');
 			}else {
 				$this->load->view("login", $data);
 			}

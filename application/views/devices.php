@@ -1,20 +1,6 @@
 <section class="main col-md-12">
 	<div class="row">
 		<h2>Filters <a href="#" class="reset-filters label label-default hidden">Reset</a></h2>
-		<!-- <div class="progress progress-fat">
-			<div class="progress-bar progress-bar-success success" style="width: 25%">
-				<a href="#">Available</a>
-			</div>
-			<div class="progress-bar progress-bar-info info" style="width: 25%">
-				<a href="#">Maintenance</a>
-			</div>
-			<div class="progress-bar progress-bar-danger danger" style="width: 25%">
-				<a href="#">Checked Out</a>
-			</div>
-			<div class="progress-bar progress-bar-warning warning" style="width: 25%">
-				<a href="#">Reserved</a>
-			</div>
-		</div> -->
 		<div class="btn-group filters">
 			<button type="button" class="btn btn-success success" style="width: 25%">Available</button>
 			<button type="button" class="btn btn-info info" style="width: 25%">Maintenance</button>

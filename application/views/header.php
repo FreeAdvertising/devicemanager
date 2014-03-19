@@ -37,12 +37,22 @@
 							<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>
 
 							<?php if($this->hydra->isAdmin()): ?>
-								<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
+								<li class="dropdown">
+							 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+							 		<ul class="dropdown-menu">
+							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Add Device"); ?></li>
+							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Add Application"); ?></li>
+							 			<li class="divider"></li>
+							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
+							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><a href="http://freepass.wearefree.ca/index.php/lists/users" target="_blank">Manage Users</a></li>
+							 			<li class="divider"></li>
+							 			<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
+							 		</ul>
+								</li>
 							<?php endif; ?>
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
-							<!--<li class="<?php echo ($page == "preferences" ? 'active' : ''); ?> preferences"><?php echo anchor("/preferences", "Preferences"); ?></li>-->
 							<li class="<?php echo ($page == 'help' ? 'active' : ''); ?>"><?php echo anchor("/help", "Help"); ?></li>
 						</ul>
 					 	
