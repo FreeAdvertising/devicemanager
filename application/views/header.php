@@ -73,7 +73,7 @@
 							case "": ?>
 							<div class="panel-heading">
 								<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
-								<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
+								<p class="small overview">There are currently <abbr title="(# active checkouts)"><?php echo $data[0]; ?></abbr> user(s) using <abbr title="(# checked out devices)"><?php echo $data[1]; ?></abbr> device(s) and <abbr title="(# people on reservation list)"><?php echo $data[2]; ?></abbr> waiting.</p>
 							</div>
 						<?php break; ?>
 

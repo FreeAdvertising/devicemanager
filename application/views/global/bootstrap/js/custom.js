@@ -58,7 +58,32 @@ window.addEventListener("DOMContentLoaded", function(evt){
 			}
 		}
 
-		jQuery(".reset-filters").removeClass("hidden");
+		if(this.dataset.user)
+			jQuery(".user-filter-header .reset-filters").removeClass("hidden");
+
+		this.classList.add("active");
+	});
+
+	jQuery(".type-list a.list-group-item").click(function(){
+		var _others = document.querySelectorAll(".type-list a.list-group-item"),
+			_reslist = document.querySelectorAll(".list-devices tbody tr");
+
+		for(var i = 0; i < _others.length; i++){
+			_others[i].classList.remove("active");
+		}
+
+		for(var i = 0; i < _reslist.length; i++){
+			_reslist[i].classList.add("hidden");
+
+			if(_reslist[i].dataset.status == this.dataset.type){
+				_reslist[i].classList.remove("hidden");
+
+			}
+		}
+
+		if(this.dataset.type)
+			jQuery(".type-filter-header .reset-filters").removeClass("hidden");
+		
 		this.classList.add("active");
 	});
 });

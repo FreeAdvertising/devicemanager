@@ -4,18 +4,18 @@
 		public function __construct(){
 			parent::__construct();
 			
-			$this->load->helper("form");
+			$this->load->model("home_model");
 		}
 		
 		public function index(){
-			$this->load->model("home_model");
-
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
 			$data->set("page", $this->uri->segment(1));
-			$data->set("records", $this->home_model->getRecords());
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
+
+			//set specific page data
+			$data->set("data", $this->home_model->getData());
 
 			//load the relevant views
 			$this->load->view('header', $data);
