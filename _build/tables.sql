@@ -95,7 +95,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `created_by` INT NOT NULL,
   `description` BLOB NOT NULL,
   `status` INT NOT NULL, #ENUM
-  PRIMARY KEY (`app_id`)
+  PRIMARY KEY (`app_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
     REFERENCES `freepass`.`device_manager_devices`(device_id)
@@ -114,7 +114,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
   `device_id` INT NOT NULL,
   `task_id` INT NOT NULL,
   `category_id` INT NOT NULL,
-  PRIMARY KEY (`rel_id`)
+  PRIMARY KEY (`rel_id`),
   INDEX devid_idx (device_id),
   INDEX tasid_idx (task_id),
   INDEX catid_idx (category_id),
