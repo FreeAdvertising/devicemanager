@@ -67,8 +67,6 @@ CREATE TABLE `freepass`.`device_manager_devices` (
   `os` INT NOT NULL, #ENUM
   `meta_ram` INT NOT NULL,
   `meta_hdd` INT NOT NULL,
-  #`meta_tracked_apps_id` INT NOT NULL, #foreign key: _tracked_applications
-  #`meta_maintenance_id` INT NOT NULL, #foreign key: _maintenance_tasks
   `date_checkout` DATE NOT NULL,
   `date_checkin` DATE NOT NULL,
   `last_checkedout_by` INT NOT NULL,
@@ -78,32 +76,64 @@ CREATE TABLE `freepass`.`device_manager_devices` (
 
 CREATE TABLE `freepass`.`device_manager_tracked_applications` (
   `app_id` INT NOT NULL AUTO_INCREMENT,
-  `device_id` INT NOT NULL, #foreign key
-  `name` INT NOT NULL,
-  `description` INT NOT NULL,
-  `` INT NOT NULL,
-  PRIMARY KEY (`app_id`));
-
-CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
-  `rel_id` INT NOT NULL AUTO_INCREMENT,
-  #NOT SURE WHAT SHOULD BE IN HERE YET...
-  PRIMARY KEY (`rel+id`));
+  `device_id` INT NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` BLOB NOT NULL,
+  `version` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`app_id`),
+  INDEX devid_idx (device_id),
+  FOREIGN KEY (device_id)
+    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+  );
 
 CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
-  `device_id` INT NOT NULL, #foreign key: _devices.device_id
+  `device_id` INT NOT NULL,
   `assignee` INT NOT NULL,
   `created_by` INT NOT NULL,
   `description` BLOB NOT NULL,
-  `category` INT NOT NULL, #foreign key: _maintenance_task_categories.category_id
   `status` INT NOT NULL, #ENUM
-  PRIMARY KEY (`app_id`));
+  PRIMARY KEY (`app_id`)
+  INDEX devid_idx (device_id),
+  FOREIGN KEY (device_id)
+    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+  );
 
 CREATE TABLE `freepass`.`device_manager_maintenance_task_categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
-  `name` INT NOT NULL,
-  `description` INT NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` BLOB NOT NULL,
   PRIMARY KEY (`category_id`));
+
+CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
+  `rel_id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` INT NOT NULL,
+  `task_id` INT NOT NULL,
+  `category_id` INT NOT NULL,
+  PRIMARY KEY (`rel_id`)
+  INDEX devid_idx (device_id),
+  INDEX tasid_idx (task_id),
+  INDEX catid_idx (category_id),
+  # device id foreign key
+  FOREIGN KEY (device_id)
+    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  # task id foreign key
+  FOREIGN KEY (task_id)
+    REFERENCES `freepass`.`device_manager_maintenance_tasks`(task_id),
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  # category id foreign key
+  FOREIGN KEY (category_id)
+    REFERENCES `freepass`.`device_manager_maintenance_task_categories`(category_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+  );
 
 ##
 # Modify existing Product tables
