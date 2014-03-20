@@ -68,7 +68,7 @@
 			</div>
 
 			<div class="panel panel-default">
-				<?php if($page == ""): ?>
+				<?php if($page == "" && $this->hydra->isAuthenticated()): ?>
 					<div class="panel-heading">
 						<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
 						<?php if($this->hydra->isAuthenticated()): ?>

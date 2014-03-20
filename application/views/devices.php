@@ -17,32 +17,32 @@
 			<tbody>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-success"></span></td>
+					<td><span class="status-circle alert-success success"></span></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-success"></span></td>
+					<td><span class="status-circle alert-success success"></span></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-warning"></span></td>
+					<td><span class="status-circle alert-warning warning"></span></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-danger"></span></td>
+					<td><span class="status-circle alert-danger danger"></span></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-danger"></span></td>
+					<td><span class="status-circle alert-danger danger"></span></td>
 					<td>{ICON}</td>
 				</tr>
 				<tr>
 					<td><a href="#">Test</a></td>
-					<td><span class="status-circle alert-info"></span></td>
+					<td><span class="status-circle alert-info info"></span></td>
 					<td>{ICON}</td>
 				</tr>
 			</tbody>

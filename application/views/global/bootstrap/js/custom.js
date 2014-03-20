@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", function(evt){
 	//progress bar filtering
 	jQuery(".filters button").click(function(evt){
+		//return false; //testing custom sort functionality
 		evt.preventDefault();
 
 		var _class = this.classList.item(2),
@@ -19,6 +20,15 @@ window.addEventListener("DOMContentLoaded", function(evt){
 				jQuery(".reset-filters").removeClass("hidden");
 			}
 		}
+	});
+
+	//TESTING
+	jQuery(".filters button").click(function(evt){
+		return false;
+		var _class = this.classList.item(2),
+			_devices = document.querySelectorAll(".list-devices tbody tr");
+
+		return ProductInstance.Array.sort(_class, _devices);
 	});
 
 	//devices list reset button

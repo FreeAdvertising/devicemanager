@@ -43,6 +43,27 @@
 	 		},
 	 	},
 
+	 	Array: {
+	 		sort: function(target, items){
+	 			var _search = [];
+
+	 			//find all items which match the criteria (target)
+	 			for(var i = 0; i < items.length; i++){
+	 				if(items[i].querySelector("."+ target)){
+	 					_search.push(items[i]);
+	 				}
+	 			}
+
+	 			console.log(_search);
+	 		}
+	 	},
+
+	 	View: {
+	 		reload: function(){
+
+	 		},
+	 	},
+
 	 	HTML: {
 	 		init: function(){
 	 			return this;
