@@ -121,4 +121,16 @@
 		return "osx";
 	}
 
+	function get_ram(){
+
+	}
+
+	function get_hdd(){
+
+	}
+
+	function get_type(){
+		
+	}
+
 ?>
