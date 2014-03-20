@@ -16,7 +16,7 @@ CREATE TABLE `freepass`.`records` (
   `record_id` INT NOT NULL AUTO_INCREMENT,
   `client_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(88) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `domain` VARCHAR(45) NULL,
   `host` VARCHAR(45) NULL,
@@ -25,6 +25,7 @@ CREATE TABLE `freepass`.`records` (
 
 CREATE TABLE `freepass`.`users` (
   `userid` INT NOT NULL AUTO_INCREMENT,
+  `group_id` INT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `secret_question_answer` VARCHAR(255) NOT NULL,
@@ -141,18 +142,6 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
 # existing data)
 # 
 
-# insert default users
-#INSERT INTO `freepass`.`users`(`username`, `password`) VALUES("marynika", )
-
-#ALTER TABLE `freepass`.`records` ADD COLUMN `user_id` INT NOT NULL AFTER `client_id`;
-#ALTER TABLE `freepass`.`records` ADD COLUMN `desc` VARCHAR(45) NOT NULL AFTER `host`;
-
-#ALTER TABLE `freepass`.`users` ADD COLUMN `secret_question_answer` VARCHAR(255) NOT NULL AFTER `password`;
-#ALTER TABLE `freepass`.`users` ADD COLUMN `is_reset` INT NOT NULL AFTER `secret_question_answer`;
-#ALTER TABLE `freepass`.`users` ADD COLUMN `group_id` INT NOT NULL AFTER `userid`;
-
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('registered', 'Registered users');
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
-#ALTER TABLE `freepass`.`categories` ADD COLUMN `colour` VARCHAR(45) NOT NULL AFTER `name`;
-#ALTER TABLE `freepass`.`records` CHANGE COLUMN `password` `password` VARCHAR(88) NOT NULL ;
