@@ -40,8 +40,8 @@
 								<li class="dropdown">
 							 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 							 		<ul class="dropdown-menu">
-							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Add Device"); ?></li>
-							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Add Application"); ?></li>
+							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_device", "Add Device"); ?></li>
+							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_application", "Add Application"); ?></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
 							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><a href="http://freepass.wearefree.ca/index.php/lists/users" target="_blank">Manage Users</a></li>
