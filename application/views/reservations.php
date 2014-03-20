@@ -44,8 +44,8 @@
 
 <section class="sidebar col-md-3">
 	<aside class="module">
-		<div class="list-group">
-			<h3 class="list-group-item">Filter by User</h3>
+		<div class="list-group user-list">
+			<h3 class="list-group-item">Filter by User <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
 			<?php for($i = 0; $i < sizeof($users); $i++): ?>
 				<a href="#" class="list-group-item"><?php echo $users[$i]->username; ?> <span class="all badge">0</span></a>
 			<?php endfor; ?>

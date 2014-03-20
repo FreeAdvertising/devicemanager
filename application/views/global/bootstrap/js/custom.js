@@ -39,11 +39,24 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		jQuery(this).addClass("hidden");
 		resetFilterButtons();
 	});
+
+	//keep username highlighted when they clicked in some lists
+	jQuery(".user-list a.list-group-item").click(function(){
+		var _others = document.querySelectorAll(".user-list a.list-group-item");
+
+		for(var i = 0; i < _others.length; i++){
+			_others[i].classList.remove("active");
+		}
+
+		jQuery(".reset-filters").removeClass("hidden");
+		this.classList.add("active");
+	});
 });
 
 //functions
 function resetFilterButtons(){
-	var _filters = document.querySelectorAll(".filters button");
+	var _els = [".filters button", "a.list-group-item"],
+		_filters = document.querySelectorAll(_els.join(","));
 
 	for(var i = 0; i < _filters.length; i++){
 		_filters[i].classList.remove("active");
