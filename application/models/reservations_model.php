@@ -9,13 +9,11 @@
 		public function getUsers(){
 			$query = $this->db->query("SELECT username, userid, (SELECT COUNT(device_id) FROM device_manager_devices WHERE location = userid) as count FROM users ORDER BY count DESC, userid");
 
-			//SELECT COUNT(device_id) FROM device_manager_devices WHERE location = 2
-
 			return $query->result_object();
 		}
 
 		public function getRecords(){
-			$query = $this->db->query("SELECT device_id, uuid, status, os FROM device_manager_devices ORDER BY device_id");
+			$query = $this->db->query("SELECT device_id, uuid, status, os, location FROM device_manager_devices ORDER BY device_id");
 
 			if($query->num_rows() > 0){
 				return $query->result_object();

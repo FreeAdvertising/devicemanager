@@ -8,7 +8,7 @@
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
-					<tr>
+					<tr data-location="<?php echo $records[$i]->location; ?>">
 						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), $records[$i]->uuid); ?></td>
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
 						<td><?php echo get_os($records[$i]->os); ?></td>
@@ -24,7 +24,7 @@
 		<div class="list-group user-list">
 			<h3 class="list-group-item">Filter by User <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
 			<?php for($i = 0; $i < sizeof($users); $i++): ?>
-				<a href="#" class="list-group-item"><?php echo $users[$i]->username; ?> <span class="all badge"><?php echo $users[$i]->count; ?></span></a>
+				<a href="#" data-user="<?php echo $users[$i]->userid; ?>" class="list-group-item"><?php echo $users[$i]->username; ?> <span class="all badge"><?php echo $users[$i]->count; ?></span></a>
 			<?php endfor; ?>
 		</div>
 	</aside>

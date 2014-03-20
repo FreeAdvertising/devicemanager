@@ -41,11 +41,21 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	});
 
 	//keep username highlighted when they clicked in some lists
+	//also registration list filtering
 	jQuery(".user-list a.list-group-item").click(function(){
-		var _others = document.querySelectorAll(".user-list a.list-group-item");
+		var _others = document.querySelectorAll(".user-list a.list-group-item"),
+			_reslist = document.querySelectorAll(".list-devices tbody tr");
 
 		for(var i = 0; i < _others.length; i++){
 			_others[i].classList.remove("active");
+		}
+
+		for(var i = 0; i < _reslist.length; i++){
+			_reslist[i].classList.add("hidden");
+
+			if(_reslist[i].dataset.location == this.dataset.user){
+				_reslist[i].classList.remove("hidden");
+			}
 		}
 
 		jQuery(".reset-filters").removeClass("hidden");
