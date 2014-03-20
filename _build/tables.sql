@@ -95,7 +95,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `created_by` INT NOT NULL,
   `description` BLOB NOT NULL,
   `status` INT NOT NULL, #ENUM
-  PRIMARY KEY (`app_id`),
+  PRIMARY KEY (`task_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
     REFERENCES `freepass`.`device_manager_devices`(device_id)
@@ -125,7 +125,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
     ON DELETE CASCADE,
   # task id foreign key
   FOREIGN KEY (task_id)
-    REFERENCES `freepass`.`device_manager_maintenance_tasks`(task_id),
+    REFERENCES `freepass`.`device_manager_maintenance_tasks`(task_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   # category id foreign key
