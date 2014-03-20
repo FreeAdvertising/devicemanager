@@ -68,6 +68,7 @@ CREATE TABLE `freepass`.`device_manager_devices` (
   `os` INT NOT NULL, #ENUM
   `meta_ram` INT NOT NULL,
   `meta_hdd` INT NOT NULL,
+  `meta_type` INT NOT NULL,
   `date_checkout` DATE NOT NULL,
   `date_checkin` DATE NOT NULL,
   `last_checkedout_by` INT NOT NULL,

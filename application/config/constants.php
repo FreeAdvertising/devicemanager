@@ -36,7 +36,17 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+//product specific constants
 define("IS_DEV", ($_SERVER["REMOTE_ADDR"] == "127.0.0.1"));
+
+define("DEVICE_AVAILABLE", 1);
+define("DEVICE_CHECKED_OUT", 2);
+define("DEVICE_MAINTENANCE", 3);
+define("DEVICE_RESERVED", 4);
+
+define("DEVICE_OS_OSX", 1);
+define("DEVICE_OS_WINDOWS", 2);
+define("DEVICE_OS_LINUX", 3);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -18,6 +18,7 @@
 
 			//set page specific data
 			$data->set("users", $this->reservations_model->getUsers());
+			$data->set("records", $this->reservations_model->getRecords());
 
 			//load the relevant views
 			$this->load->view('header', $data);

@@ -44,7 +44,7 @@
 							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_application", "Add Application"); ?></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
-							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><a href="http://freepass.wearefree.ca/index.php/lists/users" target="_blank">Manage Users</a></li>
+							 			<li><a href="http://freepass.wearefree.ca/index.php/lists/users" target="_blank">Manage Users</a></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
 							 		</ul>
@@ -68,13 +68,29 @@
 			</div>
 
 			<div class="panel panel-default">
-				<?php if($page == "" && $this->hydra->isAuthenticated()): ?>
-					<div class="panel-heading">
-						<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
-						<?php if($this->hydra->isAuthenticated()): ?>
-							<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
-						<?php endif; ?>
-					</div>
+				<?php if($this->hydra->isAuthenticated()): ?>
+					<?php switch($page){
+							case "": ?>
+							<div class="panel-heading">
+								<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
+								<p class="small overview">There are currently <abbr title="(# active checkouts)">X</abbr> users using <abbr title="(# checked out devices)">X</abbr> devices and <abbr title="(# people on reservation list)">X</abbr> waiting.</p>
+							</div>
+						<?php break; ?>
+
+						<?php case "devices": ?>
+							<div class="panel-heading">
+								<h3 class="panel-title">Check In or Out</h3>
+								<p class="small overview">Sign out a new device, return one you already have or create maintenance tickets to alert other users of any problems you encounter.</p>
+							</div>
+						<?php break; ?>
+
+						<?php case "reservations": ?>
+							<div class="panel-heading">
+								<h3 class="panel-title">Reserve a Device</h3>
+								<p class="small overview">Is someone else using a device you need?  Reserve it so they know who to pass it on to.</p>
+							</div>
+						<?php break; ?>
+					<?php } ?>
 				<?php endif; ?>
 				<div class="panel-body">
 					

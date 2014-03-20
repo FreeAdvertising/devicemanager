@@ -16,6 +16,9 @@
 			$data->set("subpage", $this->uri->segment(2));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
+			//set specific page data
+			$data->set("users", $this->add_device_model->getUsers());
+
 			//load the relevant views
 			$this->load->view('header', $data);
 			
@@ -26,6 +29,17 @@
 			}
 
 			$this->load->view('footer', $data);
+		}
+
+		public function create(){
+			if($this->add_device_model->insert($this->input->post())){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "Device added to the database");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "The device could not be added to the database");
+			}
+
+			return redirect(base_url(). "index.php/add_device");
 		}
 	}
 

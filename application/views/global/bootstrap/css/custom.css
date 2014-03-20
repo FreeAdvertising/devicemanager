@@ -52,7 +52,8 @@ ul.dropdown-menu {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
 }
 
-.panel-free .panel-title {
+.panel-free .panel-title,
+.panel-free p {
 	color: white;
 }
 
