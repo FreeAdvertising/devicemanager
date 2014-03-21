@@ -138,7 +138,6 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
     ON DELETE CASCADE
   );
 
-# NOT COMMITTED LIVE YET
 CREATE TABLE `freepass`.`device_manager_reservations_rel` (
   `res_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,

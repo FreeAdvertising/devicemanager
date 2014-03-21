@@ -6,10 +6,11 @@
 			<div class="col-md-12">
 				<h3>Device Info: <?php echo $device_info->device_name; ?> </h3>
 
-				<div class="module col-md-6">
+				<div class="module col-md-4">
 					<table class="table table-striped">
 						<thead>
-							<th colspan="2">Hardware</th>
+							<th width="50%">Hardware</th>
+							<th></th>
 						</thead>
 						<tbody>
 							<tr>
@@ -36,10 +37,11 @@
 					</table>
 				</div> <!-- end hardware table -->
 
-				<div class="module col-md-6">
+				<div class="module col-md-4">
 					<table class="table table-striped">
 						<thead>
-							<th colspan="2">Meta</th>
+							<th width="50%">Meta</th>
+							<th></th>
 						</thead>
 						<tbody>
 							<?php if($device_info->date_checkout != "0000-00-00"): //no checkout date set ?>
@@ -71,8 +73,33 @@
 					</table>
 				</div> <!-- end meta table -->
 
+				<div class="module col-md-4">
+					<table class="table table-striped">
+						<thead>
+							<th><?php echo anchor(sprintf("/device/%s/apps", $device_info->uuid), "Installed Applications"); ?></th>
+						</thead>
+						<tbody>
+							<tr>
+								<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
+							</tr>
+							<tr>
+								<td><?php echo $this->product->get_hdd($device_info->meta_hdd); ?>GB</td>
+							</tr>
+							<tr>
+								<td><?php echo $this->product->get_type($device_info->meta_type); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo $this->product->get_os($device_info->os); ?></td>
+							</tr>
+							<tr>
+								<td>Keynote</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> <!-- end installed apps table -->
+
 				<div class="module col-md-12">
-					<h3>Maintenance Tickets <?php echo anchor(sprintf("/device/%s/maintenance_history", $device_info->uuid), "View History", array("class" => "all")); ?></h3>
+					<h3><?php echo anchor(sprintf("/device/%s/maintenance_history", $device_info->uuid), "Maintenance Tickets"); ?></h3>
 					<table class="table table-striped">
 						<thead>
 							<th>Ticket ID</th>
@@ -98,6 +125,15 @@
 			</ul>
 		</aside>
 
+		<aside class="module">
+			<ul class="list-group">
+				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/ownership_history", $device_info->uuid), "Recent Owners"); ?></h3>
+				<li class="list-group-item">old owner</li>
+				<li class="list-group-item">old owner</li>
+				<li class="list-group-item">old owner</li>
+			</ul>
+		</aside>
+
 		<?php if(sizeof($reservation_list) > 0): ?>
 			<aside class="module">
 				<ul class="list-group">
@@ -109,19 +145,26 @@
 			</aside>
 		<?php endif; ?>
 	</section>
-</div>
-<section class="form-footer">
-	<div class="btn-group">
-		<!-- if currently checked out, display.. -->
-		<button class="btn btn-primary">Check In</button>
-		<!-- if currently checked in, display.. -->
-		<button class="btn btn-primary">Check Out</button>
-	</div>
+	
+	<div class=" col-md-12">
+		<section class="form-footer">
+			<div class="btn-group">
+				<?php if($this->product->user_can("check_in", $device_info->uuid)): ?>
+					<!-- if currently checked out, display.. -->
+					<button class="btn btn-primary">Check In</button>
+				<?php endif; ?>
 
-	<?php if($this->hydra->isAdmin()): ?>
-		<div class="floatright">
-			<button class="btn btn-default">Edit</button>
-			<button class="btn btn-danger">Delete</button>
-		</div>
-	<?php endif; ?>
-</section>
+				<?php if($this->product->user_can("check_out", $device_info->uuid)): ?>
+					<!-- if currently checked in, display.. -->
+					<button class="btn btn-primary">Check Out</button>
+				<?php endif; ?>
+			</div>
+
+			<?php if($this->hydra->isAdmin()): ?>
+				<div class="floatright">
+					<button class="btn btn-default">Edit</button>
+				</div>
+			<?php endif; ?>
+		</section>
+	</div>
+</div>

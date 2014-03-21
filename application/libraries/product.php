@@ -140,6 +140,10 @@
 
 			//$query = $this->db->query("SELECT")
 		}
+
+		public function user_can($key, $value){
+			return true;
+		}
 	}
 
 ?>
