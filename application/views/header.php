@@ -19,7 +19,7 @@
 			<?php endif; ?>
 				<div class="navbar-header">
 					<a class="navbar-brand" href="<?php echo base_url(); ?>">
-						<span class="glyphicon glyphicon-heart"></span> <?php echo $this->hydra->get("product_name");?>
+						<span class="glyphicon glyphicon-heart"></span> <?php echo $this->hydra->get("product_name");?> <span class="label label-danger" style="margin-left: 5px;">Beta</span>
 					</a>
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
 						<span class="sr-only">Toggle navigation</span>
