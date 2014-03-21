@@ -15,7 +15,11 @@
 	<h3>Add New Device</h3>
 	<div class="form-wrapper">
 		<div class="form-group">
-			<label for="uuid">Hardware UUID</label><input type="text" id="uuid" name="uuid" maxlength="8" autocomplete="off" value="<?php echo (isset($record[0]->username) ? $record[0]->username : ""); ?>" class="form-control" placeholder="0F7H823D" />
+			<label for="uuid">Hardware UUID</label><input type="text" id="uuid" name="uuid" maxlength="8" class="form-control" placeholder="0F7H823D" />
+		</div>
+
+		<div class="form-group">
+			<label for="name">Device Name</label><input type="text" id="name" name="name" maxlength="45" class="form-control" placeholder="Pine, Aspen, Coca Cola, ..." />
 		</div>
 
 		<div class="form-group">

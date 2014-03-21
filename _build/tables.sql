@@ -66,6 +66,7 @@ CREATE TABLE `freepass`.`device_manager_devices` (
   `device_id` INT NOT NULL AUTO_INCREMENT,
   `uuid` VARCHAR(8) NOT NULL,
   `os` INT NOT NULL, #ENUM
+  `name` VARCHAR(45) NULL,
   `meta_ram` INT NOT NULL,
   `meta_hdd` INT NOT NULL,
   `meta_type` INT NOT NULL,
@@ -146,3 +147,6 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('registered', 'Registered users');
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
+
+# NOT COMMITTED LIVE YET
+ALTER TABLE device_manager_devices ADD COLUMN name VARCHAR(45) NULL AFTER os;

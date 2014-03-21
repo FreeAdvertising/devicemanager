@@ -16,7 +16,7 @@
 				$data["last_checkedout_by"] = $data["location"];
 			}
 
-			$query = $this->db->query("INSERT INTO device_manager_devices(`uuid`, `meta_type`, `os`, `meta_ram`, `meta_hdd`, `location`, `status`, `last_checkedout_by`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", array(
+			$query = $this->db->query("INSERT INTO device_manager_devices(`uuid`, `meta_type`, `os`, `meta_ram`, `meta_hdd`, `location`, `status`, `last_checkedout_by`, `name`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
 					strtoupper($data["uuid"]),
 					$data["meta_type"],
 					$data["os"],
@@ -25,6 +25,7 @@
 					$data["location"],
 					$data["status"],
 					$data["last_checkedout_by"],
+					$data["name"],
 				));
 
 			return $query;
