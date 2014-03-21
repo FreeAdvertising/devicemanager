@@ -26,10 +26,10 @@
 			<label for="meta_type">Hardware Type</label>
 			<select name="meta_type" id="meta_type" class="form-control">
 				<option value="0">Select Hardware Type</option>
-				<option value="1">laptop</option>
-				<option value="2">desktop</option>
-				<option value="3">server</option>
-				<option value="4">peripheral</option>
+				<option value="1">LAPTOP</option>
+				<option value="2">DESKTOP</option>
+				<option value="3">SERVER</option>
+				<option value="4">PERIPHERAL</option>
 			</select>
 		</div>
 

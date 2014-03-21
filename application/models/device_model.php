@@ -7,7 +7,7 @@
 		}
 
 		public function getDevice($uuid){
-			$query = $this->db->query("SELECT * FROM device_manager_devices WHERE uuid = ? ORDER BY device_id", $uuid);
+			$query = $this->db->query("SELECT *, IF(name IS NULL, uuid, name) as device_name FROM device_manager_devices WHERE uuid = ? ORDER BY device_id", $uuid);
 
 			if($query->num_rows() > 0){
 				$return = $query->row();

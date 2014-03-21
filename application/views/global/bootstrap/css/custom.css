@@ -93,6 +93,8 @@ a[data-toggle="collapse"] {
 }
 
 .form-footer {
+	float: left;
+	width: 100%;
 	padding: 1em;
 	border-top: 1px solid rgba(0,0,0,0.2);
 	background-color: rgba(0,0,0,0.05);
@@ -153,4 +155,12 @@ span.status-circle {
 
 .filters button.active {
 	color: rgba(255,255,255,0.7);
+}
+
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
 }
