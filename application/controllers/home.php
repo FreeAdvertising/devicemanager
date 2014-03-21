@@ -16,6 +16,7 @@
 
 			//set specific page data
 			$data->set("data", $this->home_model->getData());
+			$data->set("my_reservations", $this->home_model->getMyReservations());
 
 			//load the relevant views
 			$this->load->view('header', $data);

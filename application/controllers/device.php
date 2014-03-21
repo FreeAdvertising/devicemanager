@@ -22,6 +22,7 @@
 
 			//set specific page data
 			$data->set("device_info", $this->device_model->getDevice($uuid));
+			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
 
 			//load the relevant views
 			$this->load->view('header', $data);

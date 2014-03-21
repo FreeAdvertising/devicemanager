@@ -51,10 +51,12 @@
 			<h3 class="list-group-item">My Devices</h3>
 			<a href="#" class="list-group-item">XXXXXXXX</a>
 
-			<h3 class="list-group-item">My Reserved Devices</h3>
-			<a href="#" class="list-group-item">XXXXXXXX</a>
-			<a href="#" class="list-group-item">XXXXXXXX</a>
-			<a href="#" class="list-group-item">XXXXXXXX</a>
+			<?php if(sizeof($my_reservations) > 0): ?>
+				<h3 class="list-group-item">My Reserved Devices</h3>
+				<?php for($i = 0; $i < sizeof($my_reservations); $i++): ?>
+					<?php echo anchor(sprintf("/device/%s", $my_reservations[$i]->uuid), sprintf("%s <span class=\"all\">%s</span>", $my_reservations[$i]->name, $my_reservations[$i]->date), array("class" => "list-group-item")); ?>
+				<?php endfor; ?>
+			<?php endif ;?>
 
 			<h3 class="list-group-item">My Maintenance Tickets</h3>
 			<a href="#" class="list-group-item">Task#XX</a>

@@ -16,11 +16,11 @@
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
-					<?php $status = get_status($records[$i]->status); ?>
+					<?php $status = $this->product->get_status($records[$i]->status); ?>
 					<tr id="d<?php echo $records[$i]->device_id; ?>">
 						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), $records[$i]->uuid); ?></td>
 						<td><span class="status-circle <?php echo sprintf('alert-%s %s', $status, $status); ?>"></span></td>
-						<td><?php echo get_os($records[$i]->os); ?></td>
+						<td><?php echo $this->product->get_os($records[$i]->os); ?></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>

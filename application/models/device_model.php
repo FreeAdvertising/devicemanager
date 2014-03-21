@@ -17,6 +17,16 @@
 			return $return;
 		}
 
+		public function getReservationList($uuid){
+			$query = $this->db->query("SELECT u.username, r.date FROM device_manager_reservations_rel r 
+				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
+				LEFT JOIN users u ON r.userid = u.userid
+				WHERE d.uuid = ? 
+				ORDER BY r.device_id", $uuid);
+
+			return $query->result_object();
+		}
+
 		private function _getUser($location, $lastcheckout){
 			$user = "None";
 
@@ -29,6 +39,7 @@
 
 			return $user;
 		}
+
 	}
 
 ?>

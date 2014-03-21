@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array("generic", "database", "session", "hydra", "electroheart");
+$autoload['libraries'] = array("generic", "database", "session", "hydra", "electroheart", "product");
 
 
 /*

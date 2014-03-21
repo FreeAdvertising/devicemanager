@@ -11,7 +11,7 @@
 					<tr data-location="<?php echo $records[$i]->location; ?>" data-status="<?php echo $records[$i]->status; ?>">
 						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), $records[$i]->uuid); ?></td>
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
-						<td><?php echo get_os($records[$i]->os); ?></td>
+						<td><?php echo $this->product->get_os($records[$i]->os); ?></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>
@@ -23,9 +23,9 @@
 	<aside class="module">
 		<div class="list-group type-list">
 			<h3 class="list-group-item type-filter-header">Filter by Type <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<a href="#" data-type="<?php echo DEVICE_AVAILABLE; ?>" class="list-group-item">Available</a>
-			<a href="#" data-type="<?php echo DEVICE_RESERVED; ?>" class="list-group-item">Reserved</a>
-			<a href="#" data-type="<?php echo DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance</a>
+			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available</a>
+			<a href="#" data-type="<?php echo Product::DEVICE_RESERVED; ?>" class="list-group-item">Reserved</a>
+			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance</a>
 		</div>
 	</aside>
 
