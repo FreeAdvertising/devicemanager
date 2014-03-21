@@ -12,8 +12,10 @@
 
 		public function insert($data){
 			//if the device is created as "checked out", assign it to the user assigned as the location of the device
-			if((int)$data["status"] === DEVICE_CHECKED_OUT){
+			if((int)$data["status"] === Product::DEVICE_CHECKED_OUT){
 				$data["last_checkedout_by"] = $data["location"];
+			}else {
+				$data["last_checkedout_by"] = 0;
 			}
 
 			$query = $this->db->query("INSERT INTO device_manager_devices(`uuid`, `meta_type`, `os`, `meta_ram`, `meta_hdd`, `location`, `status`, `last_checkedout_by`, `name`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", array(

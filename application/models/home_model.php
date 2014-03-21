@@ -29,7 +29,7 @@
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
 				WHERE u.userid = ? 
-				ORDER BY r.device_id", $id);
+				ORDER BY r.date", $id);
 
 			return $query->result_object();
 		}
