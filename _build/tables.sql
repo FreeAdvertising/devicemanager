@@ -79,14 +79,32 @@ CREATE TABLE `freepass`.`device_manager_devices` (
 
 CREATE TABLE `freepass`.`device_manager_tracked_applications` (
   `app_id` INT NOT NULL AUTO_INCREMENT,
-  `device_id` INT NOT NULL,
+  #`device_id` INT NOT NULL, # DROP THIS
   `name` VARCHAR(255) NOT NULL,
   `description` BLOB NOT NULL,
-  `version` VARCHAR(10) NOT NULL,
+  #`version` VARCHAR(10) NOT NULL, # DROP THIS
   PRIMARY KEY (`app_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
     REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+  );
+
+# NOT COMMITTED YET
+CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
+  `tapp_id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` INT NOT NULL,
+  `app_id` INT NOT NULL,
+  PRIMARY KEY (`tapp_id`),
+  INDEX devid_idx (device_id),
+  INDEX appid_idx (app_id),
+  FOREIGN KEY (device_id)
+    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  FOREIGN KEY (app_id)
+    REFERENCES `freepass`.`device_manager_tracked_applications`(app_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
