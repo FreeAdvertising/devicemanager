@@ -15,12 +15,12 @@
 	<h3>Add Tracked Application</h3>
 	<div class="form-wrapper">
 		<div class="form-group">
-			<label for="uuid">Name</label><input type="text" id="uuid" name="uuid" maxlength="8" class="form-control" placeholder="0F7H823D" />
+			<label for="name">Name</label><input type="text" id="name" name="name" class="form-control" placeholder="Keynote, Word, Excel, ..." />
 		</div>
 
 		<div class="form-group">
-			<label for="name">Description</label>
-			<textarea id="name" rows="5" name="name" class="form-control" placeholder="Pine, Aspen, Coca Cola, ..."></textarea>
+			<label for="desc">Description</label>
+			<textarea id="desc" rows="5" name="desc" class="form-control" placeholder="Short description of the application"></textarea>
 		</div>
 	</div>
 
