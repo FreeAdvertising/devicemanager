@@ -35,6 +35,10 @@
 
 			$this->load->view('footer', $data);
 		}
+
+		public function apps($uuid){
+			die('test');
+		}
 	}
 
 ?>

@@ -165,6 +165,3 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('registered', 'Registered users');
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
-
-# NOT COMMITTED LIVE YET
-ALTER TABLE device_manager_devices ADD COLUMN name VARCHAR(45) NULL AFTER os;

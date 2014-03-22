@@ -99,7 +99,7 @@
 				</div> <!-- end installed apps table -->
 
 				<div class="module col-md-12">
-					<h3><?php echo anchor(sprintf("/device/%s/maintenance_history", $device_info->uuid), "Maintenance Tickets"); ?></h3>
+					<h3><?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "Maintenance Tickets"); ?></h3>
 					<table class="table table-striped">
 						<thead>
 							<th>Ticket ID</th>
@@ -127,7 +127,7 @@
 
 		<aside class="module">
 			<ul class="list-group">
-				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/ownership_history", $device_info->uuid), "Recent Owners"); ?></h3>
+				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "Recent Owners"); ?></h3>
 				<li class="list-group-item">old owner</li>
 				<li class="list-group-item">old owner</li>
 				<li class="list-group-item">old owner</li>

@@ -40,6 +40,8 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = '';
+$route["device/(:any)/apps"] = "device/apps/$1";
+$route["device/(:any)/history"] = "device/history/$1";
 $route["device/(:any)"] = "device/index/$1";
 
 

@@ -53,6 +53,7 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array("generic", "database", "session", "hydra", "electroheart", "product");
+//$autoload["libraries"] = array("generic", "session", "hydra", "database");
 
 
 /*
