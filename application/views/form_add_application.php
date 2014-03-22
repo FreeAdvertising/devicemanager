@@ -1,5 +1,5 @@
 <!-- Form data -->
-<?php echo form_open(sprintf("%sadd_device/create", $nav_path), array("role" => "form")); ?>
+<?php echo form_open(sprintf("%sadd_application/create", $nav_path), array("role" => "form")); ?>
 	<?php if($this->session->flashdata("model_save_success")): ?>
 		<div class="alert alert-success">
 			<?php echo $this->session->flashdata("model_save_success"); ?>

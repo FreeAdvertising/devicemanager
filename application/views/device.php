@@ -4,7 +4,7 @@
 	<section class="col-md-9">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Device Info: <?php echo $device_info->device_name; ?> </h3>
+				<h3>Device Info: <?php echo $device_info->device_name; ?> <span class="label label-default">#<?php echo $device_info->device_id; ?></span> </h3>
 
 				<div class="module col-md-4">
 					<table class="table table-striped">
@@ -79,21 +79,17 @@
 							<th><?php echo anchor(sprintf("/device/%s/apps", $device_info->uuid), "Installed Applications"); ?></th>
 						</thead>
 						<tbody>
-							<tr>
-								<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
-							</tr>
-							<tr>
-								<td><?php echo $this->product->get_hdd($device_info->meta_hdd); ?>GB</td>
-							</tr>
-							<tr>
-								<td><?php echo $this->product->get_type($device_info->meta_type); ?></td>
-							</tr>
-							<tr>
-								<td><?php echo $this->product->get_os($device_info->os); ?></td>
-							</tr>
-							<tr>
-								<td>Keynote</td>
-							</tr>
+							<?php if(sizeof($device_info->apps) > 0): ?>
+								<?php for($i = 0; $i < sizeof($device_info->apps); $i++): ?>
+									<tr>
+										<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
+									</tr>
+								<?php endfor; ?>
+							<?php else : ?>
+								<tr>
+									<td>No data.</td>
+								</tr>
+							<?php endif; ?>
 						</tbody>
 					</table>
 				</div> <!-- end installed apps table -->

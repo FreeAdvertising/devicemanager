@@ -6,8 +6,13 @@
 			return parent::__construct();
 		}
 
-		public function getRecords(){
-			return array();
+		public function insert($data){
+			$query = $this->db->query("INSERT INTO device_manager_tracked_applications(`name`, `description`) VALUES(?, ?)", array(
+					$data["name"],
+					$data["desc"],
+				));
+
+			return $query;
 		}
 	}
 

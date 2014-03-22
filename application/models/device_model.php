@@ -12,6 +12,7 @@
 			if($query->num_rows() > 0){
 				$return = $query->row();
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
+				$return->apps = $this->_getInstalledApplications($query->row->device_id);
 			}
 
 			return $return;
@@ -40,6 +41,14 @@
 			return $user;
 		}
 
+		private function _getInstalledApplications($id){
+			//this query is all wrong
+			$query = $this->db->query("SELECT t.name FROM device_manager_tracked_applications_rel tr 
+				LEFT JOIN device_manager_tracked_applications t ON tr.device_id = t.device_id
+				WHERE tr.device_id = ?", array($id));
+
+			return $query->result_object();
+		}
 	}
 
 ?>

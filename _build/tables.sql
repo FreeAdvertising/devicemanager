@@ -96,6 +96,7 @@ CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
   `tapp_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `app_id` INT NOT NULL,
+  `version` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`tapp_id`),
   INDEX devid_idx (device_id),
   INDEX appid_idx (app_id),
@@ -183,3 +184,8 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('registered', 'Registered users');
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
+
+# NOT COMMITTED LIVE YET
+#ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP FOREIGN KEY `device_manager_tracked_applications_ibfk_1` ;
+#ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP COLUMN `version` , DROP COLUMN `device_id` , DROP INDEX `devid_idx` ;
+# ALTER TABLE `freepass`.`device_manager_tracked_applications_rel` ADD COLUMN version VARCHAR(10) NOT NULL

@@ -27,6 +27,17 @@
 
 			$this->load->view('footer', $data);
 		}
+
+		public function create(){
+			if($this->add_application_model->insert($this->input->post())){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "Application added to the database");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "The application could not be added to the database");
+			}
+
+			return redirect(base_url(). "index.php/add_application");
+		}
 	}
 
 ?>
