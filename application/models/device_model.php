@@ -43,11 +43,12 @@
 
 		private function _getInstalledApplications($id){
 			//this query is all wrong
-			$query = $this->db->query("SELECT t.name FROM device_manager_tracked_applications_rel tr 
-				LEFT JOIN device_manager_tracked_applications t ON tr.device_id = t.device_id
-				WHERE tr.device_id = ?", array($id));
+			// $query = $this->db->query("SELECT t.name FROM device_manager_tracked_applications_rel tr 
+			// 	LEFT JOIN device_manager_tracked_applications t ON tr.device_id = t.device_id
+			// 	WHERE tr.device_id = ?", array($id));
 
-			return $query->result_object();
+			// return $query->result_object();
+			return array();
 		}
 	}
 

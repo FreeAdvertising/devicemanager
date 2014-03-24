@@ -76,6 +76,22 @@
 					self::DEVICE_TYPE_DESKTOP      => "DESKTOP",
 					self::DEVICE_TYPE_PERIPHERAL   => "PERIPHERAL",
 				));
+
+			$this->_options->set("OS", array(
+					self::DEVICE_OS_OSX     => "OSX",
+					self::DEVICE_OS_WINDOWS => "WIN",
+					self::DEVICE_OS_LINUX   => "LIN",
+				));
+			$this->_options->set("OS_MAP", array(
+					1 => 1,
+					2 => 1,
+					3 => 1,
+					4 => 1,
+					5 => 2,
+					6 => 2,
+					7 => 3,
+					8 => 3					 
+				));
 		}
 
 		/**
@@ -106,19 +122,8 @@
 		 * @param  int $id
 		 * @return string
 		 */
-		public function get_os($id){
-			$id = intval($id);
-
-			if($id === self::DEVICE_OS_OSX)
-				return "osx";
-
-			if($id === self::DEVICE_OS_WINDOWS)
-				return "win";
-
-			if($id === self::DEVICE_OS_LINUX)
-				return "lin";
-
-			return "osx";
+		public function get_os($key){
+			return $this->_options->OS[$this->_options->OS_MAP[$key]];
 		}
 
 		public function get_ram($key){

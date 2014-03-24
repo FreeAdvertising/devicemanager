@@ -4,7 +4,7 @@
 	<section class="col-md-9">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Device Info: <?php echo $device_info->device_name; ?> <span class="label label-default">#<?php echo $device_info->device_id; ?></span> </h3>
+				<h3 class="dotted"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h3>
 
 				<div class="module col-md-4">
 					<table class="table table-striped">

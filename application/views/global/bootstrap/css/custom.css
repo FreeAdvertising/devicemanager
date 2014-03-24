@@ -118,7 +118,8 @@ a[data-toggle="collapse"] {
 	margin-bottom: 1em;
 }
 
-.module h3 {
+.module h3,
+.dotted {
 	font-size: 1.2em;
 	padding-bottom: 0.5em;
 	border-bottom: 1px dotted rgba(0, 0, 0, 0.09);
