@@ -66,7 +66,7 @@
 					self::DEVICE_HDD_500   => 500,
 					self::DEVICE_HDD_512   => 512,
 					self::DEVICE_HDD_750   => 750,
-					self::DEVICE_HDD_1000  => 1024,
+					self::DEVICE_HDD_1000  => "> 1024",
 					self::DEVICE_HDD_OTHER => null,
 				));
 
@@ -81,16 +81,6 @@
 					self::DEVICE_OS_OSX     => "OSX",
 					self::DEVICE_OS_WINDOWS => "WIN",
 					self::DEVICE_OS_LINUX   => "LIN",
-				));
-			$this->_options->set("OS_MAP", array(
-					1 => 1,
-					2 => 1,
-					3 => 1,
-					4 => 1,
-					5 => 2,
-					6 => 2,
-					7 => 3,
-					8 => 3					 
 				));
 		}
 
@@ -123,7 +113,19 @@
 		 * @return string
 		 */
 		public function get_os($key){
-			return $this->_options->OS[$this->_options->OS_MAP[$key]];
+			$os_map = array(
+				//LIST_VALUE, $_options->OS VALUE
+					1 => 1,
+					2 => 1,
+					3 => 1,
+					4 => 1,
+					5 => 2,
+					6 => 2,
+					7 => 3,
+					8 => 3					 
+				);
+			
+			return $this->_options->OS[$os_map[$key]];
 		}
 
 		public function get_ram($key){

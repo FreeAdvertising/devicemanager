@@ -115,14 +115,28 @@
 
 	<section class="sidebar col-md-3">
 		<aside class="module">
-			<ul class="list-group">
-				<h3 class="list-group-item">Current Owner</h3>
-				<li class="list-group-item"><?php echo $device_info->current_owner; ?></li>
-			</ul>
+			<div class="list-group">
+				<h3 class="list-group-item">Actions</h3>
+				<?php if($this->hydra->isAdmin()): ?>
+					<?php echo anchor(sprintf("/device/%s/edit", $device_info->uuid), "Edit", array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/device/%s/add_application", $device_info->uuid), "Add Application", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
+				<?php endif; ?>
+
+				<?php if($this->product->user_can("check_in", $device_info->uuid)): ?>
+					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
+				<?php else : ?>
+					<?php echo anchor(sprintf("/device/%s/check_out", $device_info->uuid), "Check Out", array("class" => "list-group-item")); ?>
+				<?php endif; ?>
+			</div>
 		</aside>
 
 		<aside class="module">
 			<ul class="list-group">
+				<?php if($device_info->current_owner != "None"): ?>
+					<h3 class="list-group-item">Current Owner</h3>
+					<li class="list-group-item"><?php echo $device_info->current_owner; ?></li>
+				<?php endif; ?>
+
 				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "Recent Owners"); ?></h3>
 				<li class="list-group-item">old owner</li>
 				<li class="list-group-item">old owner</li>
@@ -141,26 +155,4 @@
 			</aside>
 		<?php endif; ?>
 	</section>
-	
-	<div class=" col-md-12">
-		<section class="form-footer">
-			<div class="btn-group">
-				<?php if($this->product->user_can("check_in", $device_info->uuid)): ?>
-					<!-- if currently checked out, display.. -->
-					<button class="btn btn-primary">Check In</button>
-				<?php endif; ?>
-
-				<?php if($this->product->user_can("check_out", $device_info->uuid)): ?>
-					<!-- if currently checked in, display.. -->
-					<button class="btn btn-primary">Check Out</button>
-				<?php endif; ?>
-			</div>
-
-			<?php if($this->hydra->isAdmin()): ?>
-				<div class="floatright">
-					<button class="btn btn-default">Edit</button>
-				</div>
-			<?php endif; ?>
-		</section>
-	</div>
 </div>
