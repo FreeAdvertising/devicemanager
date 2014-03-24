@@ -91,7 +91,6 @@ CREATE TABLE `freepass`.`device_manager_tracked_applications` (
     ON DELETE CASCADE
   );
 
-# NOT COMMITTED YET
 CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
   `tapp_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
