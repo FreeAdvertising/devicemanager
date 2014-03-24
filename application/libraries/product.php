@@ -34,9 +34,9 @@
 		const DEVICE_HDD_1000    = 6;
 		const DEVICE_HDD_OTHER   = 7;
 
-		const DEVICE_TYPE_SERVER     = 1;
-		const DEVICE_TYPE_LAPTOP     = 2;
-		const DEVICE_TYPE_DESKTOP    = 3;
+		const DEVICE_TYPE_LAPTOP     = 1;
+		const DEVICE_TYPE_DESKTOP    = 2;
+		const DEVICE_TYPE_SERVER     = 3;
 		const DEVICE_TYPE_PERIPHERAL = 4;
 
 		private $_dateFormat;

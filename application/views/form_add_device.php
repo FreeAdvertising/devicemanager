@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="form-group">
-			<label for="os">OS/Version</label>
+			<label for="os">Operating System</label>
 			<select name="os" id="os" class="form-control">
 				<option value="0">Select an OS</option>
 				<option value="1">OSX 10.9</option>
