@@ -12,7 +12,7 @@
 			if($query->num_rows() > 0){
 				$return = $query->row();
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
-				$return->apps = $this->_getInstalledApplications($query->row->device_id);
+				$return->apps = $this->_getInstalledApplications($query->row()->device_id);
 			}
 
 			return $return;
