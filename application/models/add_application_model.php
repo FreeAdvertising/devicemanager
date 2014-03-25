@@ -14,6 +14,20 @@
 
 			return $query;
 		}
+
+		public function assoc($data, $uuid){
+			$dev_id = $this->product->getDeviceID($uuid);
+
+			$query = $this->db->query("INSERT INTO 
+				device_manager_tracked_applications_rel(`device_id`, `app_id`, `version`) 
+				VALUES(?, ?, ?)", array(
+						$dev_id,
+						$data["app_id"],
+						$data["version"],
+					));
+
+			return $query;
+		}
 	}
 
 ?>

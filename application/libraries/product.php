@@ -151,6 +151,13 @@
 		public function user_can($key, $value){
 			return true;
 		}
+
+		public function getDeviceID($uuid){
+			$ci = get_instance();
+			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid));
+
+			return $query->row()->device_id;
+		}
 	}
 
 ?>

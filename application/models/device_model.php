@@ -12,7 +12,7 @@
 			if($query->num_rows() > 0){
 				$return = $query->row();
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
-				$return->apps = $this->_getInstalledApplications($query->row()->device_id);
+				$return->apps = $this->getApps($query->row()->device_id);
 			}
 
 			return $return;
@@ -41,11 +41,15 @@
 			return $user;
 		}
 
-		private function _getInstalledApplications($id){
-			//this query is all wrong
-			$query = $this->db->query("SELECT t.name, tr.version FROM device_manager_tracked_applications_rel tr 
-				LEFT JOIN device_manager_tracked_applications t ON tr.app_id = t.app_id
-				WHERE tr.device_id = ?", array($id));
+		public function getApps($id = 0){
+			if($id > 0){
+				$query = $this->db->query("SELECT t.name, tr.version FROM device_manager_tracked_applications_rel tr 
+					LEFT JOIN device_manager_tracked_applications t ON tr.app_id = t.app_id
+					WHERE tr.device_id = ?", array($id));
+			}else {
+				//get ALL apps, not just ones that are associated to the UUID
+				$query = $this->db->query("SELECT name, app_id FROM device_manager_tracked_applications ORDER BY app_id");
+			}
 
 			return $query->result_object();
 		}

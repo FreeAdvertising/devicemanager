@@ -33,7 +33,7 @@
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Application added to the database");
 			}else {
-				$this->session->set_flashdata("model_save_fail", "The application could not be added to the database");
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: The application could not be added to the database");
 			}
 
 			return redirect(base_url(). "index.php/add_application");

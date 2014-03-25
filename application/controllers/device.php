@@ -91,6 +91,47 @@
 
 			$this->load->view('footer', $data);
 		}
+
+		public function add_application($uuid){
+			if(is_null($uuid)){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			$data = new Generic;
+			$data->set("template_path", base_url() ."application/views/global");
+			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("page", $this->uri->segment(1));
+			$data->set("subpage", $this->uri->segment(2));
+			$data->set("isIPExternal", $this->hydra->isIPExternal());
+
+			//set specific page data
+			$data->set("device_uuid", $uuid);
+			$data->set("apps", $this->device_model->getApps());
+
+			//load the relevant views
+			$this->load->view('header', $data);
+			
+			if($this->hydra->isAuthenticated()){
+				$this->load->view('form_add_application');
+			}else {
+				$this->load->view("login", $data);
+			}
+
+			$this->load->view('footer', $data);
+		}
+
+		public function assoc_app_to_device($uuid){
+			$this->load->model("add_application_model");
+
+			if($this->add_application_model->assoc($this->input->post(), $uuid)){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "Application associated to device");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: application could not be associated to device");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s/add_application", $uuid));
+		}
 	}
 
 ?>
