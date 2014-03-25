@@ -21,7 +21,7 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
-			$data->set("device_info", $this->device_model->getDevice($uuid));
+			$data->set("device_info", $this->device_model->getDevice($uuid, 5));
 			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
 
 			//load the relevant views
@@ -49,8 +49,7 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
-			$data->set("device_info", $this->device_model->getDevice($uuid));
-			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
+			$data->set("apps", $this->device_model->getApps($this->product->getDeviceID($uuid)));
 
 			//load the relevant views
 			$this->load->view('header', $data);

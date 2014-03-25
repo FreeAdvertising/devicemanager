@@ -7,8 +7,12 @@
 		<th>ID</th>
 	</thead>
 	<tbody>
-		<tr>
-			<td>Element</td>
-		</tr>
+		<?php for($i = 0; $i < sizeof($apps); $i++): ?>
+			<tr>
+				<td><?php echo $apps[$i]->name; ?></td>
+				<td><?php echo $apps[$i]->version; ?></td>
+				<td><?php echo $apps[$i]->app_id; ?></td>
+			</tr>
+		<?php endfor; ?>
 	</tbody>
 </table>
