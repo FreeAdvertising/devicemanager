@@ -39,6 +39,11 @@
 		const DEVICE_TYPE_SERVER     = 3;
 		const DEVICE_TYPE_PERIPHERAL = 4;
 
+		/**
+		 * Specific limits and lengths
+		 */
+		const DEVICE_MAX_TRACKED_APPS = 5;
+
 		private $_dateFormat;
 		private $_options;
 
@@ -157,6 +162,23 @@
 			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid));
 
 			return $query->row()->device_id;
+		}
+
+		public function getPagination(){
+			$ci = get_instance();
+			$segments = $ci->uri->segment_array();
+			$output = array();
+
+			foreach($segments as $k => $v){
+				$output[$k] = new Generic();
+				$output[$k]->set("href", sprintf("/%s", $v));
+				$output[$k]->set("text", $v);
+
+			}
+
+			$output = array_values($output); //reset array
+
+			return $output;
 		}
 	}
 

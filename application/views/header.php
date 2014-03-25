@@ -67,6 +67,14 @@
 				 <h1>Free</h1>
 			</div>
 
+			<?php if(isset($pagination)): ?>
+				<ul class="pagination">
+					<?php for($i = 0; $i < sizeof($pagination); $i++): ?>
+						<li><a href="<?php echo $pagination[$i]->href; ?>"><?php echo $pagination[$i]->text; ?></a></li>
+					<?php endfor; ?>
+				</ul>
+			<?php endif; ?>
+
 			<div class="panel panel-default">
 				<?php if($this->hydra->isAuthenticated()): ?>
 					<?php switch($page){

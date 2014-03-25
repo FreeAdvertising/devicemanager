@@ -123,6 +123,8 @@
 					<?php echo anchor(sprintf("/device/%s/add_application", $device_info->uuid), "Add Application", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
 				<?php endif; ?>
 
+				<?php echo anchor(sprintf("/device/%s/create_ticket", $device_info->uuid), "Create Maintenance Ticket", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
+
 				<?php if($this->product->user_can("check_in", $device_info->uuid)): ?>
 					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
 				<?php else : ?>
