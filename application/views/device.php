@@ -82,12 +82,13 @@
 							<?php if(sizeof($device_info->apps) > 0): ?>
 								<?php for($i = 0; $i < sizeof($device_info->apps); $i++): ?>
 									<tr>
-										<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
+										<td><?php echo $device_info->apps[$i]->name; ?> 
+											<?php echo $device_info->apps[$i]->version; ?></td>
 									</tr>
 								<?php endfor; ?>
 							<?php else : ?>
 								<tr>
-									<td>No data.</td>
+									<td>Nothing yet.</td>
 								</tr>
 							<?php endif; ?>
 						</tbody>
@@ -132,7 +133,7 @@
 
 		<aside class="module">
 			<ul class="list-group">
-				<?php if($device_info->current_owner != "None"): ?>
+				<?php if(false === is_null($device_info->current_owner)): ?>
 					<h3 class="list-group-item">Current Owner</h3>
 					<li class="list-group-item"><?php echo $device_info->current_owner; ?></li>
 				<?php endif; ?>
