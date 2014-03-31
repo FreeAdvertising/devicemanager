@@ -94,20 +94,21 @@
 		 * @param  int $id
 		 * @return string
 		 */
-		public function get_status($id){
-			$id = intval($id);
-
-			if($id === self::DEVICE_AVAILABLE)
+		public function get_status($data){
+			if((int) $data->checkout_status === 1){
 				return "success";
+			}
 
-			if($id === self::DEVICE_CHECKED_OUT)
+			if((int) $data->checkout_status === self::DEVICE_CHECKED_OUT){
 				return "danger";
+			}
 
-			if($id === self::DEVICE_MAINTENANCE)
-				return "info";
-
-			if($id === self::DEVICE_RESERVED)
+			if((int) $data->reserved_status === 0){
 				return "warning";
+			}
+
+			// if($id === self::DEVICE_MAINTENANCE)
+			// 	return "info";
 
 			return "danger";
 		}
@@ -202,7 +203,7 @@
 			$ci = get_instance();
 			$id = $this->getDeviceID($uuid);
 
-			$query = $ci->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE device_id = ?", array($id));
+			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE device_id = ?", array($id));
 
 			if(sizeof($query->result_object()) > 0){
 				return true;
