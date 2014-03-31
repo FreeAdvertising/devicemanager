@@ -6,8 +6,8 @@
 			return parent::__construct();
 		}
 
-		public function getDevice($uuid, $limit = 0){
-			$query = $this->db->query("SELECT *, IF(name IS NULL, uuid, name) as device_name FROM device_manager_devices WHERE uuid = ? ORDER BY device_id", $uuid);
+		public function getDevice(UUID $uuid, $limit = 0){
+			$query = $this->db->query("SELECT *, IF(name IS NULL, uuid, name) as device_name FROM device_manager_devices WHERE uuid = ? ORDER BY device_id", $uuid->get());
 
 			if($query->num_rows() > 0){
 				$return = $query->row();
@@ -18,12 +18,12 @@
 			return $return;
 		}
 
-		public function getReservationList($uuid){
+		public function getReservationList(UUID $uuid){
 			$query = $this->db->query("SELECT u.username, r.date FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
 				WHERE d.uuid = ? 
-				ORDER BY r.date", $uuid);
+				ORDER BY r.date", $uuid->get());
 
 			return $query->result_object();
 		}

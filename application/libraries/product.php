@@ -159,9 +159,12 @@
 
 		public function getDeviceID($uuid){
 			$ci = get_instance();
-			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid));
+			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = \"?\"", array($uuid));
 
-			return $query->row()->device_id;
+			if(isset($query->row()->device_id))
+				return $query->row()->device_id;
+
+			return show_404();
 		}
 
 		public function getPagination(){

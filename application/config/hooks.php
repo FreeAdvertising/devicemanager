@@ -10,7 +10,13 @@
 |
 */
 
-
+//UUID validation
+// $hook["post_controller_constructor"] = array(
+// 	"class"    => "UUID",
+// 	"function" => "__construct",
+// 	"filename" => "uuid.php",
+// 	"filepath" => "libraries",
+// 	);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

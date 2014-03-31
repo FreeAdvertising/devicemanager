@@ -8,8 +8,10 @@
 			$this->load->model("device_model");
 		}
 
-		public function index($uuid = null){
-			if(is_null($uuid)){
+		public function index($key = null){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
 				return show_error("You must provide a valid device ID.");
 			}
 
@@ -36,8 +38,10 @@
 			$this->load->view('footer', $data);
 		}
 
-		public function apps($uuid){
-			if(is_null($uuid)){
+		public function apps($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
 				return show_error("You must provide a valid device ID.");
 			}
 
@@ -64,8 +68,10 @@
 			$this->load->view('footer', $data);
 		}
 
-		public function history($uuid){
-			if(is_null($uuid)){
+		public function history($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
 				return show_error("You must provide a valid device ID.");
 			}
 
@@ -93,8 +99,10 @@
 			$this->load->view('footer', $data);
 		}
 
-		public function add_application($uuid){
-			if(is_null($uuid)){
+		public function add_application($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
 				return show_error("You must provide a valid device ID.");
 			}
 
@@ -122,7 +130,13 @@
 			$this->load->view('footer', $data);
 		}
 
-		public function assoc_app_to_device($uuid){
+		public function assoc_app_to_device($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
 			$this->load->model("add_application_model");
 
 			if($this->add_application_model->assoc($this->input->post(), $uuid)){
