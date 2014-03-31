@@ -159,12 +159,12 @@
 
 		public function getDeviceID(UUID $uuid){
 			$ci = get_instance();
-			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = \"?\"", array($uuid));
+			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid->get()));
 
 			if(isset($query->row()->device_id))
-				return $query->row()->device_id;
+				return (int) $query->row()->device_id;
 
-			return show_404();
+			return false;
 		}
 
 		public function getPagination(){
@@ -182,6 +182,33 @@
 			$output = array_values($output); //reset array
 
 			return $output;
+		}
+
+		public function isCheckedOutByUser(UUID $uuid){
+			$ci = get_instance();
+			$id = $this->getDeviceID($uuid);
+			$user = $ci->hydra->get("id");
+			
+			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ? LIMIT 1", array($user, $id));
+
+			if($query->row()){
+				return true;
+			}
+
+			return false;
+		}
+
+		public function isCheckedOutByOther(UUID $uuid){
+			$ci = get_instance();
+			$id = $this->getDeviceID($uuid);
+
+			$query = $ci->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE device_id = ?", array($id));
+
+			if(sizeof($query->result_object()) > 0){
+				return true;
+			}
+
+			return false;
 		}
 	}
 

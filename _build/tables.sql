@@ -174,6 +174,25 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
     ON DELETE CASCADE
   );
 
+# NOT COMMITTED LIVE YET
+CREATE TABLE `freepass`.`device_manager_assignments_rel` (
+  `ass_id` INT NOT NULL AUTO_INCREMENT,
+  `device_id` INT NOT NULL,
+  `userid` INT NOT NULL,
+  `date` DATE NOT NULL,
+  PRIMARY KEY (`ass_id`),
+  INDEX devid_idx (device_id),
+  INDEX usrid_idx (userid),
+  FOREIGN KEY (device_id)
+    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  FOREIGN KEY (userid)
+    REFERENCES `freepass`.`users`(userid)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+  );
+
 ##
 # Modify existing Product tables
 # (these changes are already added to the table schemas, should only be run on

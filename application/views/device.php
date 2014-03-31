@@ -125,8 +125,10 @@
 
 				<?php echo anchor(sprintf("/device/%s/create_ticket", $device_info->uuid), "Create Maintenance Ticket", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
 
-				<?php if($this->product->user_can("check_in", $device_info->uuid)): ?>
+				<?php if($this->product->isCheckedOutByUser($device_info->uuid)): ?>
 					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
+				<?php elseif($this->product->isCheckedOutByOther($device_info->uuid)): ?>
+					<?php echo anchor(sprintf("/device/%s/reserve", $device_info->uuid), "Reserve", array("class" => "list-group-item")); ?>
 				<?php else : ?>
 					<?php echo anchor(sprintf("/device/%s/check_out", $device_info->uuid), "Check Out", array("class" => "list-group-item")); ?>
 				<?php endif; ?>

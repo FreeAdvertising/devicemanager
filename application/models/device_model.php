@@ -13,6 +13,7 @@
 				$return = $query->row();
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
+				$return->uuid = new UUID($query->row()->uuid);
 			}
 
 			return $return;
@@ -45,13 +46,27 @@
 			if($id > 0){
 				$query = $this->db->query("SELECT t.name, tr.version, t.app_id FROM device_manager_tracked_applications_rel tr 
 					LEFT JOIN device_manager_tracked_applications t ON tr.app_id = t.app_id
-					WHERE tr.device_id = ? ". ($limit > 0 ? "LIMIT ". $limit : ""), array($id));
+					WHERE tr.device_id = ? ORDER BY t.name ". ($limit > 0 ? "LIMIT ". $limit : ""), array($id));
 			}else {
 				//get ALL apps, not just ones that are associated to the UUID
 				$query = $this->db->query("SELECT name, app_id FROM device_manager_tracked_applications ORDER BY app_id");
 			}
 
 			return $query->result_object();
+		}
+
+		public function check_in(UUID $uuid){
+			if($uuid){
+				$id = $this->product->getDeviceID($uuid);
+				$user = $this->hydra->get("id");
+
+				$query = $this->db->query("DELETE FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				//boolean query result, no need for type checking
+				return $query;
+			}
+
+			return false;
 		}
 	}
 
