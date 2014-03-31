@@ -4,10 +4,8 @@
 
 	class UUID {
 		protected $uuid = "INVALIDID";
-		protected $ci;
 
 		public function __construct($uuid = null){
-			$this->ci = get_instance();
 			$this->set($uuid);
 
 			return $this;
@@ -37,7 +35,8 @@
 		public function convert(){
 			try {
 				if(false === $this->isInstance($this->uuid)){
-					$query = $this->ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($this->uuid));
+					$ci = get_instance();
+					$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($this->uuid));
 
 					if(sizeof($query->result_object()) > 0){
 						return $this;
