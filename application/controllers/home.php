@@ -17,6 +17,7 @@
 			//set specific page data
 			$data->set("data", $this->home_model->getData());
 			$data->set("my_reservations", $this->home_model->getMyReservations());
+			$data->set("my_devices", $this->home_model->getMyDevices());
 
 			//load the relevant views
 			$this->load->view('header', $data);

@@ -33,6 +33,23 @@
 
 			return $query->result_object();
 		}
+
+		public function getMyDevices(){
+			$id = $this->hydra->get("id");
+
+			$query = $this->db->query("SELECT 
+				ar.device_id,
+				d.uuid
+				FROM device_manager_assignments_rel ar
+				LEFT JOIN device_manager_devices d ON d.device_id = ar.device_id
+				WHERE userid = ?", array($id));
+
+			if($query->num_rows() > 0){
+				return $query->result_object();
+			}
+
+			return array();
+		}
 	}
 
 ?>

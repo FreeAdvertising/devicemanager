@@ -165,6 +165,26 @@
 
 			return redirect(base_url(). sprintf("index.php/device/%s/add_application", $uuid));
 		}
+
+		public function reserve($key){
+			die("FEATURE NOT IMPLEMENTED YET");
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			$this->load->model("add_application_model");
+
+			if($this->add_application_model->assoc($this->input->post(), $uuid)){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "Application associated to device");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: application could not be associated to device");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s/add_application", $uuid));
+		}
 	}
 
 ?>

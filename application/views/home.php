@@ -48,8 +48,12 @@
 <section class="sidebar col-md-3">
 	<aside class="module">
 		<div class="list-group">
-			<h3 class="list-group-item">My Devices</h3>
-			<a href="#" class="list-group-item">XXXXXXXX</a>
+			<?php if(sizeof($my_devices) > 0): ?>
+				<h3 class="list-group-item">My Devices</h3>
+				<?php for($i = 0; $i < sizeof($my_devices); $i++): ?>
+					<?php echo anchor(sprintf("/device/%s", $my_devices[$i]->uuid), $my_devices[$i]->uuid, array("class" => "list-group-item")); ?>
+				<?php endfor; ?>
+			<?php endif; ?>
 
 			<?php if(sizeof($my_reservations) > 0): ?>
 				<h3 class="list-group-item">My Reserved Devices</h3>
