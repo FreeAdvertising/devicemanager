@@ -174,7 +174,6 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
     ON DELETE CASCADE
   );
 
-# NOT COMMITTED LIVE YET
 CREATE TABLE `freepass`.`device_manager_assignments_rel` (
   `ass_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
