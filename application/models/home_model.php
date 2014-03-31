@@ -10,11 +10,11 @@
 			//get values for "There are currently X users using X devices and X waiting."
 			$_output = array();
 
-			$query = $this->db->query("SELECT device_id FROM device_manager_devices WHERE status > 1");
-			$_output[] = sizeof($query->result_object());
+			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel");
+			$_output[] = $query->row()->count;
 
-			$query = $this->db->query("SELECT device_id FROM device_manager_devices WHERE status > 1");
-			$_output[] = sizeof($query->result_object());
+			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel");
+			$_output[] = $query->row()->count;
 
 			$query = $this->db->query("SELECT device_id FROM device_manager_devices WHERE status = 4");
 			$_output[] = sizeof($query->result_object());
@@ -39,6 +39,7 @@
 
 			$query = $this->db->query("SELECT 
 				ar.device_id,
+				IF(d.name IS NULL, d.uuid, d.name) as name,
 				d.uuid
 				FROM device_manager_assignments_rel ar
 				LEFT JOIN device_manager_devices d ON d.device_id = ar.device_id

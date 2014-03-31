@@ -85,6 +85,23 @@
 			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
 		}
 
+		public function check_out($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			if($this->device_model->check_out($uuid)){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
+		}
+
 		public function history($key){
 			$uuid = new UUID($key);
 

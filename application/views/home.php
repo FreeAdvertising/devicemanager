@@ -51,7 +51,7 @@
 			<?php if(sizeof($my_devices) > 0): ?>
 				<h3 class="list-group-item">My Devices</h3>
 				<?php for($i = 0; $i < sizeof($my_devices); $i++): ?>
-					<?php echo anchor(sprintf("/device/%s", $my_devices[$i]->uuid), $my_devices[$i]->uuid, array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/device/%s", $my_devices[$i]->uuid), $my_devices[$i]->name, array("class" => "list-group-item")); ?>
 				<?php endfor; ?>
 			<?php endif; ?>
 

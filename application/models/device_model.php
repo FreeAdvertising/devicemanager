@@ -68,6 +68,20 @@
 
 			return false;
 		}
+
+		public function check_out(UUID $uuid){
+			if($uuid){
+				$id = $this->product->getDeviceID($uuid);
+				$user = $this->hydra->get("id");
+
+				$query = $this->db->query("INSERT INTO device_manager_assignments_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+
+				//boolean query result, no need for type checking
+				return $query;
+			}
+
+			return false;
+		}
 	}
 
 ?>
