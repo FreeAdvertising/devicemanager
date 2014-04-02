@@ -154,16 +154,14 @@
 			//$query = $this->db->query("SELECT")
 		}
 
-		public function user_can($key, $value){
-			return true;
-		}
-
 		public function getDeviceID(UUID $uuid){
-			$ci = get_instance();
-			$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid->get()));
+			if($uuid){
+				$ci = get_instance();
+				$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid->get()));
 
-			if(isset($query->row()->device_id))
-				return (int) $query->row()->device_id;
+				if(isset($query->row()->device_id))
+					return (int) $query->row()->device_id;
+			}
 
 			return false;
 		}

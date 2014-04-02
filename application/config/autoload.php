@@ -60,6 +60,7 @@ $autoload['libraries'] = array(
 	"electroheart", 
 	"product",
 	"uuid",
+	"history",
 	);
 //$autoload["libraries"] = array("generic", "session", "hydra", "database");
 

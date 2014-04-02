@@ -94,8 +94,16 @@
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
 				$user = $this->hydra->get("id");
+				$query = false;
 
-				$query = $this->db->query("INSERT INTO device_manager_reservations_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+				//only run the query when the user hasn't reserved the device already
+				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				if(sizeof($query->row()) === 0){
+					$query = $this->db->query("INSERT INTO device_manager_reservations_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+
+					History::record($uuid, __FUNCTION__);
+				}
 
 				//boolean query result, no need for type checking
 				return $query;
@@ -108,8 +116,14 @@
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
 				$user = $this->hydra->get("id");
+				$query = false;
 
-				$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+				//only run the query when the user has reserved the device already
+				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				if(sizeof($query->row()) > 0){
+					$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+				}
 
 				//boolean query result, no need for type checking
 				return $query;
