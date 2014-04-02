@@ -118,6 +118,8 @@
 				$user = $this->hydra->get("id");
 				$query = false;
 
+				History::record($uuid, __FUNCTION__);
+
 				//only run the query when the user has reserved the device already
 				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 

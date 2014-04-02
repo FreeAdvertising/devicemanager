@@ -53,7 +53,7 @@
 					));
 
 				//add data from the above query to the history table
-				return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`) VALUES (?, ?)", array($query->row()->res_id, $method));
+				return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`) VALUES (?, ?)", array($query->row()->$_data[1], $method));
 			}catch(Exception $e){
 				echo $e->getMessage();
 			}

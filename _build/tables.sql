@@ -196,7 +196,7 @@ CREATE TABLE `freepass`.`device_manager_assignments_rel` (
 CREATE TABLE `freepass`.`device_manager_history` (
   `hist_id` INT NOT NULL AUTO_INCREMENT,
   `rel_id` INT NOT NULL, # i.e. res_id, ass_id, maint_id - to get details about the item
-  `type` VARCHAR(11) NOT NULL, # i.e. assignment, reservation, maintenance
+  `type` VARCHAR(25) NOT NULL, # i.e. assignment, reservation, maintenance
   PRIMARY KEY (`hist_id`),
   INDEX type_idx (type)
   );
