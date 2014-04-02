@@ -46,6 +46,8 @@ $route["device/(:any)/assoc_app_to_device"] = "device/assoc_app_to_device/$1";
 $route["device/(:any)/add_application"] = "device/add_application/$1";
 $route["device/(:any)/check_in"] = "device/check_in/$1";
 $route["device/(:any)/check_out"] = "device/check_out/$1";
+$route["device/(:any)/cancel_reservation"] = "device/cancel_reservation/$1";
+$route["device/(:any)/reserve"] = "device/reserve/$1";
 $route["device/(:any)/edit"] = "device/edit/$1";
 $route["device/(:any)"] = "device/index/$1";
 

@@ -16,8 +16,8 @@
 			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel");
 			$_output[] = $query->row()->count;
 
-			$query = $this->db->query("SELECT device_id FROM device_manager_devices WHERE status = 4");
-			$_output[] = sizeof($query->result_object());
+			$query = $this->db->query("SELECT COUNT(res_id) as count FROM device_manager_reservations_rel");
+			$_output[] = $query->row()->count;
 
 			return $_output;			
 		}

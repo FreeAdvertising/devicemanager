@@ -129,7 +129,7 @@
 					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
 				<?php elseif($this->product->isCheckedOutByOther($device_info->uuid)): ?>
 					<?php if($device_info->reserved): ?>
-						<li class="list-group-item reserved btn-success">Reserved</li>
+						<?php echo anchor(sprintf("/device/%s/cancel_reservation", $device_info->uuid), "Cancel Reservation", array("class" => "list-group-item reserved btn-danger")); ?>
 					<?php else : ?>
 						<?php echo anchor(sprintf("/device/%s/reserve", $device_info->uuid), "Reserve", array("class" => "list-group-item")); ?>
 					<?php endif; ?>

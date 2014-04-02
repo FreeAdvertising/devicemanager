@@ -14,7 +14,7 @@
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
 				$return->uuid = $uuid; //$uuid is already an instance of \UUID
-				$return->reserved = false;
+				$return->reserved = $this->_isReserved($query->row()->device_id);
 			}
 
 			return $return;
@@ -28,6 +28,12 @@
 				ORDER BY r.date", $uuid->get());
 
 			return $query->result_object();
+		}
+
+		private function _isReserved($id){
+			$query = $this->db->query("SELECT `date`, `userid` FROM device_manager_reservations_rel WHERE device_id = ? AND userid = ? ", array((int) $id, $this->hydra->get("id")));
+
+			return (sizeof($query->result_object()) > 0);
 		}
 
 		private function _getUser($location, $lastcheckout){
@@ -76,6 +82,34 @@
 				$user = $this->hydra->get("id");
 
 				$query = $this->db->query("INSERT INTO device_manager_assignments_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+
+				//boolean query result, no need for type checking
+				return $query;
+			}
+
+			return false;
+		}
+
+		public function reserve(UUID $uuid){
+			if($uuid){
+				$id = $this->product->getDeviceID($uuid);
+				$user = $this->hydra->get("id");
+
+				$query = $this->db->query("INSERT INTO device_manager_reservations_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+
+				//boolean query result, no need for type checking
+				return $query;
+			}
+
+			return false;
+		}
+
+		public function cancel_reservation(UUID $uuid){
+			if($uuid){
+				$id = $this->product->getDeviceID($uuid);
+				$user = $this->hydra->get("id");
+
+				$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 
 				//boolean query result, no need for type checking
 				return $query;

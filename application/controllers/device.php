@@ -184,23 +184,37 @@
 		}
 
 		public function reserve($key){
-			die("FEATURE NOT IMPLEMENTED YET");
 			$uuid = new UUID($key);
 
 			if(false === $uuid){
 				return show_error("You must provide a valid device ID.");
 			}
 
-			$this->load->model("add_application_model");
-
-			if($this->add_application_model->assoc($this->input->post(), $uuid)){
+			if($this->device_model->reserve($uuid)){
 				//setup a success message here
-				$this->session->set_flashdata("model_save_success", "Application associated to device");
+				$this->session->set_flashdata("model_save_success", "Device reserved");
 			}else {
-				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: application could not be associated to device");
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be reserved");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s/add_application", $uuid));
+			return redirect(base_url(). sprintf("index.php/device/%s", $uuid));
+		}
+
+		public function cancel_reservation($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			if($this->device_model->cancel_reservation($uuid)){
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "Device reservation cancelled");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: reservation could not be cancelled");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s", $uuid));
 		}
 	}
 
