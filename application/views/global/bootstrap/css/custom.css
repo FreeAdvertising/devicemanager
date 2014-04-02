@@ -165,3 +165,8 @@ span.status-circle {
 .floatright {
 	float: right;
 }
+
+.list-group-item.reserved {
+	background-color: #419641 !important;
+	color: white;
+}

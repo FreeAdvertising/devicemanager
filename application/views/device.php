@@ -1,4 +1,4 @@
-<pre><?php var_dump($device_info); ?></pre>
+<?php //echo "<pre>"; var_dump($device_info); echo "</pre>"; ?>
 
 <div class="row">
 	<section class="col-md-9">
@@ -128,7 +128,11 @@
 				<?php if($this->product->isCheckedOutByUser($device_info->uuid)): ?>
 					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
 				<?php elseif($this->product->isCheckedOutByOther($device_info->uuid)): ?>
-					<?php echo anchor(sprintf("/device/%s/reserve", $device_info->uuid), "Reserve", array("class" => "list-group-item")); ?>
+					<?php if($device_info->reserved): ?>
+						<li class="list-group-item reserved btn-success">Reserved</li>
+					<?php else : ?>
+						<?php echo anchor(sprintf("/device/%s/reserve", $device_info->uuid), "Reserve", array("class" => "list-group-item")); ?>
+					<?php endif; ?>
 				<?php else : ?>
 					<?php echo anchor(sprintf("/device/%s/check_out", $device_info->uuid), "Check Out", array("class" => "list-group-item")); ?>
 				<?php endif; ?>
