@@ -1,4 +1,4 @@
-<?php //var_dump($device_info); ?>
+<pre><?php var_dump($device_info); ?></pre>
 
 <div class="row">
 	<section class="col-md-9">

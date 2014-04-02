@@ -3,7 +3,7 @@
 	defined("BASEPATH") or die;
 
 	class UUID {
-		protected $uuid = "INVALIDID";
+		protected $value = "INVALIDID";
 
 		public function __construct($uuid = null){
 			$this->set($uuid);
@@ -13,14 +13,14 @@
 
 		public function set($val){
 			if(false === is_null($val) && strlen($val) === 8){
-				$this->uuid = strtoupper($val);
+				$this->value = strtoupper($val);
 			}
 
 			return false;
 		}
 
 		public function get(){
-			return $this->uuid;
+			return $this->value;
 		}
 
 		public function isInstance($uuid){
@@ -34,9 +34,9 @@
 		 */
 		public function convert(){
 			try {
-				if(false === $this->isInstance($this->uuid)){
+				if(false === $this->isInstance($this->value)){
 					$ci = get_instance();
-					$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($this->uuid));
+					$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($this->value));
 
 					if(sizeof($query->result_object()) > 0){
 						return $this;
@@ -50,7 +50,7 @@
 		}
 
 		public function __toString(){
-			return $this->uuid;
+			return $this->value;
 		}
 	}
 

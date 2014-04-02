@@ -14,6 +14,7 @@
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
 				$return->uuid = $uuid; //$uuid is already an instance of \UUID
+				$return->reserved = false;
 			}
 
 			return $return;
