@@ -13,7 +13,7 @@
 				$return = $query->row();
 				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
-				$return->uuid = new UUID($query->row()->uuid);
+				$return->uuid = $uuid; //$uuid is already an instance of \UUID
 			}
 
 			return $return;
