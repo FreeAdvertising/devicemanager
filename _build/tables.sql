@@ -192,6 +192,15 @@ CREATE TABLE `freepass`.`device_manager_assignments_rel` (
     ON DELETE CASCADE
   );
 
+# NOT COMMITTED LIVE YET
+CREATE TABLE `freepass`.`device_manager_history` (
+  `hist_id` INT NOT NULL AUTO_INCREMENT,
+  `rel_id` INT NOT NULL, # i.e. res_id, ass_id, maint_id - to get details about the item
+  `type` VARCHAR(11) NOT NULL, # i.e. assignment, reservation, maintenance
+  PRIMARY KEY (`hist_id`),
+  INDEX type_idx (type)
+  );
+
 ##
 # Modify existing Product tables
 # (these changes are already added to the table schemas, should only be run on
