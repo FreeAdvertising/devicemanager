@@ -161,6 +161,7 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
   `date` DATE NOT NULL,
+  `checked_in` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`res_id`),
   INDEX devid_idx (device_id),
   INDEX usrid_idx (userid),
@@ -179,6 +180,7 @@ CREATE TABLE `freepass`.`device_manager_assignments_rel` (
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
   `date` DATE NOT NULL,
+  `checked_in` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`ass_id`),
   INDEX devid_idx (device_id),
   INDEX usrid_idx (userid),
@@ -215,4 +217,7 @@ CREATE TABLE `freepass`.`device_manager_history` (
 #ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP COLUMN `version` , DROP COLUMN `device_id` , DROP INDEX `devid_idx` ;
 # ALTER TABLE `freepass`.`device_manager_tracked_applications_rel` ADD COLUMN version VARCHAR(10) NOT NULL
 
+#COMMITTED LIVE
 #ALTER TABLE `freepass`.`device_manager_history` DROP COLUMN `type`, ADD COLUMN `type` VARCHAR(25) NOT NULL
+#ALTER TABLE `freepass`.`device_manager_assignments_rel` ADD COLUMN `checked_in` INT NOT NULL DEFAULT 0
+#ALTER TABLE `freepass`.`device_manager_reservations_rel` ADD COLUMN `checked_in` INT NOT NULL DEFAULT 0

@@ -74,17 +74,19 @@
 
 		/**
 		 * Retrieve all historical data for the given UUID
-		 * @param  UUID   $uuid
+		 * @param  mixed   $uuid
 		 * @return array
 		 */
-		public static function get(UUID $uuid){
+		public static function get($uuid){
 			try {
 				$ci = get_instance();
 				$id = $ci->product->getDeviceID($uuid);
+				$return = array();
 
 				$query = $ci->db->query("SELECT type, rel_id FROM device_manager_history ORDER BY hist_id");
 
 				if($results = $query->result_object()){
+					//var_dump($results);
 					for($i = 0; $i < sizeof($results); $i++){
 						$result = $results[$i]; //shortcut
 
@@ -108,37 +110,42 @@
 							case "check_out":
 								$_data = ["device_manager_assignments_rel", "ass_id"];
 								break;
-
-							default:
-								throw new Exception("Method argument required");
 						}
 
-						$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ?",
-							$_data[0]
-						), array(
-							$id,
-						));
+						if(false === is_null($uuid)){
+							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ? GROUP BY device_id ORDER BY `date`",
+								$_data[0]
+							), array(
+								$id,
+							));
+						}else {
+							$output = $ci->db->query(sprintf("SELECT * FROM %s GROUP BY device_id ORDER BY `date`",
+								$_data[0]
+							));
+						}
 
 						$records = $output->result_object();
-						$return = array();
 
-						for($i = 0; $i < sizeof($records); $i++){
-							$properties = new Generic();
-							$properties->setProperties($records[$i]);
-							$properties->set("action", $result->type);
+						if(($size = sizeof($records)) > 0){
+							foreach($records as $key => $record){
+								$properties = new Generic();
+								$properties->set("record", $record);
+								$properties->set("action", $result->type);
 
-							if(isset($properties->userid)){
-								$properties->set("user", $ci->product->getUser($properties->userid));
+								if(isset($properties->record->userid)){
+									$properties->set("user", $ci->product->getUser($properties->record->userid));
+								}
+
+								$return[] = $properties;
 							}
-
-							$return[] = $properties;
 						}
 
-						return $return;
-					}
-				}
+					} //endfor
+
+					return $return;
+				} //end num_rows
 			}catch(Exception $e){
-				echo $e->getMessage();
+				die($e->getMessage());
 			}
 		}
 	}

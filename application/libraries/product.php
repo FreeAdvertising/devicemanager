@@ -188,7 +188,7 @@
 			$id = $this->getDeviceID($uuid);
 			$user = $ci->hydra->get("id");
 			
-			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ? LIMIT 1", array($user, $id));
+			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ? AND checked_in = 0 LIMIT 1", array($user, $id));
 
 			if($query->row()){
 				return true;
@@ -201,7 +201,7 @@
 			$ci = get_instance();
 			$id = $this->getDeviceID($uuid);
 
-			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE device_id = ?", array($id));
+			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE device_id = ? AND checked_in = 0", array($id));
 
 			if(sizeof($query->result_object()) > 0){
 				return true;

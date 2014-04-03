@@ -199,7 +199,7 @@
 			}
 
 			if($this->device_model->check_in($uuid)){
-				//History::record($uuid, __FUNCTION__);
+				History::record($uuid, __FUNCTION__);
 				
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "");

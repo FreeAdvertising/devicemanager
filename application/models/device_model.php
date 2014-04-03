@@ -31,7 +31,7 @@
 		}
 
 		private function _isReserved($id){
-			$query = $this->db->query("SELECT `date`, `userid` FROM device_manager_reservations_rel WHERE device_id = ? AND userid = ? ", array((int) $id, $this->hydra->get("id")));
+			$query = $this->db->query("SELECT `date`, `userid` FROM device_manager_reservations_rel WHERE device_id = ? AND userid = ? AND checked_in = 0", array((int) $id, $this->hydra->get("id")));
 
 			return (sizeof($query->result_object()) > 0);
 		}
@@ -67,7 +67,8 @@
 				$id = $this->product->getDeviceID($uuid);
 				$user = $this->hydra->get("id");
 
-				$query = $this->db->query("DELETE FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+				//$query = $this->db->query("DELETE FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+				$query = $this->db->query("UPDATE device_manager_assignments_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
 
 				//boolean query result, no need for type checking
 				return $query;
@@ -81,7 +82,13 @@
 				$id = $this->product->getDeviceID($uuid);
 				$user = $this->hydra->get("id");
 
-				$query = $this->db->query("INSERT INTO device_manager_assignments_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+				$test = $this->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				if($test->num_rows() === 0){
+					$query = $this->db->query("INSERT INTO device_manager_assignments_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+				}else {
+					$query = $this->db->query("UPDATE device_manager_assignments_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+				}
 
 				//boolean query result, no need for type checking
 				return $query;
@@ -99,8 +106,10 @@
 				//only run the query when the user hasn't reserved the device already
 				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 
-				if(sizeof($query->row()) === 0){
+				if($query->num_rows() === 0){
 					$query = $this->db->query("INSERT INTO device_manager_reservations_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
+				}else {
+					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 				}
 
 				//boolean query result, no need for type checking
@@ -120,7 +129,9 @@
 				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 
 				if(sizeof($query->row()) > 0){
-					$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+					//$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+
 				}
 
 				//boolean query result, no need for type checking

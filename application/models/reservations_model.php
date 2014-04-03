@@ -23,6 +23,7 @@
 				'nope' as status 
 				FROM device_manager_assignments_rel a 
 				LEFT JOIN device_manager_devices d ON d.device_id = a.device_id
+				GROUP BY d.uuid
 				ORDER BY d.device_id
 				");
 

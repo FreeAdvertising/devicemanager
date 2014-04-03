@@ -12,7 +12,7 @@
 				<tr>
 					<td><?php echo $history["overview"][$i]->action; ?></td>
 					<td><?php echo $history["overview"][$i]->user->name; ?></td>
-					<td><?php echo $history["overview"][$i]->date; ?></td>
+					<td><?php echo $history["overview"][$i]->record->date; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
@@ -33,7 +33,7 @@
 				<tr>
 					<td><?php echo $history["recent_owners"][$i]->action; ?></td>
 					<td><?php echo $history["recent_owners"][$i]->user->name; ?></td>
-					<td><?php echo $history["recent_owners"][$i]->date; ?></td>
+					<td><?php echo $history["recent_owners"][$i]->record->date; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
@@ -54,7 +54,7 @@
 				<tr>
 					<td><?php echo $history["maintenance"][$i]->action; ?></td>
 					<td><?php echo $history["maintenance"][$i]->user->name; ?></td>
-					<td><?php echo $history["maintenance"][$i]->date; ?></td>
+					<td><?php echo $history["maintenance"][$i]->record->date; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>

@@ -10,13 +10,13 @@
 			//get values for "There are currently X users using X devices and X waiting."
 			$_output = array();
 
-			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel");
+			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel WHERE checked_in = 0");
 			$_output[] = $query->row()->count;
 
-			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel");
+			$query = $this->db->query("SELECT COUNT(ass_id) as count FROM device_manager_assignments_rel WHERE checked_in = 0");
 			$_output[] = $query->row()->count;
 
-			$query = $this->db->query("SELECT COUNT(res_id) as count FROM device_manager_reservations_rel");
+			$query = $this->db->query("SELECT COUNT(res_id) as count FROM device_manager_reservations_rel WHERE checked_in = 0");
 			$_output[] = $query->row()->count;
 
 			return $_output;			
@@ -29,7 +29,8 @@
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
 				WHERE u.userid = ? 
-				ORDER BY r.date", $id);
+				ORDER BY r.date
+				", $id);
 
 			return $query->result_object();
 		}
@@ -43,7 +44,9 @@
 				d.uuid
 				FROM device_manager_assignments_rel ar
 				LEFT JOIN device_manager_devices d ON d.device_id = ar.device_id
-				WHERE userid = ?", array($id));
+				WHERE userid = ? AND checked_in = 0
+				GROUP BY d.uuid
+				", array($id));
 
 			if($query->num_rows() > 0){
 				return $query->result_object();
