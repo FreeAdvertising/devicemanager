@@ -163,6 +163,7 @@
 				    device_manager_reservations_rel AS rr ON rr.res_id = h.rel_id
 				        LEFT JOIN
 				    users AS u ON IF(ar.userid, ar.userid, rr.userid) = u.userid
+				WHERE IF(ar.ass_id, ar.date, rr.date) BETWEEN CURDATE() - INTERVAL 6 MONTH AND CURDATE()
 				ORDER BY hist_id
 				");
 
