@@ -45,6 +45,8 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	jQuery(".user-list a.list-group-item").click(function(evt){
 		evt.preventDefault();
 
+		ProductInstance.Helpers.clearSidebarFilters();
+
 		var _others = document.querySelectorAll(".user-list a.list-group-item"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");
 
@@ -66,9 +68,11 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		this.classList.add("active");
 	});
 
-	//filtering
+	//filter by status/type (available, checked out, etc)
 	jQuery(".type-list a.list-group-item").click(function(evt){
 		evt.preventDefault();
+
+		ProductInstance.Helpers.clearSidebarFilters();
 
 		var _others = document.querySelectorAll(".type-list a.list-group-item"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");

@@ -8,6 +8,30 @@
  			this.Store.init();
  		},
 
+ 		Helpers: {
+ 			clearSidebarFilters: function(){
+ 				var _items = [],
+ 					_user_list = Array.prototype.slice.call(document.querySelectorAll(".user-list a.list-group-item")),
+ 					_type_list = Array.prototype.slice.call(document.querySelectorAll(".type-list a.list-group-item")),
+ 					_reset_filters = Array.prototype.slice.call(document.querySelectorAll(".reset-filters")),
+ 					_devices = Array.prototype.slice.call(document.querySelectorAll(".list-devices tr"));
+
+ 				_items = _items.concat(_type_list, _user_list);
+ 				
+ 				for(var i = 0; i < _items.length; i++){
+ 					_items[i].classList.remove("active");
+ 				}
+
+ 				for(var i = 0; i < _reset_filters.length; i++){
+ 					_reset_filters[i].classList.add("hidden");
+ 				}
+
+ 				for(var i = 0; i < _devices.length; i++){
+ 					_devices[i].classList.remove("hidden");
+ 				}
+ 			},
+ 		},
+
  		Store: {
  			init: function(){
 	 			this.engine = window.localStorage;
