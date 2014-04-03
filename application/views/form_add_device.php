@@ -98,10 +98,6 @@
 			</select>
 		</div>
 	</div>
-	
-	<?php if(isset($record[0])): ?>
-		<input type="hidden" name="record_id" value="<?php echo $record[0]->record_id; ?>" />
-	<?php endif; ?>
 
 	<div class="form-footer">
 		<input type="submit" class="btn btn-primary" value="Save" />

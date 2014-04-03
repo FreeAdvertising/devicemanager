@@ -192,7 +192,6 @@ CREATE TABLE `freepass`.`device_manager_assignments_rel` (
     ON DELETE CASCADE
   );
 
-# NOT COMMITTED LIVE YET
 CREATE TABLE `freepass`.`device_manager_history` (
   `hist_id` INT NOT NULL AUTO_INCREMENT,
   `rel_id` INT NOT NULL, # i.e. res_id, ass_id, maint_id - to get details about the item
@@ -215,3 +214,5 @@ CREATE TABLE `freepass`.`device_manager_history` (
 #ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP FOREIGN KEY `device_manager_tracked_applications_ibfk_1` ;
 #ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP COLUMN `version` , DROP COLUMN `device_id` , DROP INDEX `devid_idx` ;
 # ALTER TABLE `freepass`.`device_manager_tracked_applications_rel` ADD COLUMN version VARCHAR(10) NOT NULL
+
+#ALTER TABLE `freepass`.`device_manager_history` DROP COLUMN `type`, ADD COLUMN `type` VARCHAR(25) NOT NULL
