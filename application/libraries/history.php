@@ -85,8 +85,8 @@
 
 				$query = $ci->db->query("SELECT type, rel_id FROM device_manager_history ORDER BY hist_id");
 
+				//TODO: refactor to use an SQL join instead of all this crap?
 				if($results = $query->result_object()){
-					//var_dump($results);
 					for($i = 0; $i < sizeof($results); $i++){
 						$result = $results[$i]; //shortcut
 

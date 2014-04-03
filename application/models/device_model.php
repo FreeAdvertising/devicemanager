@@ -60,23 +60,24 @@
 			return $query->result_object();
 		}
 
-		public function getPastOwners(UUID $uuid, $limit = 5){
+		public function getPastOwners(UUID $uuid, $limit = 0){
 			$return = array();
 
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
 
 				$query = $this->db->query("SELECT
-						u.username
+						u.username,
+						ar.date
 						FROM device_manager_assignments_rel ar
-						LEFT JOIN users u ON ar.userid = u.userid
-						WHERE ar.device_id = ?
+						LEFT JOIN users u ON u.userid = ar.userid
+						WHERE ar.device_id = ? 
 						GROUP BY u.username
 						LIMIT ?
 					",
 					array(
 						$id,
-						$limit	
+						($limit	> 0 ? $limit : 1000)
 					));
 
 				$return = $query->result_object();

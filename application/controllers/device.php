@@ -87,7 +87,11 @@
 			$data->set("device_info", $this->device_model->getDevice($uuid));
 			$data->set("show_pagination", true);
 
-			$history = array("overview" => History::get($uuid), "recent_owners" => array(), "maintenance" => array());
+			$history = array(
+				"overview" => History::get($uuid), 
+				"recent_owners" => $this->device_model->getPastOwners($uuid, Product::DEVICE_MAX_TRACKED_APPS), 
+				"maintenance" => array()
+				);
 			$data->set("history", $history);
 
 			//load the relevant views

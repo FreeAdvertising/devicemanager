@@ -24,16 +24,14 @@
 
 	<table class="table table-striped table-hover">
 		<thead>
-			<th width="33%">Action</th>
-			<th width="53%">Performed By</th>
-			<th width="13%">Date</th>
+			<th width="33%">User</th>
+			<th>Date</th>
 		</thead>
 		<tbody>
 			<?php for($i = 0; $i < sizeof($history["recent_owners"]); $i++): ?>
 				<tr>
-					<td><?php echo $history["recent_owners"][$i]->action; ?></td>
-					<td><?php echo $history["recent_owners"][$i]->user->name; ?></td>
-					<td><?php echo $history["recent_owners"][$i]->record->date; ?></td>
+					<td><?php echo $history["recent_owners"][$i]->username; ?></td>
+					<td><?php echo $history["recent_owners"][$i]->date; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
