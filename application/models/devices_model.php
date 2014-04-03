@@ -10,6 +10,7 @@
 			$query = $this->db->query("SELECT 
 				d.device_id, 
 				d.uuid, 
+				d.name,
 				#d.status, 
 				d.os, 
 				IF(ar.ass_id, 2, 1) as checkout_status, 

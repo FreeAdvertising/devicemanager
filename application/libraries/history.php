@@ -53,7 +53,11 @@
 					));
 
 				//add data from the above query to the history table
-				return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`) VALUES (?, ?)", array($query->row()->$_data[1], $method));
+				if(sizeof($query->row()) > 0){
+					return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`) VALUES (?, ?)", array($query->row()->$_data[1], $method));
+				}
+
+				return false;
 			}catch(Exception $e){
 				echo $e->getMessage();
 			}
@@ -71,10 +75,56 @@
 		/**
 		 * Retrieve all historical data for the given UUID
 		 * @param  UUID   $uuid
-		 * @return Generic object
+		 * @return array
 		 */
 		public static function get(UUID $uuid){
+			try {
+				$ci = get_instance();
+				$id = $ci->product->getDeviceID($uuid);
 
+				$query = $ci->db->query("SELECT type, rel_id FROM device_manager_history ORDER BY hist_id");
+
+				if($results = $query->result_object()){
+					for($i = 0; $i < sizeof($results); $i++){
+						$result = $results[$i]; //shortcut
+
+						switch($result->type){
+							case "cancel_reservation":
+								$_data = ["device_manager_reservations_rel", "res_id"];
+								break;
+
+							case "reserve":
+								$_data = ["device_manager_reservations_rel", "res_id"];
+								break;
+
+							case "add_application":
+								$_data = ["device_manager_tracked_applications_rel", "app_id"];
+								break;
+
+							case "check_in":
+								$_data = ["device_manager_assignments_rel", "ass_id"];
+								break;
+
+							case "check_out":
+								$_data = ["device_manager_assignments_rel", "ass_id"];
+								break;
+
+							default:
+								throw new Exception("Method argument required");
+						}
+
+						$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ?",
+							$_data[0]
+						), array(
+							$id,
+						));
+
+						return $output->result_object();
+					}
+				}
+			}catch(Exception $e){
+				echo $e->getMessage();
+			}
 		}
 	}
 

@@ -10,7 +10,7 @@
 
 		<table class="table list-devices">
 			<thead>
-				<th width="85%">Device UUID</th>
+				<th width="85%">Device (UUID)</th>
 				<th>Status</th>
 				<th>OS</th>
 			</thead>
@@ -18,7 +18,7 @@
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
 					<?php $status = $this->product->get_status($records[$i]); ?>
 					<tr id="d<?php echo $records[$i]->device_id; ?>">
-						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), $records[$i]->uuid); ?></td>
+						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), sprintf("%s (%s)", $records[$i]->name, $records[$i]->uuid)); ?></td>
 						<td><span class="status-circle <?php echo sprintf('alert-%s %s', $status, $status); ?>"></span></td>
 						<td><?php echo $this->product->get_os($records[$i]->os); ?></td>
 					</tr>

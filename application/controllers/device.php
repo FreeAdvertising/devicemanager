@@ -68,40 +68,6 @@
 			$this->load->view('footer', $data);
 		}
 
-		public function check_in($key){
-			$uuid = new UUID($key);
-
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
-			}
-
-			if($this->device_model->check_in($uuid)){
-				//setup a success message here
-				$this->session->set_flashdata("model_save_success", "");
-			}else {
-				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
-			}
-
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
-		}
-
-		public function check_out($key){
-			$uuid = new UUID($key);
-
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
-			}
-
-			if($this->device_model->check_out($uuid)){
-				//setup a success message here
-				$this->session->set_flashdata("model_save_success", "");
-			}else {
-				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
-			}
-
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
-		}
-
 		public function history($key){
 			$uuid = new UUID($key);
 
@@ -118,8 +84,8 @@
 
 			//set specific page data
 			$data->set("device_info", $this->device_model->getDevice($uuid));
-			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
 			$data->set("pagination", $this->product->getPagination());
+			$data->set("history", History::get($uuid));
 
 			//load the relevant views
 			$this->load->view('header', $data);
@@ -174,6 +140,8 @@
 			$this->load->model("add_application_model");
 
 			if($this->add_application_model->assoc($this->input->post(), $uuid)){
+				History::record($uuid, __FUNCTION__);
+
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Application associated to device");
 			}else {
@@ -191,6 +159,8 @@
 			}
 
 			if($this->device_model->reserve($uuid)){
+				History::record($uuid, __FUNCTION__);
+
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Device reserved");
 			}else {
@@ -208,6 +178,8 @@
 			}
 
 			if($this->device_model->cancel_reservation($uuid)){
+				History::record($uuid, __FUNCTION__);
+
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Device reservation cancelled");
 			}else {
@@ -215,6 +187,44 @@
 			}
 
 			return redirect(base_url(). sprintf("index.php/device/%s", $uuid));
+		}
+
+		public function check_in($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			if($this->device_model->check_in($uuid)){
+				//History::record($uuid, __FUNCTION__);
+				
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
+		}
+
+		public function check_out($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid){
+				return show_error("You must provide a valid device ID.");
+			}
+
+			if($this->device_model->check_out($uuid)){
+				History::record($uuid, __FUNCTION__);
+
+				//setup a success message here
+				$this->session->set_flashdata("model_save_success", "");
+			}else {
+				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
+			}
+
+			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
 		}
 	}
 
