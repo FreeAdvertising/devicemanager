@@ -8,7 +8,7 @@
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
-					<tr data-location="<?php echo $records[$i]->location; ?>" data-status="<?php echo $records[$i]->status; ?>">
+					<tr data-location="<?php echo $records[$i]->current_owner; ?>" data-status="<?php echo $records[$i]->status; ?>">
 						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), sprintf("%s (%s)", $records[$i]->name, $records[$i]->uuid)); ?></td>
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
 						<td><?php echo $this->product->get_os($records[$i]->os); ?></td>

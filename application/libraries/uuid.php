@@ -3,7 +3,7 @@
 	defined("BASEPATH") or die;
 
 	class UUID {
-		protected $value = "INVALIDID";
+		protected static $value = "INVALIDID";
 
 		public function __construct($uuid = null){
 			$this->set($uuid);
@@ -32,14 +32,14 @@
 		 * @param  [type] $uuid
 		 * @return [type]
 		 */
-		public function convert(){
+		public static function convert($toConvert){
 			try {
-				if(false === $this->isInstance($this->value)){
+				if(false === self::isInstance(self::$value)){
 					$ci = get_instance();
-					$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($this->value));
-
-					if(sizeof($query->result_object()) > 0){
-						return $this;
+					$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ? LIMIT 1", array($toConvert));
+					
+					if($query->num_rows() > 0){
+						return new UUID($toConvert);
 					}
 				}else {
 					throw new Exception("Invalid UUID");

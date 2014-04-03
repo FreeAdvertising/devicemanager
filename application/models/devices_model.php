@@ -25,6 +25,7 @@
 		}
 
 		public function getRecords(){
+			$return = array();
 			$query = $this->db->query("SELECT 
 				d.device_id, 
 				d.uuid, 
@@ -42,12 +43,27 @@
 				GROUP BY d.uuid
 				ORDER BY d.device_id
 				");
-			
-			if($query->num_rows() > 0){
-				return $query->result_object();
+
+			if($results = $query->result_object()){
+				for($i = 0; $i < sizeof($results); $i++){
+					//add/override view-specific properties
+					$results[$i]->current_owner = $this->_getUser(UUID::convert($results[$i]->uuid), "userid");
+				}
 			}
 
-			return array();
+			return $results;
+		}
+
+		private function _getUser(UUID $uuid, $column = "username"){
+			$user = null;
+			$id = $this->product->getDeviceID($uuid);
+			$query = $this->db->query(sprintf("SELECT u.%s as output FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE checked_in = 0 AND device_id = ? LIMIT 1", $column), array($id));
+
+			if($query->num_rows() === 1){
+				return $query->row()->output;
+			}
+
+			return $user;
 		}
 	}
 
