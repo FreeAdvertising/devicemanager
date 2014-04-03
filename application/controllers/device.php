@@ -25,6 +25,7 @@
 			//set specific page data
 			$data->set("device_info", $this->device_model->getDevice($uuid, Product::DEVICE_MAX_TRACKED_APPS));
 			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
+			$data->set("recent_owners", $this->device_model->getPastOwners($uuid, Product::DEVICE_MAX_TRACKED_APPS));
 
 			//load the relevant views
 			$this->load->view('header', $data);

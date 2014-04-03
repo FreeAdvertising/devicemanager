@@ -147,10 +147,13 @@
 					<li class="list-group-item"><?php echo $device_info->current_owner; ?></li>
 				<?php endif; ?>
 
-				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history#recent_owners", $device_info->uuid), "Recent Owners"); ?></h3>
-				<li class="list-group-item">old owner</li>
-				<li class="list-group-item">old owner</li>
-				<li class="list-group-item">old owner</li>
+				<?php if(sizeof($recent_owners) > 0): ?>
+					<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history#recent_owners", $device_info->uuid), "Recent Owners"); ?></h3>
+					
+					<?php for($i = 0; $i < sizeof($recent_owners); $i++): ?>
+						<li class="list-group-item"><?php echo $recent_owners[$i]->username; ?></li>
+					<?php endfor; ?>
+				<?php endif; ?>
 			</ul>
 		</aside>
 

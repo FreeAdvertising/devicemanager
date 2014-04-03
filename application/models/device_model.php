@@ -38,12 +38,10 @@
 
 		private function _getUser($location, $lastcheckout){
 			$user = null;
+			$query = $this->db->query("SELECT u.username as output FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE checked_in = 0 LIMIT 1");
 
-			if($lastcheckout > 0 && $location > 0){
-				//someone is using this device
-				$query = $this->db->query("SELECT username FROM users WHERE userid = ? LIMIT 1", (int) $lastcheckout)->row();
-
-				$user = $query->username;
+			if($query->num_rows() === 1){
+				return $query->row()->output;
 			}
 
 			return $user;
@@ -60,6 +58,31 @@
 			}
 
 			return $query->result_object();
+		}
+
+		public function getPastOwners(UUID $uuid, $limit = 5){
+			$return = array();
+
+			if($uuid){
+				$id = $this->product->getDeviceID($uuid);
+
+				$query = $this->db->query("SELECT
+						u.username
+						FROM device_manager_assignments_rel ar
+						LEFT JOIN users u ON ar.userid = u.userid
+						WHERE ar.device_id = ?
+						GROUP BY u.username
+						LIMIT ?
+					",
+					array(
+						$id,
+						$limit	
+					));
+
+				$return = $query->result_object();
+			}
+
+			return $return;
 		}
 
 		public function check_in(UUID $uuid){
