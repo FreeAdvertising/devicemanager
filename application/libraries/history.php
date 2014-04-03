@@ -77,78 +77,6 @@
 		 * @param  mixed   $uuid
 		 * @return array
 		 */
-		public static function get_old($uuid){
-			try {
-				$ci = get_instance();
-				$id = $ci->product->getDeviceID($uuid);
-				$return = array();
-
-				$query = $ci->db->query("SELECT type, rel_id FROM device_manager_history ORDER BY hist_id");
-
-				//TODO: refactor to use an SQL join instead of all this crap?
-				if($results = $query->result_object()){
-					for($i = 0; $i < sizeof($results); $i++){
-						$result = $results[$i]; //shortcut
-
-						switch($result->type){
-							case "cancel_reservation":
-								$_data = array("device_manager_reservations_rel", "res_id");
-								break;
-
-							case "reserve":
-								$_data = array("device_manager_reservations_rel", "res_id");
-								break;
-
-							case "add_application":
-								$_data = array("device_manager_tracked_applications_rel", "app_id");
-								break;
-
-							case "check_in":
-								$_data = array("device_manager_assignments_rel", "ass_id");
-								break;
-
-							case "check_out":
-								$_data = array("device_manager_assignments_rel", "ass_id");
-								break;
-						}
-
-						if(false === is_null($uuid)){
-							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ? ORDER BY `date`",
-								$_data[0]
-							), array(
-								$id,
-							));
-						}else {
-							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE checked_in = 0 ORDER BY `date`",
-								$_data[0]
-							));
-						}
-
-						$records = $output->result_object();
-
-						if(sizeof($records) > 0){
-							foreach($records as $key => $record){
-								$properties = new Generic();
-								$properties->set("record", $record);
-								$properties->set("action", $result->type);
-
-								if(isset($properties->record->userid)){
-									$properties->set("user", $ci->product->getUser($properties->record->userid));
-								}
-
-								$return[] = $properties;
-							}
-						}
-
-					} //endfor
-
-					return $return;
-				} //end num_rows
-			}catch(Exception $e){
-				die($e->getMessage());
-			}
-		}
-
 		public static function get($uuid){
 			$ci = get_instance();
 			$id = $ci->product->getDeviceID($uuid);
@@ -164,7 +92,7 @@
 				        LEFT JOIN
 				    users AS u ON IF(ar.userid, ar.userid, rr.userid) = u.userid
 				WHERE IF(ar.ass_id, ar.date, rr.date) BETWEEN CURDATE() - INTERVAL 6 MONTH AND CURDATE()
-				ORDER BY hist_id
+				ORDER BY hist_id DESC
 				");
 
 			return $query->result_object();
