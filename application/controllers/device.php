@@ -19,7 +19,7 @@
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
 			$data->set("page", $this->uri->segment(1));
-			$data->set("subpage", $this->uri->segment(2));
+			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
@@ -49,7 +49,7 @@
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
 			$data->set("page", $this->uri->segment(1));
-			$data->set("subpage", $this->uri->segment(2));
+			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
@@ -79,13 +79,15 @@
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
 			$data->set("page", $this->uri->segment(1));
-			$data->set("subpage", $this->uri->segment(2));
+			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
 			$data->set("device_info", $this->device_model->getDevice($uuid));
 			$data->set("pagination", $this->product->getPagination());
-			$data->set("history", History::get($uuid));
+
+			$history = array("overview" => History::get($uuid), "recent_owners" => array(), "maintenance" => array());
+			$data->set("history", $history);
 
 			//load the relevant views
 			$this->load->view('header', $data);
@@ -110,7 +112,7 @@
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
 			$data->set("page", $this->uri->segment(1));
-			$data->set("subpage", $this->uri->segment(2));
+			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data

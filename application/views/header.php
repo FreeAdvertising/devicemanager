@@ -98,6 +98,18 @@
 								<p class="small overview">Is someone else using a device you need?  Reserve it so they know who to pass it on to.</p>
 							</div>
 						<?php break; ?>
+
+						<?php case "device": ?>
+							<?php if($subpage == "history"): ?>
+								<div class="panel-heading">
+									<ul class="nav nav-pills faux-tabs">
+										<li class="active"><a href="#" id="overview">Overview</a></li>
+										<li><a href="#" id="recent_owners">Recent Owners</a></li>
+										<li><a href="#" id="maintenance">Maintenance</a></li>
+									</ul>
+								</div>
+							<?php endif; ?>
+						<?php break; ?>
 					<?php } ?>
 				<?php endif; ?>
 				<div class="panel-body">

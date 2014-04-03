@@ -209,6 +209,19 @@
 
 			return false;
 		}
+
+		public function getUser($id = 0){
+			if($id > 0){
+				$ci = get_instance();
+				$query = $ci->db->query("SELECT username as `name`, group_id as `group` FROM users WHERE userid = ? LIMIT 1", array($id));
+
+				if($query->num_rows()){
+					return $query->row();
+				}
+
+				return false;
+			}
+		}
 	}
 
 ?>

@@ -119,7 +119,22 @@
 							$id,
 						));
 
-						return $output->result_object();
+						$records = $output->result_object();
+						$return = array();
+
+						for($i = 0; $i < sizeof($records); $i++){
+							$properties = new Generic();
+							$properties->setProperties($records[$i]);
+							$properties->set("action", $result->type);
+
+							if(isset($properties->userid)){
+								$properties->set("user", $ci->product->getUser($properties->userid));
+							}
+
+							$return[] = $properties;
+						}
+
+						return $return;
 					}
 				}
 			}catch(Exception $e){

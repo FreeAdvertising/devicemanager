@@ -64,6 +64,7 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		this.classList.add("active");
 	});
 
+	//filtering
 	jQuery(".type-list a.list-group-item").click(function(){
 		var _others = document.querySelectorAll(".type-list a.list-group-item"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");
@@ -85,6 +86,19 @@ window.addEventListener("DOMContentLoaded", function(evt){
 			jQuery(".type-filter-header .reset-filters").removeClass("hidden");
 		
 		this.classList.add("active");
+	});
+
+	//history page tab functionality
+	jQuery(".faux-tabs li a").click(function(evt){
+		evt.preventDefault();
+
+		//activate new tab, deactivate old one
+		jQuery(".faux-tabs li").removeClass("active");
+		this.parentElement.classList.add("active");
+
+		//hide old content, show new stuff
+		jQuery(".tab_content").hide();
+		jQuery(".tab_"+ this.id).show();
 	});
 });
 

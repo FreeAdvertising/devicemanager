@@ -170,3 +170,7 @@ span.status-circle {
 	background-color: #c12e2a !important;
 	color: white;
 }
+
+.tab_recent_owners, .tab_maintenance {
+	display: none;
+}
