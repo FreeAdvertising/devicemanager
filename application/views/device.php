@@ -96,7 +96,7 @@
 				</div> <!-- end installed apps table -->
 
 				<div class="module col-md-12">
-					<h3><?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "Maintenance Tickets"); ?></h3>
+					<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tickets"); ?></h3>
 					<table class="table table-striped">
 						<thead>
 							<th>Ticket ID</th>
@@ -120,10 +120,11 @@
 				<h3 class="list-group-item">Actions</h3>
 				<?php if($this->hydra->isAdmin()): ?>
 					<?php echo anchor(sprintf("/device/%s/edit", $device_info->uuid), "Edit", array("class" => "list-group-item")); ?>
-					<?php echo anchor(sprintf("/device/%s/add_application", $device_info->uuid), "Add Application", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/device/%s/add_application", $device_info->uuid), "Add Application", array("class" => "list-group-item")); ?>
 				<?php endif; ?>
 
-				<?php echo anchor(sprintf("/device/%s/create_ticket", $device_info->uuid), "Create Maintenance Ticket", array("class" => "list-group-item"), array("class" => "list-group-item")); ?>
+				<?php echo anchor(sprintf("/device/%s/create_ticket", $device_info->uuid), "Create Maintenance Ticket", array("class" => "list-group-item")); ?>
+				<?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "History", array("class" => "list-group-item")); ?>
 
 				<?php if($this->product->isCheckedOutByUser($device_info->uuid)): ?>
 					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
@@ -146,7 +147,7 @@
 					<li class="list-group-item"><?php echo $device_info->current_owner; ?></li>
 				<?php endif; ?>
 
-				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "Recent Owners"); ?></h3>
+				<h3 class="list-group-item"><?php echo anchor(sprintf("/device/%s/history#recent_owners", $device_info->uuid), "Recent Owners"); ?></h3>
 				<li class="list-group-item">old owner</li>
 				<li class="list-group-item">old owner</li>
 				<li class="list-group-item">old owner</li>

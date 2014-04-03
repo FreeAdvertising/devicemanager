@@ -100,6 +100,14 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		jQuery(".tab_content").hide();
 		jQuery(".tab_"+ this.id).show();
 	});
+
+	if(hash = window.location.hash){
+		jQuery(".faux-tabs li").removeClass("active");
+		jQuery(hash).parent().addClass("active");
+
+		jQuery(".tab_content").hide();
+		jQuery(hash.replace("#", ".tab_")).show();
+	}
 });
 
 //functions
