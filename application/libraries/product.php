@@ -202,8 +202,8 @@
 			$id = $this->getDeviceID($uuid);
 
 			$query = $ci->db->query("SELECT ass_id FROM device_manager_assignments_rel WHERE device_id = ? AND checked_in = 0", array($id));
-
-			if(sizeof($query->result_object()) > 0){
+			
+			if($query->num_rows() > 0){
 				return true;
 			}
 
