@@ -222,6 +222,23 @@
 				return false;
 			}
 		}
+
+		public function getCheckoutDate(UUID $uuid){
+			if($uuid){
+				$ci = get_instance();
+				$id = $this->getDeviceID($uuid);
+
+				$query = $ci->db->query("SELECT `date` FROM device_manager_assignments_rel WHERE device_id = ? AND checked_in = 0 ORDER BY `date` DESC", array($id));
+
+				if($query->num_rows() > 0){
+					$results = $query->result_object();
+
+					return $results[0]->date;
+				}
+			}
+
+			return false;
+		}
 	}
 
 ?>

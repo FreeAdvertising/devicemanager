@@ -44,10 +44,10 @@
 							<th></th>
 						</thead>
 						<tbody>
-							<?php if($device_info->date_checkout != "0000-00-00"): //no checkout date set ?>
+							<?php if($checkout_date = $this->product->getCheckoutDate($device_info->uuid)): ?>
 								<tr>
 									<td>Checked Out</td>
-									<td><?php echo $device_info->date_checkout; ?></td>
+									<td><?php echo $checkout_date; ?></td>
 								</tr>
 							<?php endif; ?>
 
