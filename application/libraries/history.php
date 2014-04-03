@@ -21,23 +21,23 @@
 				//build the data query
 				switch($method){
 					case "cancel_reservation":
-						$_data = ["device_manager_reservations_rel", "res_id"];
+						$_data = array("device_manager_reservations_rel", "res_id");
 						break;
 
 					case "reserve":
-						$_data = ["device_manager_reservations_rel", "res_id"];
+						$_data = array("device_manager_reservations_rel", "res_id");
 						break;
 
 					case "add_application":
-						$_data = ["device_manager_tracked_applications_rel", "app_id"];
+						$_data = array("device_manager_tracked_applications_rel", "app_id");
 						break;
 
 					case "check_in":
-						$_data = ["device_manager_assignments_rel", "ass_id"];
+						$_data = array("device_manager_assignments_rel", "ass_id");
 						break;
 
 					case "check_out":
-						$_data = ["device_manager_assignments_rel", "ass_id"];
+						$_data = array("device_manager_assignments_rel", "ass_id");
 						break;
 
 					default:
@@ -92,23 +92,23 @@
 
 						switch($result->type){
 							case "cancel_reservation":
-								$_data = ["device_manager_reservations_rel", "res_id"];
+								$_data = array("device_manager_reservations_rel", "res_id");
 								break;
 
 							case "reserve":
-								$_data = ["device_manager_reservations_rel", "res_id"];
+								$_data = array("device_manager_reservations_rel", "res_id");
 								break;
 
 							case "add_application":
-								$_data = ["device_manager_tracked_applications_rel", "app_id"];
+								$_data = array("device_manager_tracked_applications_rel", "app_id");
 								break;
 
 							case "check_in":
-								$_data = ["device_manager_assignments_rel", "ass_id"];
+								$_data = array("device_manager_assignments_rel", "ass_id");
 								break;
 
 							case "check_out":
-								$_data = ["device_manager_assignments_rel", "ass_id"];
+								$_data = array("device_manager_assignments_rel", "ass_id");
 								break;
 						}
 
