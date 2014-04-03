@@ -65,7 +65,10 @@
 
 							<tr>
 								<td>Location</td>
-								<td><?php echo $this->product->get_location($device_info->location); ?></td>
+								<td><?php echo ($device_info->current_owner ? 
+										$device_info->current_owner : 
+										$this->product->get_location($device_info->location)
+										); ?></td>
 							</tr>
 						</tbody>
 					</table>
@@ -140,7 +143,8 @@
 			</div>
 		</aside>
 
-		<aside class="module">
+		<!-- hidden for now until a decision is made for this section -->
+		<aside class="module hidden">
 			<ul class="list-group">
 				<?php if(false === is_null($device_info->current_owner)): ?>
 					<h3 class="list-group-item">Current Owner</h3>

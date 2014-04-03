@@ -97,7 +97,7 @@
 								<?php endif; ?>
 
 								<?php if($subpage == "history"): ?>
-									<ul class="nav nav-pills faux-tabs">
+									<ul class="nav nav-pills faux-tabs floatleft">
 										<li class="active"><a href="#" id="overview">Overview</a></li>
 										<li><a href="#" id="recent_owners">Recent Owners</a></li>
 										<li><a href="#" id="maintenance">Maintenance</a></li>

@@ -28,7 +28,7 @@
 			$query = $this->db->query("SELECT IF(d.name IS NULL, d.uuid, d.name) as name, d.uuid, r.date FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
-				WHERE u.userid = ? 
+				WHERE u.userid = ? AND r.checked_in = 0
 				ORDER BY r.date
 				", $id);
 
