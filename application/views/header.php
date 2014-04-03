@@ -67,11 +67,12 @@
 				 <h1>Free</h1>
 			</div>
 
-			<?php if(isset($pagination)): ?>
+			<?php if(isset($show_pagination) && $show_pagination): ?>
 				<ul class="pagination">
-					<?php for($i = 0; $i < sizeof($pagination); $i++): ?>
+					<?php /*for($i = 0; $i < sizeof($pagination); $i++): ?>
 						<li><a href="<?php echo $pagination[$i]->href; ?>"><?php echo $pagination[$i]->text; ?></a></li>
-					<?php endfor; ?>
+					<?php endfor;*/ ?>
+					<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
 				</ul>
 			<?php endif; ?>
 

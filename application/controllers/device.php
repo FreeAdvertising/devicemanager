@@ -54,7 +54,7 @@
 
 			//set specific page data
 			$data->set("apps", $this->device_model->getApps($this->product->getDeviceID($uuid)));
-			$data->set("pagination", $this->product->getPagination());
+			$data->set("show_pagination", true);
 
 			//load the relevant views
 			$this->load->view('header', $data);
@@ -84,7 +84,7 @@
 
 			//set specific page data
 			$data->set("device_info", $this->device_model->getDevice($uuid));
-			$data->set("pagination", $this->product->getPagination());
+			$data->set("show_pagination", true);
 
 			$history = array("overview" => History::get($uuid), "recent_owners" => array(), "maintenance" => array());
 			$data->set("history", $history);
@@ -118,7 +118,7 @@
 			//set specific page data
 			$data->set("device_uuid", $uuid);
 			$data->set("apps", $this->device_model->getApps());
-			$data->set("pagination", $this->product->getPagination());
+			$data->set("show_pagination", true);
 
 			//load the relevant views
 			$this->load->view('header', $data);
