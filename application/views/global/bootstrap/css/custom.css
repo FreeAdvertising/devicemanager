@@ -171,6 +171,11 @@ span.status-circle {
 	color: white;
 }
 
+.list-group-item.checkin {
+	background-color: #419641 !important;
+	color: white;
+}
+
 .tab_recent_owners, .tab_maintenance {
 	display: none;
 }

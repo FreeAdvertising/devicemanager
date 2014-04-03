@@ -128,7 +128,7 @@
 				<?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "History", array("class" => "list-group-item")); ?>
 
 				<?php if($this->product->isCheckedOutByUser($device_info->uuid)): ?>
-					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/device/%s/check_in", $device_info->uuid), "Check In", array("class" => "list-group-item checkin btn-success")); ?>
 				<?php elseif($this->product->isCheckedOutByOther($device_info->uuid)): ?>
 					<?php if($device_info->reserved): ?>
 						<?php echo anchor(sprintf("/device/%s/cancel_reservation", $device_info->uuid), "Cancel Reservation", array("class" => "list-group-item reserved btn-danger")); ?>
