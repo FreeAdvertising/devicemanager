@@ -67,51 +67,59 @@
 				 <h1>Free</h1>
 			</div>
 
-			<?php if(isset($show_pagination) && $show_pagination): ?>
-				<ul class="pagination">
-					<?php /*for($i = 0; $i < sizeof($pagination); $i++): ?>
-						<li><a href="<?php echo $pagination[$i]->href; ?>"><?php echo $pagination[$i]->text; ?></a></li>
-					<?php endfor;*/ ?>
-					<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
-				</ul>
-			<?php endif; ?>
-
 			<div class="panel panel-default">
 				<?php if($this->hydra->isAuthenticated()): ?>
-					<?php switch($page){
-							case "": ?>
-							<div class="panel-heading">
+					<div class="panel-heading clearfix">
+						<?php switch($page){
+								case "": ?>
 								<h3 class="panel-title">Welcome back, <span class="user"><?php echo $this->hydra->get("name"); ?></span></h3>
 								<p class="small overview">There are currently <abbr title="(# active checkouts)"><?php echo $data[0]; ?></abbr> user(s) using <abbr title="(# checked out devices)"><?php echo $data[1]; ?></abbr> device(s) and <abbr title="(# people on reservation list)"><?php echo $data[2]; ?></abbr> waiting.</p>
-							</div>
-						<?php break; ?>
+								
+							<?php break; ?>
 
-						<?php case "devices": ?>
-							<div class="panel-heading">
+							<?php case "devices": ?>
 								<h3 class="panel-title">Check In or Out</h3>
 								<p class="small overview">Sign out a new device, return one you already have or create maintenance tickets to alert other users of any problems you encounter.</p>
-							</div>
-						<?php break; ?>
+							<?php break; ?>
 
-						<?php case "reservations": ?>
-							<div class="panel-heading">
+							<?php case "reservations": ?>
 								<h3 class="panel-title">Reserve a Device</h3>
 								<p class="small overview">Is someone else using a device you need?  Reserve it so they know who to pass it on to.</p>
-							</div>
-						<?php break; ?>
+							<?php break; ?>
 
-						<?php case "device": ?>
-							<?php if($subpage == "history"): ?>
-								<div class="panel-heading">
+							<?php case "add_device": ?>
+								<h4 class="floatleft">Add New Device</h4>
+							<?php break; ?>
+
+							<?php case "device": ?>
+								<?php if($subpage == ""): ?>
+									<h4 class="device-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>
+								<?php endif; ?>
+
+								<?php if($subpage == "history"): ?>
 									<ul class="nav nav-pills faux-tabs">
 										<li class="active"><a href="#" id="overview">Overview</a></li>
 										<li><a href="#" id="recent_owners">Recent Owners</a></li>
 										<li><a href="#" id="maintenance">Maintenance</a></li>
 									</ul>
-								</div>
-							<?php endif; ?>
-						<?php break; ?>
-					<?php } ?>
+								<?php endif; ?>
+
+								<?php if($subpage == "add_application"): ?>
+									<h4 class="floatleft">Add Tracked Application</h4>
+								<?php endif; ?>
+
+								<?php if($subpage == "edit"): ?>
+									<h4 class="floatleft">Edit Device UUID:<?php echo $device_info->uuid; ?></h4>
+								<?php endif;?>
+
+								<?php if(isset($show_pagination) && $show_pagination): ?>
+									<ul class="pagination nav nav-pills floatright">
+										<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
+									</ul>
+								<?php endif; ?>
+							<?php break; ?>
+						<?php } ?>
+					</div>
 				<?php endif; ?>
 				<div class="panel-body">
 					

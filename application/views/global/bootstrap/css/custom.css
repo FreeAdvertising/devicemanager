@@ -174,3 +174,7 @@ span.status-circle {
 .tab_recent_owners, .tab_maintenance {
 	display: none;
 }
+
+.device-title {
+	margin: 0px;
+}

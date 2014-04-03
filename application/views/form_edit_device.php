@@ -12,7 +12,6 @@
 		</div>
 	<?php endif; ?>
 
-	<h3>Edit Device UUID:<?php echo $device_info->uuid; ?></h3>
 	<div class="form-wrapper">
 		<div class="form-group">
 			<label for="uuid">Hardware UUID</label><input type="text" id="uuid" name="uuid" value="<?php echo $device_info->uuid; ?>" maxlength="8" class="form-control" placeholder="0F7H823D" />

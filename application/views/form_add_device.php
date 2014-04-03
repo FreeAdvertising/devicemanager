@@ -11,8 +11,7 @@
 			<?php echo $this->session->flashdata("model_save_fail"); ?>
 		</div>
 	<?php endif; ?>
-
-	<h3>Add New Device</h3>
+	
 	<div class="form-wrapper">
 		<div class="form-group">
 			<label for="uuid">Hardware UUID</label><input type="text" id="uuid" name="uuid" maxlength="8" class="form-control" placeholder="0F7H823D" />

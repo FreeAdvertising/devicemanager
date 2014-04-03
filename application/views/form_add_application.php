@@ -16,7 +16,6 @@
 		</div>
 	<?php endif; ?>
 
-	<h3>Add Tracked Application</h3>
 	<div class="form-wrapper">		
 		<?php if(isset($device_uuid)): ?>
 			<div class="form-group">

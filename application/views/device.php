@@ -4,8 +4,6 @@
 	<section class="col-md-9">
 		<div class="row">
 			<div class="col-md-12">
-				<h3 class="dotted"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h3>
-
 				<div class="module col-md-4">
 					<table class="table table-striped">
 						<thead>
@@ -51,17 +49,17 @@
 								</tr>
 							<?php endif; ?>
 
-							<?php if($device_info->date_checkin != "0000-00-00"): //no checkin date set ?>
+							<?php if($checkin_date = $this->product->getCheckinDate($device_info->uuid)): ?>
 								<tr>
 									<td>Last Checked In</td>
-									<td><?php echo $device_info->date_checkin; ?></td>
+									<td><?php echo $checkin_date; ?></td>
 								</tr>
 							<?php endif; ?>
 
-							<?php if($device_info->last_checkedout_by > 0): ?>
+							<?php if(sizeof($recent_owners) > 0): ?>
 								<tr>
-									<td>Last Checked Out By</td>
-									<td><?php echo $device_info->last_checkedout_by; ?></td>
+									<td>Last Owner</td>
+									<td><?php echo ($device_info->current_owner ? $device_info->current_owner : $recent_owners[0]->username ); ?></td>
 								</tr>
 							<?php endif; ?>
 
