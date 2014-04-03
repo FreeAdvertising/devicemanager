@@ -11,8 +11,8 @@
 			<?php for($i = 0; $i < sizeof($history["overview"]); $i++): ?>
 				<tr>
 					<td><?php echo $history["overview"][$i]->action; ?></td>
-					<td><?php echo $history["overview"][$i]->user->name; ?></td>
-					<td><?php echo $history["overview"][$i]->record->date; ?></td>
+					<td><?php echo $history["overview"][$i]->username; ?></td>
+					<td><?php echo $history["overview"][$i]->date; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>

@@ -13,8 +13,8 @@
 				d.name,
 				#d.status, 
 				d.os, 
-				IF(ar.ass_id AND ar.checked_in = 1, 2, 1) as checkout_status, 
-				IF(rr.res_id AND rr.checked_in = 1, 4, 0) as reserved_status 
+				IF(ar.ass_id AND ar.checked_in = 0, 2, 1) as checkout_status, 
+				IF(rr.res_id AND rr.checked_in = 0, 4, 0) as reserved_status 
 				#IF(mr.maint_id, 3, 1) as maintenance_status, 
 				FROM device_manager_devices d 
 				LEFT JOIN device_manager_assignments_rel ar ON ar.device_id = d.device_id 

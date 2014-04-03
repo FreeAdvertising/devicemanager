@@ -11,7 +11,7 @@
 
 			if($query->num_rows() > 0){
 				$return = $query->row();
-				$return->current_owner = $this->_getUser($query->row()->location, $query->row()->last_checkedout_by);
+				$return->current_owner = $this->_getUser($uuid);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
 				$return->uuid = $uuid; //$uuid is already an instance of \UUID
 				$return->reserved = $this->_isReserved($query->row()->device_id);
@@ -21,10 +21,10 @@
 		}
 
 		public function getReservationList(UUID $uuid){
-			$query = $this->db->query("SELECT u.username, r.date FROM device_manager_reservations_rel r 
+			$query = $this->db->query("SELECT u.username, r.date, u.userid FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
-				WHERE d.uuid = ? 
+				WHERE d.uuid = ? AND r.checked_in = 1
 				ORDER BY r.date", $uuid->get());
 
 			return $query->result_object();
@@ -36,9 +36,10 @@
 			return (sizeof($query->result_object()) > 0);
 		}
 
-		private function _getUser($location, $lastcheckout){
+		private function _getUser($uuid){
 			$user = null;
-			$query = $this->db->query("SELECT u.username as output FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE checked_in = 0 LIMIT 1");
+			$id = $this->product->getDeviceID($uuid);
+			$query = $this->db->query("SELECT u.username as output FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE checked_in = 0 AND device_id = ? LIMIT 1", array($id));
 
 			if($query->num_rows() === 1){
 				return $query->row()->output;
@@ -71,8 +72,9 @@
 						ar.date
 						FROM device_manager_assignments_rel ar
 						LEFT JOIN users u ON u.userid = ar.userid
-						WHERE ar.device_id = ? 
+						WHERE ar.device_id = ? AND ar.checked_in = 0
 						GROUP BY u.username
+						ORDER BY ar.ass_id DESC
 						LIMIT ?
 					",
 					array(
@@ -111,7 +113,7 @@
 				if($test->num_rows() === 0){
 					$query = $this->db->query("INSERT INTO device_manager_assignments_rel(`userid`, `device_id`, `date`) VALUES(?, ?, NOW())", array($user, $id));
 				}else {
-					$query = $this->db->query("UPDATE device_manager_assignments_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+					$query = $this->db->query("UPDATE device_manager_assignments_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 				}
 
 				//boolean query result, no need for type checking
@@ -154,7 +156,7 @@
 
 				if(sizeof($query->row()) > 0){
 					//$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
-					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 
 				}
 

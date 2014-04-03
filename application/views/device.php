@@ -135,7 +135,9 @@
 						<?php echo anchor(sprintf("/device/%s/reserve", $device_info->uuid), "Reserve", array("class" => "list-group-item")); ?>
 					<?php endif; ?>
 				<?php else : ?>
-					<?php echo anchor(sprintf("/device/%s/check_out", $device_info->uuid), "Check Out", array("class" => "list-group-item")); ?>
+					<?php if(isset($reservation_list[0]) && $this->hydra->get("id") == $reservation_list[0]->userid || sizeof($reservation_list) === 0): //unable to checkout unless you are next on reservation list ?>
+						<?php echo anchor(sprintf("/device/%s/check_out", $device_info->uuid), "Check Out", array("class" => "list-group-item")); ?>
+					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 		</aside>

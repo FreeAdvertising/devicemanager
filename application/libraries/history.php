@@ -77,7 +77,7 @@
 		 * @param  mixed   $uuid
 		 * @return array
 		 */
-		public static function get($uuid){
+		public static function get_old($uuid){
 			try {
 				$ci = get_instance();
 				$id = $ci->product->getDeviceID($uuid);
@@ -113,20 +113,20 @@
 						}
 
 						if(false === is_null($uuid)){
-							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ? GROUP BY device_id ORDER BY `date`",
+							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE device_id = ? ORDER BY `date`",
 								$_data[0]
 							), array(
 								$id,
 							));
 						}else {
-							$output = $ci->db->query(sprintf("SELECT * FROM %s GROUP BY device_id ORDER BY `date`",
+							$output = $ci->db->query(sprintf("SELECT * FROM %s WHERE checked_in = 0 ORDER BY `date`",
 								$_data[0]
 							));
 						}
 
 						$records = $output->result_object();
 
-						if(($size = sizeof($records)) > 0){
+						if(sizeof($records) > 0){
 							foreach($records as $key => $record){
 								$properties = new Generic();
 								$properties->set("record", $record);
@@ -147,6 +147,26 @@
 			}catch(Exception $e){
 				die($e->getMessage());
 			}
+		}
+
+		public static function get($uuid){
+			$ci = get_instance();
+			$id = $ci->product->getDeviceID($uuid);
+			$return = array();
+
+			$query = $ci->db->query("SELECT h.type as action, IF(ar.ass_id, ar.date, rr.date) as `date`, u.username
+				FROM
+				    device_manager_history h
+				        LEFT JOIN
+				    device_manager_assignments_rel AS ar ON ar.ass_id = h.rel_id
+				        LEFT JOIN
+				    device_manager_reservations_rel AS rr ON rr.res_id = h.rel_id
+				        LEFT JOIN
+				    users AS u ON IF(ar.userid, ar.userid, rr.userid) = u.userid
+				ORDER BY hist_id
+				");
+
+			return $query->result_object();
 		}
 	}
 
