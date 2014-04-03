@@ -42,7 +42,9 @@ window.addEventListener("DOMContentLoaded", function(evt){
 
 	//keep username highlighted when they clicked in some lists
 	//also registration list filtering
-	jQuery(".user-list a.list-group-item").click(function(){
+	jQuery(".user-list a.list-group-item").click(function(evt){
+		evt.preventDefault();
+
 		var _others = document.querySelectorAll(".user-list a.list-group-item"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");
 
@@ -65,7 +67,9 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	});
 
 	//filtering
-	jQuery(".type-list a.list-group-item").click(function(){
+	jQuery(".type-list a.list-group-item").click(function(evt){
+		evt.preventDefault();
+
 		var _others = document.querySelectorAll(".type-list a.list-group-item"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");
 

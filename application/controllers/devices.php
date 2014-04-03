@@ -17,6 +17,7 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
+			$data->set("users", $this->devices_model->getUsers());
 			$data->set("records", $this->devices_model->getRecords());
 
 			//load the relevant views

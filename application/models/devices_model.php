@@ -6,12 +6,31 @@
 			return parent::__construct();
 		}
 
+		public function getUsers(){
+			$query = $this->db->query("SELECT 
+					    u.username,
+					    u.userid,
+					    (SELECT 
+				            COUNT(ar.device_id)
+				        FROM
+				            device_manager_assignments_rel ar
+				        WHERE
+				            ar.userid = u.userid AND ar.checked_in = 0) as count
+					FROM
+					    users u
+					ORDER BY count DESC , u.userid
+					");
+
+			return $query->result_object();
+		}
+
 		public function getRecords(){
 			$query = $this->db->query("SELECT 
 				d.device_id, 
 				d.uuid, 
 				d.name,
-				#d.status, 
+				d.status,
+				d.location, 
 				d.os, 
 				IF(ar.ass_id AND ar.checked_in = 0, 2, 1) as checkout_status, 
 				IF(rr.res_id AND rr.checked_in = 0, 4, 0) as reserved_status 

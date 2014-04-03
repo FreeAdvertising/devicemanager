@@ -34,7 +34,7 @@
 						<ul class="nav navbar-nav">
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
 							<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "Check In/Out"); ?></li>
-							<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>
+							<!--<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>-->
 
 							<?php if($this->hydra->isAdmin()): ?>
 								<li class="dropdown">
