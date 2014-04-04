@@ -174,9 +174,6 @@
 					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 				}
 
-				//remove user from the reservation list, if they are on it (flip the checked_in flag)
-				$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
-
 				//boolean query result, no need for type checking
 				return $query;
 			}
