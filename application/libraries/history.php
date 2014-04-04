@@ -93,6 +93,7 @@
 				    users AS u ON IF(ar.userid, ar.userid, rr.userid) = u.userid
 				WHERE IF(ar.ass_id, ar.date, rr.date) BETWEEN CURDATE() - INTERVAL 6 MONTH AND CURDATE()
 				ORDER BY hist_id DESC
+				LIMIT 100
 				");
 
 			return $query->result_object();

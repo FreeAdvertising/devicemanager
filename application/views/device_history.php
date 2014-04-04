@@ -1,5 +1,6 @@
 <div class="tab_content tab_overview">
 	<h3>Device History - Overview</h3>
+	<p class="alert alert-info">Information in this table is sorted by date descending so the latest updates are always at the top.  It is limited to 100 results by default.</p>
 
 	<table class="table table-striped table-hover">
 		<thead>

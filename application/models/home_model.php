@@ -31,6 +31,7 @@
 				WHERE u.userid = ? AND r.checked_in = 0
 				ORDER BY r.date
 				", $id);
+			echo $this->db->last_query();
 
 			return $query->result_object();
 		}
