@@ -96,6 +96,11 @@
 								<p class="small overview">Add to the list of tracked applications users can choose from when associating applications to devices.</p>
 							<?php break; ?>
 
+							<?php case "manage_devices": ?>
+								<h4 class="panel-title">Manage Devices</h4>
+								<p class="small overview">View and modify information about all devices and applications tracked by the system.</p>
+							<?php break; ?>
+
 							<?php case "device": ?>
 								<?php if($subpage == ""): ?>
 									<h4 class="device-title panel-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>

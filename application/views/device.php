@@ -3,115 +3,113 @@
 <div class="row">
 	<section class="col-md-9">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="module col-md-4">
-					<table class="table table-striped">
-						<thead>
-							<th width="50%">Hardware</th>
-							<th></th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>RAM</td>
-								<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
-							</tr>
-							<tr>
-								<td>HDD</td>
-								<td><?php echo $this->product->get_hdd($device_info->meta_hdd); ?>GB</td>
-							</tr>
-							<tr>
-								<td>TYPE</td>
-								<td><?php echo $this->product->get_type($device_info->meta_type); ?></td>
-							</tr>
-							<tr>
-								<td>OS</td>
-								<td><?php echo $this->product->get_os($device_info->os); ?></td>
-							</tr>
-							<tr>
-								<td>UUID</td>
-								<td><?php echo $device_info->uuid; ?></td>
-							</tr>
-						</tbody>
-					</table>
-				</div> <!-- end hardware table -->
+			<div class="module col-md-4">
+				<table class="table table-striped">
+					<thead>
+						<th width="50%">Hardware</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>RAM</td>
+							<td><?php echo $this->product->get_ram($device_info->meta_ram); ?>GB</td>
+						</tr>
+						<tr>
+							<td>HDD</td>
+							<td><?php echo $this->product->get_hdd($device_info->meta_hdd); ?>GB</td>
+						</tr>
+						<tr>
+							<td>TYPE</td>
+							<td><?php echo $this->product->get_type($device_info->meta_type); ?></td>
+						</tr>
+						<tr>
+							<td>OS</td>
+							<td><?php echo $this->product->get_os($device_info->os); ?></td>
+						</tr>
+						<tr>
+							<td>UUID</td>
+							<td><?php echo $device_info->uuid; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div> <!-- end hardware table -->
 
-				<div class="module col-md-4">
-					<table class="table table-striped">
-						<thead>
-							<th width="50%">Meta</th>
-							<th></th>
-						</thead>
-						<tbody>
-							<?php if($checkout_date = $this->product->getCheckoutDate($device_info->uuid)): ?>
+			<div class="module col-md-4">
+				<table class="table table-striped">
+					<thead>
+						<th width="50%">Meta</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<?php if($checkout_date = $this->product->getCheckoutDate($device_info->uuid)): ?>
+							<tr>
+								<td>Checked Out</td>
+								<td><?php echo $checkout_date; ?></td>
+							</tr>
+						<?php endif; ?>
+
+						<?php if($checkin_date = $this->product->getCheckinDate($device_info->uuid)): ?>
+							<tr>
+								<td>Last Checked In</td>
+								<td><?php echo $checkin_date; ?></td>
+							</tr>
+						<?php endif; ?>
+
+						<?php if(sizeof($recent_owners) > 0): ?>
+							<tr>
+								<td>Last Owner</td>
+								<td><?php echo ($device_info->current_owner ? $device_info->current_owner : $recent_owners[0]->username ); ?></td>
+							</tr>
+						<?php endif; ?>
+
+						<tr>
+							<td>Location</td>
+							<td><?php echo ($device_info->current_owner ? 
+									$device_info->current_owner : 
+									$this->product->get_location($device_info->location)
+									); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div> <!-- end meta table -->
+
+			<div class="module col-md-4">
+				<table class="table table-striped">
+					<thead>
+						<th><?php echo anchor(sprintf("/device/%s/apps", $device_info->uuid), "Installed Applications"); ?></th>
+					</thead>
+					<tbody>
+						<?php if(sizeof($device_info->apps) > 0): ?>
+							<?php for($i = 0; $i < sizeof($device_info->apps); $i++): ?>
 								<tr>
-									<td>Checked Out</td>
-									<td><?php echo $checkout_date; ?></td>
+									<td><?php echo $device_info->apps[$i]->name; ?> 
+										<?php echo $device_info->apps[$i]->version; ?></td>
 								</tr>
-							<?php endif; ?>
-
-							<?php if($checkin_date = $this->product->getCheckinDate($device_info->uuid)): ?>
-								<tr>
-									<td>Last Checked In</td>
-									<td><?php echo $checkin_date; ?></td>
-								</tr>
-							<?php endif; ?>
-
-							<?php if(sizeof($recent_owners) > 0): ?>
-								<tr>
-									<td>Last Owner</td>
-									<td><?php echo ($device_info->current_owner ? $device_info->current_owner : $recent_owners[0]->username ); ?></td>
-								</tr>
-							<?php endif; ?>
-
+							<?php endfor; ?>
+						<?php else : ?>
 							<tr>
-								<td>Location</td>
-								<td><?php echo ($device_info->current_owner ? 
-										$device_info->current_owner : 
-										$this->product->get_location($device_info->location)
-										); ?></td>
+								<td>Nothing yet.</td>
 							</tr>
-						</tbody>
-					</table>
-				</div> <!-- end meta table -->
+						<?php endif; ?>
+					</tbody>
+				</table>
+			</div> <!-- end installed apps table -->
 
-				<div class="module col-md-4">
-					<table class="table table-striped">
-						<thead>
-							<th><?php echo anchor(sprintf("/device/%s/apps", $device_info->uuid), "Installed Applications"); ?></th>
-						</thead>
-						<tbody>
-							<?php if(sizeof($device_info->apps) > 0): ?>
-								<?php for($i = 0; $i < sizeof($device_info->apps); $i++): ?>
-									<tr>
-										<td><?php echo $device_info->apps[$i]->name; ?> 
-											<?php echo $device_info->apps[$i]->version; ?></td>
-									</tr>
-								<?php endfor; ?>
-							<?php else : ?>
-								<tr>
-									<td>Nothing yet.</td>
-								</tr>
-							<?php endif; ?>
-						</tbody>
-					</table>
-				</div> <!-- end installed apps table -->
-
-				<div class="module col-md-12">
-					<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tickets"); ?></h3>
-					<table class="table table-striped">
-						<thead>
-							<th>Ticket ID</th>
-							<th>Assignee</th>
-							<th width="10px">Status</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td colspan="3">No active tickets.</td>
-							</tr>
-						</tbody>
-					</table>
-				</div> <!-- end maintenance tickets table -->
-			</div>
+			<div class="module col-md-12">
+				<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tickets"); ?></h3>
+				<table class="table table-striped">
+					<thead>
+						<th>Ticket ID</th>
+						<th>Assignee</th>
+						<th width="10px">Status</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="3">No active tickets.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div> <!-- end maintenance tickets table -->
 		</div>
 	</section>
 

@@ -7,7 +7,7 @@
 				<section class="module col-md-6">
 					<h3>Manage</h3>
 					<ul>
-						<li><a href="#">Devices</a></li>
+						<li><?php echo anchor("/manage_devices", "Devices"); ?></li>
 						<li><a href="#">Users</a></li>
 						<li><a href="#">Maintenance Tasks</a></li>
 					</ul>
@@ -22,7 +22,8 @@
 				</section>
 			</div>
 		<?php endif; ?>
-
+	</div>
+	<div class="row">
 		<div class="staff quicklinks col-md-12">
 			<h3>Staff Quick Links</h3>
 

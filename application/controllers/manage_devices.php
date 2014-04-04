@@ -1,11 +1,12 @@
 <?php
+
 	defined("BASEPATH") or die;
 
-	class Add_application extends CI_Controller {
+	class Manage_devices extends CI_Controller {
 		public function __construct(){
 			parent::__construct();
 
-			$this->load->model("add_application_model");
+			$this->load->model("manage_devices_model");
 		}
 
 		public function index(){
@@ -16,27 +17,21 @@
 			$data->set("subpage", $this->uri->segment(2));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
+			//set specific page data
+			$data->set("users", $this->manage_devices_model->getUsers());
+			$data->set("records", $this->manage_devices_model->getRecords());
+			$data->set("apps", $this->manage_devices_model->getApps());
+
 			//load the relevant views
 			$this->load->view('header', $data);
 			
 			if($this->hydra->isAuthenticated()){
-				$this->load->view('form_add_application');
+				$this->load->view('manage_devices');
 			}else {
 				$this->load->view("login", $data);
 			}
 
 			$this->load->view('footer', $data);
-		}
-
-		public function create(){
-			if($this->add_application_model->insert($this->input->post())){
-				//setup a success message here
-				$this->session->set_flashdata("model_save_success", "Application added to the database");
-			}else {
-				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: The application could not be added to the database");
-			}
-
-			return redirect(base_url(). "/add_application");
 		}
 	}
 
