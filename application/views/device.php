@@ -58,7 +58,7 @@
 						<?php if(sizeof($recent_owners) > 0): ?>
 							<tr>
 								<td>Last Owner</td>
-								<td><?php echo ($device_info->current_owner ? $device_info->current_owner : $recent_owners[0]->username ); ?></td>
+								<td><?php echo $recent_owners[0]->username; ?></td>
 							</tr>
 						<?php endif; ?>
 

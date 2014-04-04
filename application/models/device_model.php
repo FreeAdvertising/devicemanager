@@ -24,9 +24,9 @@
 			$query = $this->db->query("SELECT u.username, r.date, u.userid FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
-				WHERE d.uuid = ? AND r.checked_in = 0
+				WHERE d.uuid = ? AND r.checked_in = 1
 				ORDER BY r.date", $uuid->get());
-
+			
 			return $query->result_object();
 		}
 
@@ -61,7 +61,7 @@
 			return $query->result_object();
 		}
 
-		public function getPastOwners(UUID $uuid, $limit = 0){
+		public function getPastOwners(UUID $uuid, $limit = 1000){
 			$return = array();
 
 			if($uuid){
@@ -70,16 +70,17 @@
 				$query = $this->db->query("SELECT
 						u.username,
 						ar.date
-						FROM device_manager_assignments_rel ar
+						FROM device_manager_history h
+						LEFT JOIN device_manager_assignments_rel ar ON h.rel_id = ar.ass_id
 						LEFT JOIN users u ON u.userid = ar.userid
-						WHERE ar.device_id = ? AND ar.checked_in = 0
+						WHERE ar.device_id = ? AND ar.checked_in = 1 AND h.type = 'check_out'
 						GROUP BY u.username
-						ORDER BY ar.ass_id DESC
+						ORDER BY ar.ass_id ASC
 						LIMIT ?
 					",
 					array(
 						$id,
-						($limit	> 0 ? $limit : 1000)
+						$limit
 					));
 
 				$return = $query->result_object();
@@ -95,6 +96,21 @@
 
 				//$query = $this->db->query("DELETE FROM device_manager_assignments_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 				$query = $this->db->query("UPDATE device_manager_assignments_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				//update location field
+				//REMOVE ME
+				//$reservation_list_query = $this->db->query("SELECT userid FROM device_manager_reservations_rel WHERE device_id = ?", array($id));
+				//$reservation_list = $reservation_list_query->result_object();
+				//$location = "-1";
+
+				// if(sizeof($reservation_list) > 0){
+				// 	$location = $reservation_list[0]->userid;
+				// }
+
+				$update_location = $this->db->query("UPDATE device_manager_devices SET location = '-1' WHERE device_id = ?", array($id));
+
+				//check in date update
+				$update_checkin_date = $this->db->query("UPDATE device_manager_assignments_rel SET date = NOW() WHERE device_id = ?", array($id));
 
 				//boolean query result, no need for type checking
 				return $query;
@@ -118,6 +134,12 @@
 
 				//remove user from the reservation list, if they are on it (flip the checked_in flag)
 				$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 1 WHERE userid = ? AND device_id = ?", array($user, $id));
+
+				//update location field
+				$update_location_query = $this->db->query("UPDATE device_manager_devices SET location = ? WHERE device_id = ?", array($user, $id));
+
+				//remove user from reservation list if they are on it
+				$remove_reservation_query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE device_id = ? AND userid = ?", array($id, $user));
 
 				//boolean query result, no need for type checking
 				return $query;

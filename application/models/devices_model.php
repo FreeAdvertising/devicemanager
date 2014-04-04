@@ -34,8 +34,8 @@
 				d.name,
 				#d.status,
 				d.location, 
-				d.os 
-				#IF(ar.checked_in = 1, 1, 2) as checkout_status, 
+				d.os,
+				IF(d.location > 0, 2, 1) as checkout_status 
 				#IF(rr.res_id AND rr.checked_in = 0, 4, 0) as reserved_status 
 				#IF(mr.maint_id, 3, 1) as maintenance_status, 
 				FROM device_manager_devices d 
@@ -50,8 +50,9 @@
 				for($i = 0; $i < sizeof($results); $i++){
 					//add/override view-specific properties
 					$results[$i]->current_owner = $this->_getUser(UUID::convert($results[$i]->uuid), "userid");
-					$results[$i]->checkout_status = $this->_getAssignmentStatus(UUID::convert($results[$i]->uuid));
-					$results[$i]->reserved_status = $this->_getReservedStatus(UUID::convert($results[$i]->uuid));
+					// $results[$i]->checkout_status = $this->_getAssignmentStatus(UUID::convert($results[$i]->uuid));
+					// $results[$i]->reserved_status = $this->_getReservedStatus(UUID::convert($results[$i]->uuid));
+					//$results[$i]->checkout_status = ($results[$i]->location > 0 ? Product::DEVICE_CHECKED_OUT : Product::DEVICE_AVAILABLE);
 				}
 			}
 
@@ -72,8 +73,8 @@
 						$id,
 						));
 
-				if(sizeof($result = $query->row()) > 0){
-					return (int) $result->checked_in;
+				if($query->num_rows() > 0){
+					return Product::DEVICE_AVAILABLE;
 				}
 			}
 
@@ -94,12 +95,8 @@
 						$id,
 						));
 
-				echo "<pre>";
-				var_dump($query->result_object());
-				echo "</pre>";
-
-				if(sizeof($result = $query->row()) > 0){
-					return (int) $result->checked_in;
+				if($query->num_rows() > 0){
+					return Product::DEVICE_RESERVED;
 				}
 			}
 

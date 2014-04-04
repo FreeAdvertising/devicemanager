@@ -151,7 +151,12 @@
 				return "IT";
 			}
 
-			//$query = $this->db->query("SELECT")
+			$ci = get_instance();
+			$query = $ci->db->query("SELECT username FROM users WHERE userid = ? LIMIT 1", array((int) $key));
+
+			if($query->num_rows() === 1){
+				return $query->row()->username;
+			}
 		}
 
 		public function getDeviceID(UUID $uuid){
