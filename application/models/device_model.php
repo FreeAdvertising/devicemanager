@@ -33,7 +33,7 @@
 		private function _isReserved($id){
 			$query = $this->db->query("SELECT `date`, `userid` FROM device_manager_reservations_rel WHERE device_id = ? AND userid = ? AND checked_in = 0", array((int) $id, $this->hydra->get("id")));
 
-			return (sizeof($query->result_object()) > 0);
+			return ($query->num_rows() > 0);
 		}
 
 		private function _getUser($uuid){
@@ -170,8 +170,8 @@
 				$query = $this->db->query("SELECT res_id FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
 
 				if(sizeof($query->row()) > 0){
-					//$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
-					$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
+					$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
+					//$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 				}
 
 				//boolean query result, no need for type checking
