@@ -24,7 +24,7 @@
 			$query = $this->db->query("SELECT u.username, r.date, u.userid FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
 				LEFT JOIN users u ON r.userid = u.userid
-				WHERE d.uuid = ? AND r.checked_in = 0
+				WHERE d.uuid = ? AND r.checked_in = 1
 				ORDER BY r.date", $uuid->get());
 			
 			return $query->result_object();
@@ -129,7 +129,7 @@
 				$update_location_query = $this->db->query("UPDATE device_manager_devices SET location = ? WHERE device_id = ?", array($user, $id));
 
 				//remove user from reservation list if they are on it
-				$remove_reservation_query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 1 WHERE device_id = ? AND userid = ?", array($id, $user));
+				$remove_reservation_query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE device_id = ? AND userid = ?", array($id, $user));
 
 				//boolean query result, no need for type checking
 				return $query;
