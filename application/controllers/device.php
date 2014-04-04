@@ -8,6 +8,11 @@
 			$this->load->model("device_model");
 		}
 
+		/**
+		 * Load the index/home page
+		 * @param  string $key
+		 * @return void
+		 */
 		public function index($key = null){
 			$uuid = new UUID($key);
 
@@ -17,7 +22,7 @@
 
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("nav_path", base_url() ."");
 			$data->set("page", $this->uri->segment(1));
 			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
@@ -39,6 +44,11 @@
 			$this->load->view('footer', $data);
 		}
 
+		/**
+		 * Load the apps page by UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function apps($key){
 			$uuid = new UUID($key);
 
@@ -48,7 +58,7 @@
 
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("nav_path", base_url() ."");
 			$data->set("page", $this->uri->segment(1));
 			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
@@ -69,6 +79,11 @@
 			$this->load->view('footer', $data);
 		}
 
+		/**
+		 * Load the history for a device (by UUID)
+		 * @param  string $key
+		 * @return void
+		 */
 		public function history($key){
 			$uuid = new UUID($key);
 
@@ -78,7 +93,7 @@
 
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("nav_path", base_url() ."");
 			$data->set("page", $this->uri->segment(1));
 			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
@@ -106,6 +121,11 @@
 			$this->load->view('footer', $data);
 		}
 
+		/**
+		 * Loads the add application view so you can associate an app to the device
+		 * @param string $key
+		 * @return void
+		 */
 		public function add_application($key){
 			$uuid = new UUID($key);
 
@@ -115,7 +135,7 @@
 
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("nav_path", base_url() ."");
 			$data->set("page", $this->uri->segment(1));
 			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
@@ -137,6 +157,11 @@
 			$this->load->view('footer', $data);
 		}
 
+		/**
+		 * Load the edit page for a specific UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function edit($key){
 			$uuid = new UUID($key);
 
@@ -146,7 +171,7 @@
 
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
+			$data->set("nav_path", base_url() ."");
 			$data->set("page", $this->uri->segment(1));
 			$data->set("subpage", $this->uri->segment(3));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
@@ -167,6 +192,11 @@
 			$this->load->view('footer', $data);
 		}
 
+		/**
+		 * Associate an app to specific device by UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function assoc_app_to_device($key){
 			$uuid = new UUID($key);
 
@@ -185,9 +215,14 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: application could not be associated to device");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s/add_application", $uuid));
+			return redirect(base_url(). sprintf("device/%s/add_application", $uuid));
 		}
 
+		/**
+		 * Reserve a device by UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function reserve($key){
 			$uuid = new UUID($key);
 
@@ -204,9 +239,16 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be reserved");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid));
+			return redirect(base_url(). sprintf("device/%s", $uuid));
 		}
 
+		/**
+		 * Cancel a reservation
+		 * Note: History tracking not required here as reservations are deleted
+		 * rather than flagged as deleted
+		 * @param  string $key
+		 * @return void
+		 */
 		public function cancel_reservation($key){
 			$uuid = new UUID($key);
 
@@ -215,17 +257,20 @@
 			}
 
 			if($this->device_model->cancel_reservation($uuid)){
-				History::record($uuid, __FUNCTION__);
-
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Device reservation cancelled");
 			}else {
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: reservation could not be cancelled");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid));
+			return redirect(base_url(). sprintf("device/%s", $uuid));
 		}
 
+		/**
+		 * Check in a specific device by UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function check_in($key){
 			$uuid = new UUID($key);
 
@@ -242,9 +287,14 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
+			return redirect(base_url(). sprintf("device/%s", $uuid->get()));
 		}
 
+		/**
+		 * Check out a device by UUID
+		 * @param  string $key
+		 * @return void
+		 */
 		public function check_out($key){
 			$uuid = new UUID($key);
 
@@ -261,7 +311,7 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: device could not be checked back in");
 			}
 
-			return redirect(base_url(). sprintf("index.php/device/%s", $uuid->get()));
+			return redirect(base_url(). sprintf("device/%s", $uuid->get()));
 		}
 	}
 
