@@ -96,21 +96,21 @@
 		 */
 		public function get_status($data){
 			if((int) $data->checkout_status === 1){
-				return "success";
+				return self::DEVICE_AVAILABLE;
 			}
 
 			if((int) $data->checkout_status === self::DEVICE_CHECKED_OUT){
-				return "danger";
+				return self::DEVICE_CHECKED_OUT;
 			}
 
 			if((int) $data->reserved_status === 0){
-				return "warning";
+				return self::DEVICE_RESERVED;
 			}
 
 			// if($id === self::DEVICE_MAINTENANCE)
 			// 	return "info";
 
-			return "danger";
+			return self::DEVICE_CHECKED_OUT;
 		}
 
 		/**

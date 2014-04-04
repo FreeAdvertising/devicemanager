@@ -44,7 +44,7 @@
 							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_application", "Add Application"); ?></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
-							 			<li><a href="http://freepass.wearefree.ca/index.php/lists/users" target="_blank">Manage Users</a></li>
+							 			<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("/users", "Manage Users"); ?></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
 							 		</ul>

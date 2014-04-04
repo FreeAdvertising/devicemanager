@@ -183,3 +183,7 @@ span.status-circle {
 .device-title {
 	margin: 0px;
 }
+
+tr[data-status="2"] {
+	opacity: 0.5;
+}

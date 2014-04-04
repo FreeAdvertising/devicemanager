@@ -8,8 +8,8 @@
 					<h3>Manage</h3>
 					<ul>
 						<li><?php echo anchor("/manage_devices", "Devices"); ?></li>
-						<li><a href="#">Users</a></li>
-						<li><a href="#">Maintenance Tasks</a></li>
+						<li><?php echo anchor("/users", "Users"); ?></li>
+						<li><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
 					</ul>
 				</section>
 
