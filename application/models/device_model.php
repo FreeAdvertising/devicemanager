@@ -6,12 +6,18 @@
 			return parent::__construct();
 		}
 
+		/**
+		 * Get device info for a specific UUID
+		 * @param  UUID    $uuid
+		 * @param  integer $limit  Limit for the number of APPS to display
+		 * @return stdClass
+		 */
 		public function getDevice(UUID $uuid, $limit = 0){
 			$query = $this->db->query("SELECT *, IF(name IS NULL, uuid, name) as device_name FROM device_manager_devices WHERE uuid = ? ORDER BY device_id", $uuid->get());
 
 			if($query->num_rows() > 0){
 				$return = $query->row();
-				$return->current_owner = $this->_getUser($uuid);
+				$return->current_owner = $this->_getCurrentOwner($uuid);
 				$return->apps = $this->getApps($query->row()->device_id, $limit);
 				$return->uuid = $uuid; //$uuid is already an instance of \UUID
 				$return->reserved = $this->_isReserved($query->row()->device_id);
@@ -20,6 +26,11 @@
 			return $return;
 		}
 
+		/**
+		 * Determine who has reserved a specific device (by UUID)
+		 * @param  UUID   $uuid
+		 * @return stdClass
+		 */
 		public function getReservationList(UUID $uuid){
 			$query = $this->db->query("SELECT u.username, r.date, u.userid FROM device_manager_reservations_rel r 
 				LEFT JOIN device_manager_devices d ON r.device_id = d.device_id
@@ -30,13 +41,23 @@
 			return $query->result_object();
 		}
 
+		/**
+		 * Determine if a device is reserved (by device_id)
+		 * @param  integer  $id
+		 * @return boolean
+		 */
 		private function _isReserved($id){
 			$query = $this->db->query("SELECT `date`, `userid` FROM device_manager_reservations_rel WHERE device_id = ? AND userid = ? AND checked_in = 0", array((int) $id, $this->hydra->get("id")));
 
 			return ($query->num_rows() > 0);
 		}
 
-		private function _getUser($uuid){
+		/**
+		 * Get the current owner of the device (by UUID)
+		 * @param  UUID $uuid
+		 * @return mixed
+		 */
+		private function _getCurrentOwner(UUID $uuid){
 			$user = null;
 			$id = $this->product->getDeviceID($uuid);
 			$query = $this->db->query("SELECT u.username as output FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE checked_in = 0 AND device_id = ? LIMIT 1", array($id));
@@ -48,6 +69,13 @@
 			return $user;
 		}
 
+		/**
+		 * Get the installed tracked applications for the device (by device_id if
+		 * it is set)
+		 * @param  integer $id
+		 * @param  integer $limit
+		 * @return stdClass
+		 */
 		public function getApps($id = 0, $limit = 0){
 			if($id > 0){
 				$query = $this->db->query("SELECT t.name, tr.version, t.app_id FROM device_manager_tracked_applications_rel tr 
@@ -61,6 +89,13 @@
 			return $query->result_object();
 		}
 
+		/**
+		 * Pretty self explanatory, get previous owners of the device
+		 * TODO: this query is still flaky, fix it
+		 * @param  UUID    $uuid
+		 * @param  integer $limit
+		 * @return stdClass
+		 */
 		public function getPastOwners(UUID $uuid, $limit = 1000){
 			$return = array();
 
@@ -89,6 +124,11 @@
 			return $return;
 		}
 
+		/**
+		 * Checks in a device by UUID
+		 * @param  UUID   $uuid
+		 * @return bool
+		 */
 		public function check_in(UUID $uuid){
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
@@ -109,6 +149,11 @@
 			return false;
 		}
 
+		/**
+		 * Check out a device
+		 * @param  UUID   $uuid
+		 * @return bool
+		 */
 		public function check_out(UUID $uuid){
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
@@ -138,6 +183,11 @@
 			return false;
 		}
 
+		/**
+		 * Reserve a device
+		 * @param  UUID   $uuid
+		 * @return bool
+		 */
 		public function reserve(UUID $uuid){
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
@@ -160,6 +210,11 @@
 			return false;
 		}
 
+		/**
+		 * Cancel the currently logged in user's reservation
+		 * @param  UUID   $uuid
+		 * @return bool
+		 */
 		public function cancel_reservation(UUID $uuid){
 			if($uuid){
 				$id = $this->product->getDeviceID($uuid);
@@ -171,7 +226,6 @@
 
 				if(sizeof($query->row()) > 0){
 					$query = $this->db->query("DELETE FROM device_manager_reservations_rel WHERE userid = ? AND device_id = ?", array($user, $id));
-					//$query = $this->db->query("UPDATE device_manager_reservations_rel SET checked_in = 0 WHERE userid = ? AND device_id = ?", array($user, $id));
 				}
 
 				//boolean query result, no need for type checking
