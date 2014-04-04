@@ -11,7 +11,7 @@
 					<tr data-location="<?php echo $records[$i]->current_owner; ?>" data-status="<?php echo $records[$i]->status; ?>">
 						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), sprintf("%s (%s)", $records[$i]->name, $records[$i]->uuid)); ?></td>
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
-						<td><?php echo $this->product->get_os($records[$i]->os); ?></td>
+						<td><span class="os <?php echo $this->product->get_os($records[$i]->os); ?>"><?php echo $this->product->get_os($records[$i]->os); ?></span></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>
@@ -30,7 +30,7 @@
 			<tbody>
 				<?php for($i = 0; $i < sizeof($apps); $i++): ?>
 					<tr>
-						<td><?php echo $apps[$i]->app_id; ?>.</td>
+						<td><?php echo ($i+1) ?>.</td>
 						<td><?php echo $apps[$i]->name; ?></td>
 						<td><?php echo $apps[$i]->description; ?></td>
 					</tr>
