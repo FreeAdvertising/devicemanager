@@ -78,22 +78,27 @@
 							<?php break; ?>
 
 							<?php case "devices": ?>
-								<h3 class="panel-title">Check In or Out</h3>
-								<p class="small overview">Sign out a new device, return one you already have or create maintenance tickets to alert other users of any problems you encounter.</p>
+								<h4 class="panel-title">Check In or Out</h4>
+								<p class="small overview">Sign out a new device or return one you already have.</p>
 							<?php break; ?>
 
 							<?php case "reservations": ?>
-								<h3 class="panel-title">Reserve a Device</h3>
+								<h4 class="panel-title">Reserve a Device</h4>
 								<p class="small overview">Is someone else using a device you need?  Reserve it so they know who to pass it on to.</p>
 							<?php break; ?>
 
 							<?php case "add_device": ?>
-								<h4 class="floatleft">Add New Device</h4>
+								<h4 class="panel-title">Add New Device</h4>
+							<?php break; ?>
+
+							<?php case "add_application": ?>
+								<h4 class="panel-title">Add Application</h4>
+								<p class="small overview">Add to the list of tracked applications users can choose from when associating applications to devices.</p>
 							<?php break; ?>
 
 							<?php case "device": ?>
 								<?php if($subpage == ""): ?>
-									<h4 class="device-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>
+									<h4 class="device-title panel-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>
 								<?php endif; ?>
 
 								<?php if($subpage == "history"): ?>
