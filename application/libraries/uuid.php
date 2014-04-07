@@ -3,14 +3,27 @@
 	defined("BASEPATH") or die;
 
 	class UUID {
-		protected static $value = "INVALIDID";
+		/**
+		 * The actual value of the UUID, i.e. T7HLMA08
+		 * @var string
+		 */
+		protected static $value;
 
+		/**
+		 * Creates a new object based on the provided UUID
+		 * @param string $uuid
+		 */
 		public function __construct($uuid = null){
 			$this->set($uuid);
 
 			return $this;
 		}
 
+		/**
+		 * Set the value of the UUID object
+		 * @param mixed $val
+		 * @return mixed
+		 */
 		public function set($val){
 			if(false === is_null($val) && strlen($val) === 8){
 				$this->value = strtoupper($val);
@@ -19,18 +32,30 @@
 			return false;
 		}
 
+		/**
+		 * Get the value of the UUID object
+		 * @return mixed
+		 */
 		public function get(){
-			return $this->value;
+			if(isset($this->value))
+				return $this->value;
+
+			return false;
 		}
 
+		/**
+		 * Determine if the given value is an instance of the __CLASS__
+		 * @param  mixed  $uuid
+		 * @return boolean
+		 */
 		public function isInstance($uuid){
 			return ($uuid instanceof self);
 		}
 
 		/**
 		 * Convert a generic string to a UUID object
-		 * @param  [type] $uuid
-		 * @return [type]
+		 * @param  string $uuid
+		 * @return UUID object
 		 */
 		public static function convert($toConvert){
 			try {
@@ -49,8 +74,12 @@
 			}
 		}
 
+		/**
+		 * Return the string value of the UUID
+		 * @return string
+		 */
 		public function __toString(){
-			return $this->value;
+			return $this->get();
 		}
 	}
 

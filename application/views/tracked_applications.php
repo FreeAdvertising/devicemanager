@@ -1,4 +1,3 @@
-<h3>Tracked Applications</h3>
 <table class="table table-striped table-hover">
 	<thead>
 		<th>Name</th>

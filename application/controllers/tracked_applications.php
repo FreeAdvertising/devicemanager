@@ -18,6 +18,7 @@
 
 			//set page specific data
 			$data->set("apps", $this->tracked_applications_model->getApps());
+			$data->set("show_pagination", true);
 
 			//load the relevant views
 			$this->load->view('header', $data);

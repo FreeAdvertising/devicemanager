@@ -101,6 +101,11 @@
 								<p class="small overview">View and modify information about all devices and applications tracked by the system.</p>
 							<?php break; ?>
 
+							<?php case "tracked_applications": ?>
+								<h4 class="panel-title">Tracked Applications</h4>
+								<p class="small overview">All apps tracked by the system.</p>
+							<?php break; ?>
+
 							<?php case "device": ?>
 								<?php if($subpage == ""): ?>
 									<h4 class="device-title panel-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>
@@ -122,14 +127,15 @@
 									<h4 class="floatleft">Edit Device UUID:<?php echo $device_info->uuid; ?></h4>
 								<?php endif;?>
 
-								<?php if(isset($show_pagination) && $show_pagination): ?>
-									<ul class="pagination nav nav-pills floatright">
-										<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
-									</ul>
-								<?php endif; ?>
+								
 							<?php break; ?>
 						<?php } ?>
+
+						<?php if(isset($show_pagination) && $show_pagination): ?>
+							<ul class="pagination nav nav-pills floatright">
+								<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
+							</ul>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
-				<div class="panel-body">
-					
+				<div class="panel-body">			

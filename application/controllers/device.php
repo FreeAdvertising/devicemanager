@@ -16,8 +16,8 @@
 		public function index($key = null){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$data = new Generic;
@@ -52,8 +52,8 @@
 		public function apps($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$data = new Generic;
@@ -87,8 +87,8 @@
 		public function history($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$data = new Generic;
@@ -129,8 +129,8 @@
 		public function add_application($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$data = new Generic;
@@ -165,8 +165,8 @@
 		public function edit($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$data = new Generic;
@@ -200,8 +200,8 @@
 		public function assoc_app_to_device($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			$this->load->model("add_application_model");
@@ -226,8 +226,8 @@
 		public function reserve($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			if($this->device_model->reserve($uuid)){
@@ -252,8 +252,8 @@
 		public function cancel_reservation($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			if($this->device_model->cancel_reservation($uuid)){
@@ -274,8 +274,8 @@
 		public function check_in($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			if($this->device_model->check_in($uuid)){
@@ -298,8 +298,8 @@
 		public function check_out($key){
 			$uuid = new UUID($key);
 
-			if(false === $uuid){
-				return show_error("You must provide a valid device ID.");
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
 			}
 
 			if($this->device_model->check_out($uuid)){

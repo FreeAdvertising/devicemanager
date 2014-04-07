@@ -30,17 +30,17 @@
 				d.device_id, 
 				d.uuid, 
 				d.name,
-				d.status,
+				#d.status,
 				d.location, 
-				d.os, 
-				IF(ar.ass_id AND ar.checked_in = 0, 2, 1) as checkout_status, 
-				IF(rr.res_id AND rr.checked_in = 0, 4, 0) as reserved_status 
+				d.os,
+				IF(d.location > 0, 2, 1) as checkout_status 
+				#IF(rr.res_id AND rr.checked_in = 0, 4, 0) as reserved_status 
 				#IF(mr.maint_id, 3, 1) as maintenance_status, 
 				FROM device_manager_devices d 
-				LEFT JOIN device_manager_assignments_rel ar ON ar.device_id = d.device_id 
-				LEFT JOIN device_manager_reservations_rel rr ON rr.device_id = d.device_id 
+				#LEFT JOIN device_manager_assignments_rel ar ON ar.device_id = d.device_id 
+				#LEFT JOIN device_manager_reservations_rel rr ON rr.device_id = d.device_id 
 				#LEFT JOIN device_manager_maintenance_rel mr ON mr.device_id = d.device_id 
-				GROUP BY d.uuid
+				#GROUP BY ar.userid, d.name
 				ORDER BY d.device_id
 				");
 
@@ -48,6 +48,9 @@
 				for($i = 0; $i < sizeof($results); $i++){
 					//add/override view-specific properties
 					$results[$i]->current_owner = $this->_getUser(UUID::convert($results[$i]->uuid), "userid");
+					// $results[$i]->checkout_status = $this->_getAssignmentStatus(UUID::convert($results[$i]->uuid));
+					// $results[$i]->reserved_status = $this->_getReservedStatus(UUID::convert($results[$i]->uuid));
+					//$results[$i]->checkout_status = ($results[$i]->location > 0 ? Product::DEVICE_CHECKED_OUT : Product::DEVICE_AVAILABLE);
 				}
 			}
 
