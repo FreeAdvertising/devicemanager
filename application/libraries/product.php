@@ -278,7 +278,7 @@
 			return $this->_version;
 		}
 
-		public function convertMySQLDate($mysqldate){
+		public function convertMySQLDate($mysqldate = null){
 			return date($this->getDefaultDateFormat(), strtotime($mysqldate));
 		}
 	}

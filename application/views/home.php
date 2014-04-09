@@ -55,7 +55,7 @@
 		<div class="list-group">
 			<h3 class="list-group-item">Information</h3>
 			<li class="list-group-item">Version <?php echo $this->product->getVersion(); ?></li>
-			<li class="list-group-item">Date format: <abbr title="<?php echo $this->product->getDefaultDateFormat(); ?>">Year - Month - Day</abbr></li>
+			<!-- <li class="list-group-item">Date format: <abbr title="<?php echo $this->product->getDefaultDateFormat(); ?>"><?php echo $this->product->convertMySQLDate(); ?></abbr></li> -->
 		</div>
 
 		<div class="list-group">

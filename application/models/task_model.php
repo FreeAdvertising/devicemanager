@@ -99,7 +99,25 @@
 						$data["desc"],
 					));
 
-			return $query;
+			if($query){
+				$assoc_query = $this->db->query("INSERT INTO device_manager_maintenance_task_categories_rel (
+					`device_id`, 
+					`task_id`, 
+					`category_id`
+					) VALUES (
+					?, 
+					?, 
+					?
+					)", array(
+						$data["device_id"],
+						$this->db->insert_id(),
+						$data["category"], 
+					));
+
+				return $assoc_query;
+			}
+
+			return false;
 		}
 
 		/**
@@ -117,7 +135,7 @@
 				", array(
 					$task_id,
 					));
-			
+
 			if($query->num_rows() > 0){
 				return $query->result_object();
 			}

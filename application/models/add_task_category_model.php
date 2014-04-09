@@ -7,9 +7,9 @@
 		}
 
 		public function insert($data){
-			$query = $this->db->query("INSERT INTO device_manager_tracked_applications(`name`, `description`) VALUES(?, ?)", array(
+			$query = $this->db->query("INSERT INTO device_manager_maintenance_task_categories(`name`, `description`) VALUES(?, ?)", array(
 					$data["name"],
-					$data["desc"],
+					$data["description"],
 				));
 
 			return $query;
