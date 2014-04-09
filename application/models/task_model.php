@@ -126,7 +126,7 @@
 		 * @return array
 		 */
 		private function _getCategories($task_id){
-			$query = $this->db->query("SELECT *
+			$query = $this->db->query("SELECT c.name
 				FROM device_manager_maintenance_task_categories_rel cr
 				LEFT JOIN device_manager_maintenance_task_categories c ON c.category_id = cr.category_id
 				LEFT JOIN device_manager_maintenance_tasks t ON t.task_id = cr.task_id

@@ -22,6 +22,10 @@
 			//set specific page data
 			$data->set("record", $this->task_model->getRecord($id));
 
+			if(is_null($data->record)){
+				show_error("Invalid task ID");
+			}
+
 			//load the relevant views
 			$this->load->view('header', $data);
 			

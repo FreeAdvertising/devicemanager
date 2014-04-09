@@ -3,19 +3,17 @@
 		<table class="table table-striped">
 			<thead>
 				<th width="50%">Categories</th>
-				<th width="50%"></th>
 			</thead>
 			<tbody>
 				<?php if(sizeof($record->categories) > 0): ?>
 					<?php for($i = 0; $i < sizeof($record->categories); $i++): ?>
 						<tr>
-							<td>Category</td>
-							<td><?php echo $this->product->get_ram($record->meta_ram); ?>GB</td>
+							<td><?php echo $record->categories[$i]->name; ?></td>
 						</tr>
 					<?php endfor; ?>
 				<?php else : ?>
 					<tr>
-						<td colspan="2">No categories associated.</td>
+						<td>No categories associated.</td>
 					</tr>
 				<?php endif; ?>
 			</tbody>
@@ -79,12 +77,13 @@
 
 <div class="row">
 	<div class="col-md-12 description">
+		<h3 class="dotted">Description of Problem</h3>
 		<p class="well well-lg"><?php echo nl2br($record->description); ?></p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-12 comment-update-history">
-		<p>Comment/update history</p>
+		<h3 class="dotted">Comment &amp; Update History</h3>
 	</div>
 </div>

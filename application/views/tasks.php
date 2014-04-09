@@ -11,7 +11,7 @@
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
 					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-status="<?php echo $records[$i]->status; ?>">
-						<td><?php echo ($i+1); ?></td>
+						<td><?php echo ($i+1); ?>.</td>
 						<td><?php echo anchor(sprintf("/task/id/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
 						<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
 						<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
