@@ -116,6 +116,10 @@
 								<?php endif; ?>
 							<?php break; ?>
 
+							<?php case "task": ?>
+								<h4 class="panel-title">Task Details</h4>
+							<?php break; ?>
+
 							<?php case "device": ?>
 								<?php if($subpage == ""): ?>
 									<h4 class="device-title panel-title"><?php echo $device_info->device_name; ?> <span class="label label-default floatright">#<?php echo $device_info->device_id; ?></span> </h4>

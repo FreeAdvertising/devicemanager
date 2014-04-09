@@ -8,16 +8,16 @@
 
 		public function getUsers(){
 			$query = $this->db->query("SELECT 
-					    u.username,
-					    u.userid,
-					    (SELECT 
-				            COUNT(ar.device_id)
-				        FROM
-				            device_manager_assignments_rel ar
-				        WHERE
-				            ar.userid = u.userid AND ar.checked_in = 0) as count
+						u.username,
+						u.userid,
+						(SELECT 
+							COUNT(ar.device_id)
+						FROM
+							device_manager_assignments_rel ar
+						WHERE
+							ar.userid = u.userid AND ar.checked_in = 0) as count
 					FROM
-					    users u
+						users u
 					ORDER BY count DESC , u.userid
 					");
 

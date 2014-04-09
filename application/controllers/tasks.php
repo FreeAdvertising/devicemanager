@@ -17,6 +17,7 @@
 
 			//set specific page data
 			$data->set("records", $this->tasks_model->getRecords());
+			$data->set("users", $this->tasks_model->getUsers());
 
 			//load the relevant views
 			$this->load->view('header', $data);

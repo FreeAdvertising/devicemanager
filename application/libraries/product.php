@@ -226,6 +226,12 @@
 				}
 
 				return false;
+			}else {
+				$user = new Generic();
+				$user->name = "IT";
+				$user->group = 0;
+				
+				return $user;
 			}
 		}
 

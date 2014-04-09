@@ -2,17 +2,20 @@
 	<div class="row">
 		<table class="table table-striped table-hover list-devices">
 			<thead>
+				<th width="1"></th>
 				<th width="60%">Task Name</th>
-				<th>Device UUID</th>
+				<th>Created By</th>
+				<th>Assigned To</th>
 				<th>Status</th>
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
-					<?php $status = $this->product->get_status($records[$i]); ?>
-					<tr data-location="<?php echo $records[$i]->current_owner; ?>" data-status="<?php echo $status; ?>">
-						<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), sprintf("%s (%s)", $records[$i]->name, $records[$i]->uuid)); ?></td>
-						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
-						<td><span class="os <?php echo strtolower($this->product->get_os($records[$i]->os)); ?>"><?php echo $this->product->get_os($records[$i]->os); ?></span></td>
+					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-status="<?php echo $records[$i]->status; ?>">
+						<td><?php echo ($i+1); ?></td>
+						<td><?php echo anchor(sprintf("/task/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
+						<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
+						<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
+						<td><?php echo $records[$i]->status; ?></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>
