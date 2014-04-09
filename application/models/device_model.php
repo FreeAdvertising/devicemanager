@@ -235,8 +235,28 @@
 			return false;
 		}
 
-		public function getActiveTasks(){
-			
+		/**
+		 * Get active tasks for a given device UUID
+		 * @param  UUID   $uuid
+		 * @return array
+		 */
+		public function getActiveTasks(UUID $uuid){
+			$device_id = $this->product->getDeviceID($uuid);
+
+			$query = $this->db->query("SELECT 
+				`task_id`, 
+				`assignee`, 
+				`description`, 
+				`status`, 
+				`created_by`, 
+				`date`
+				FROM device_manager_maintenance_tasks
+				WHERE device_id = ?
+				", array($device_id));
+
+			if($query->num_rows() > 0){
+				return $query->result_object();
+			}
 		}
 	}
 
