@@ -234,6 +234,10 @@
 
 			return false;
 		}
+
+		public function getActiveTasks(){
+			
+		}
 	}
 
 ?>

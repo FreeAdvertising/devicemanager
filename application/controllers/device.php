@@ -28,9 +28,10 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
-			$data->set("device_info", $this->device_model->getDevice($uuid, Product::DEVICE_MAX_TRACKED_APPS));
+			$data->set("device_info", $this->device_model->getDevice($uuid, Product::MAX_SHORT_LIST));
 			$data->set("reservation_list", $this->device_model->getReservationList($uuid));
-			$data->set("recent_owners", $this->device_model->getPastOwners($uuid, Product::DEVICE_MAX_TRACKED_APPS));
+			$data->set("recent_owners", $this->device_model->getPastOwners($uuid, Product::MAX_SHORT_LIST));
+			$data->set("tasks", $this->device_model->getActiveTasks($uuid, Product::MAX_SHORT_LIST));
 
 			//load the relevant views
 			$this->load->view('header', $data);
@@ -144,6 +145,42 @@
 			$data->set("device_uuid", $uuid);
 			$data->set("apps", $this->device_model->getApps());
 			$data->set("show_pagination", true);
+
+			//load the relevant views
+			$this->load->view('header', $data);
+			
+			if($this->hydra->isAuthenticated()){
+				$this->load->view('form_add_application');
+			}else {
+				$this->load->view("login", $data);
+			}
+
+			$this->load->view('footer', $data);
+		}
+
+		/**
+		 * Create a new maintenance task
+		 * @param  string $key
+		 * @return void
+		 */
+		public function new_task($key){
+			$uuid = new UUID($key);
+
+			if(false === $uuid->get()){
+				return show_error("You must provide a valid device ID.  ". anchor("/", "Return Home."));
+			}
+
+			$data = new Generic;
+			$data->set("template_path", base_url() ."application/views/global");
+			$data->set("nav_path", base_url() ."");
+			$data->set("page", $this->uri->segment(1));
+			$data->set("subpage", $this->uri->segment(3));
+			$data->set("isIPExternal", $this->hydra->isIPExternal());
+
+			//set specific page data
+			$data->set("device_uuid", $uuid);
+			$data->set("show_pagination", true);
+
 
 			//load the relevant views
 			$this->load->view('header', $data);

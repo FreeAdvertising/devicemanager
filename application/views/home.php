@@ -14,10 +14,11 @@
 				</section>
 
 				<section class="module col-md-6">
-					<h3>Maintenance Tasks <a href="#" class="all">View All</a></h3>
+					<h3><?php echo anchor("/tasks", "Maintenance Tasks"); ?></h3>
 					<ul>
-						<li><a href="#">XXXXXXXX</a> - Task#XX - March 10th, 2014</li>
-						<li><a href="#">XXXXXXXX</a> - Task#XX - March 11th, 2014</li>
+						<?php for($i = 0, $obj = $tasks["admin"]; $i < sizeof($obj); $i++): ?>
+							<li><?php echo anchor(sprintf("/device/%s", $obj[$i]->uuid), $obj[$i]->uuid); ?></a> - #<?php echo $obj[$i]->task_id; ?> - <?php echo $obj[$i]->date; ?></li>
+						<?php endfor; ?>
 					</ul>
 				</section>
 			</div>
@@ -37,9 +38,12 @@
 			</section>
 
 			<section class="module col-md-6">
-				<h3>Maintenance Tickets <a href="#" class="all">View All</a></h3>
+				<h3><?php echo anchor("/tasks", "Maintenance Tasks"); ?></h3>
 				<ul>
-					<li><a href="#">Create New Ticket</a></li>
+					<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
+						<li><?php echo anchor(sprintf("/device/%s", $obj[$i]->uuid), $obj[$i]->uuid); ?></a> - #<?php echo $obj[$i]->task_id; ?> - <?php echo $obj[$i]->date; ?></li>
+					<?php endfor; ?>
+					<li><?php echo anchor("/tasks/add", "Create New Task"); ?></li>
 				</ul>
 			</section>
 		</div>

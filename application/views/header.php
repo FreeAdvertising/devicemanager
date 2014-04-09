@@ -34,6 +34,7 @@
 						<ul class="nav navbar-nav">
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
 							<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "Check In/Out"); ?></li>
+							<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
 							<!--<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>-->
 
 							<?php if($this->hydra->isAdmin()): ?>
@@ -45,8 +46,6 @@
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
 							 			<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("/users", "Manage Users"); ?></li>
-							 			<li class="divider"></li>
-							 			<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
 							 		</ul>
 								</li>
 							<?php endif; ?>
@@ -104,6 +103,17 @@
 							<?php case "tracked_applications": ?>
 								<h4 class="panel-title">Tracked Applications</h4>
 								<p class="small overview">All apps tracked by the system.</p>
+							<?php break; ?>
+
+							<?php case "tasks": ?>
+								<?php if($subpage == ""): ?>
+									<h4 class="panel-title">Maintenance Tasks</h4>
+									<p class="small overview">Active tasks on any device.</p>
+								<?php endif; ?>
+
+								<?php if($subpage == "add"): ?>
+									<h4 class="device-title panel-title">New Task</h4>
+								<?php endif; ?>
 							<?php break; ?>
 
 							<?php case "device": ?>

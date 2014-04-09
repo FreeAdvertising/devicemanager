@@ -43,6 +43,7 @@
 		 * Specific limits and lengths
 		 */
 		const DEVICE_MAX_TRACKED_APPS = 5;
+		const MAX_SHORT_LIST = 5;
 
 		private $_dateFormat;
 		private $_options;

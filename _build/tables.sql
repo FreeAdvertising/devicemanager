@@ -116,6 +116,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
   `created_by` INT NOT NULL,
   `description` BLOB NOT NULL,
   `status` INT NOT NULL, #ENUM
+  `date` DATE NOT NULL,
   PRIMARY KEY (`task_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
@@ -216,8 +217,10 @@ CREATE TABLE `freepass`.`device_manager_history` (
 #ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP FOREIGN KEY `device_manager_tracked_applications_ibfk_1` ;
 #ALTER TABLE `freepass`.`device_manager_tracked_applications` DROP COLUMN `version` , DROP COLUMN `device_id` , DROP INDEX `devid_idx` ;
 # ALTER TABLE `freepass`.`device_manager_tracked_applications_rel` ADD COLUMN version VARCHAR(10) NOT NULL
+ALTER TABLE `freepass`.`device_manager_maintenance_tasks` ADD COLUMN `date` DATE NOT NULL
 
 #COMMITTED LIVE
 #ALTER TABLE `freepass`.`device_manager_history` DROP COLUMN `type`, ADD COLUMN `type` VARCHAR(25) NOT NULL
 #ALTER TABLE `freepass`.`device_manager_assignments_rel` ADD COLUMN `checked_in` INT NOT NULL DEFAULT 0
 #ALTER TABLE `freepass`.`device_manager_reservations_rel` ADD COLUMN `checked_in` INT NOT NULL DEFAULT 0
+

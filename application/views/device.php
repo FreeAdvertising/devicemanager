@@ -99,14 +99,26 @@
 				<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tickets"); ?></h3>
 				<table class="table table-striped">
 					<thead>
+						<th width="1"></th>
 						<th>Ticket ID</th>
 						<th>Assignee</th>
 						<th width="10px">Status</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td colspan="3">No active tickets.</td>
-						</tr>
+						<?php if(sizeof($tasks) > 0): ?>
+							<?php for($i = 0; $i < sizeof($tasks); $i++): ?>
+								<tr>
+									<td><?php echo ($i+1); ?></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							<?php endfor; ?>
+						<?php else : ?>
+							<tr>
+								<td colspan="4">No active tickets.</td>
+							</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 			</div> <!-- end maintenance tickets table -->

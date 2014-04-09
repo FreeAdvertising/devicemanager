@@ -54,6 +54,50 @@
 
 			return array();
 		}
+
+		/**
+		 * Get the list of maintenance tasks for both administrators and staff
+		 * @return array
+		 */
+		public function getMaintenanceTasks(){
+			$output = array("admin" => array(), "staff" => array());
+
+			$admin_query = $this->db->query("SELECT 
+				t.task_id, 
+				t.date,
+				d.uuid
+				FROM device_manager_maintenance_tasks t 
+				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
+				ORDER BY t.date, t.device_id
+				LIMIT ?
+				", array(
+					Product::MAX_SHORT_LIST,
+					));
+
+			if($admin_query->num_rows() > 0){
+				$output["admin"] = $admin_query->result_object();
+			}
+
+			$staff_query = $this->db->query("SELECT 
+				t.task_id, 
+				t.date,
+				d.uuid
+				FROM device_manager_maintenance_tasks t 
+				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
+				WHERE t.created_by = ?
+				ORDER BY t.date, t.device_id
+				LIMIT ?
+				", array(
+					$this->hydra->get("id"),
+					Product::MAX_SHORT_LIST,
+					));
+			
+			if($staff_query->num_rows() > 0){
+				$output["staff"] = $staff_query->result_object();
+			}
+
+			return $output;
+		}
 	}
 
 ?>
