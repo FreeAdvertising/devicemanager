@@ -34,7 +34,14 @@
 						<ul class="nav navbar-nav">
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
 							<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "Check In/Out"); ?></li>
-							<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "View All"); ?></li>
+									<li class="<?php echo ($page == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add Task"); ?></li>
+								</ul>
+							</li>
 							<!--<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>-->
 
 							<?php if($this->hydra->isAdmin()): ?>
@@ -110,14 +117,12 @@
 									<h4 class="panel-title">Maintenance Tasks</h4>
 									<p class="small overview">Active tasks on any device.</p>
 								<?php endif; ?>
-
-								<?php if($subpage == "add"): ?>
-									<h4 class="device-title panel-title">New Task</h4>
-								<?php endif; ?>
 							<?php break; ?>
 
 							<?php case "task": ?>
-								<h4 class="panel-title">Task Details</h4>
+								<?php if($subpage == "add"): ?>
+									<h4 class="device-title panel-title">New Task</h4>
+								<?php endif; ?>
 							<?php break; ?>
 
 							<?php case "device": ?>

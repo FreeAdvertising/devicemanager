@@ -110,7 +110,7 @@
 							<?php for($i = 0; $i < sizeof($tasks); $i++): ?>
 								<tr>
 									<td><?php echo ($i+1); ?></td>
-									<td><?php echo anchor(sprintf("/task/%d", $tasks[$i]->task_id), truncate($tasks[$i]->description), array("title" => "View task details")); ?></td>
+									<td><?php echo anchor(sprintf("/task/id/%d", $tasks[$i]->task_id), truncate($tasks[$i]->description), array("title" => "View task details")); ?></td>
 									<td><?php echo $this->product->getUser($tasks[$i]->created_by)->name; ?></td>
 									<td><?php echo $this->product->getUser($tasks[$i]->assignee)->name; ?></td>
 									<td><?php echo $tasks[$i]->status; ?></td>

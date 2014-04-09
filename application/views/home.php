@@ -43,7 +43,7 @@
 					<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
 						<li><?php echo anchor(sprintf("/device/%s", $obj[$i]->uuid), $obj[$i]->uuid); ?></a> - #<?php echo $obj[$i]->task_id; ?> - <?php echo $obj[$i]->date; ?></li>
 					<?php endfor; ?>
-					<li><?php echo anchor("/tasks/add", "Create New Task"); ?></li>
+					<li><?php echo anchor("/task/add", "Create New Task"); ?></li>
 				</ul>
 			</section>
 		</div>
