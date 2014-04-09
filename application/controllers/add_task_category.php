@@ -37,7 +37,7 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: the category could not be created");
 			}
 
-			return redirect(base_url() ."/add_task_category");
+			return redirect(base_url() ."add_task_category");
 		}
 	}
 
