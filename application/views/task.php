@@ -1,27 +1,79 @@
 <div class="row">
 	<div class="col-md-4 meta-category">
-		<h3 class="dotted">Category Meta</h3>
-		<div class="list-group">
-			<li class="list-group-item">%CATEGORY%</li>
-		</div>
+		<table class="table table-striped">
+			<thead>
+				<th width="50%">Categories</th>
+				<th width="50%"></th>
+			</thead>
+			<tbody>
+				<?php if(sizeof($record->categories) > 0): ?>
+					<?php for($i = 0; $i < sizeof($record->categories); $i++): ?>
+						<tr>
+							<td>Category</td>
+							<td><?php echo $this->product->get_ram($record->meta_ram); ?>GB</td>
+						</tr>
+					<?php endfor; ?>
+				<?php else : ?>
+					<tr>
+						<td colspan="2">No categories associated.</td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
 	</div>
 
 	<div class="col-md-4 meta-device">
-		<h3 class="dotted">Device Meta</h3>
-		<div class="list-group">
-			<li class="list-group-item">%DEVICE__META%</li>
-			<li class="list-group-item">%DEVICE__META%</li>
-			<li class="list-group-item">%DEVICE__META%</li>
-		</div>
+		<table class="table table-striped">
+			<thead>
+				<th width="50%">Device Meta</th>
+				<th width="50%"></th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>RAM</td>
+					<td><?php echo $this->product->get_ram($record->meta_ram); ?>GB</td>
+				</tr>
+				<tr>
+					<td>HDD</td>
+					<td><?php echo $this->product->get_hdd($record->meta_hdd); ?>GB</td>
+				</tr>
+				<tr>
+					<td>TYPE</td>
+					<td><?php echo $this->product->get_type($record->meta_type); ?></td>
+				</tr>
+				<tr>
+					<td>OS</td>
+					<td><?php echo $this->product->get_os($record->os); ?></td>
+				</tr>
+				<tr>
+					<td>UUID</td>
+					<td><?php echo $record->uuid; ?></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<div class="col-md-4 meta-task">
-		<h3 class="dotted">Task Meta</h3>
-		<div class="list-group">
-			<li class="list-group-item">Assignee: <?php echo $this->product->getUser($record->assignee)->name; ?></li>
-			<li class="list-group-item">Created By: <?php echo $this->product->getUser($record->created_by)->name; ?></li>
-			<li class="list-group-item">Created on <?php echo $this->product->convertMySQLDate($record->date); ?></li>
-		</div>
+		<table class="table table-striped">
+			<thead>
+				<th width="50%">Task Meta</th>
+				<th width="50%"></th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Assignee</td>
+					<td><?php echo $this->product->getUser($record->assignee)->name; ?></td>
+				</tr>
+				<tr>
+					<td>Created By</td>
+					<td><?php echo $this->product->getUser($record->created_by)->name; ?></td>
+				</tr>
+				<tr>
+					<td>Created On</td>
+					<td><?php echo $this->product->convertMySQLDate($record->date); ?></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 

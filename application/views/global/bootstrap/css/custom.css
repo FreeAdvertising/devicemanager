@@ -187,3 +187,7 @@ span.status-circle {
 tr[data-status="2"] {
 	opacity: 0.5;
 }
+
+.dotted.no-margin {
+	margin-bottom: 0px;	
+}

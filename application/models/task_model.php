@@ -11,10 +11,17 @@
 
 		public function getRecord($id = 0){
 			if($id > 0){
-				$query = $this->db->query("SELECT * FROM device_manager_maintenance_tasks WHERE task_id = ?", array($id));
+				$query = $this->db->query("SELECT t.*, d.meta_ram, d.meta_type, d.meta_hdd, d.uuid, d.os
+					FROM device_manager_maintenance_tasks t
+					LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
+					WHERE task_id = ?
+					", array($id));
 
 				if($query->num_rows() > 0){
-					return $query->row();
+					$return = $query->row();
+					$return->categories = $this->_getCategories($id);
+
+					return $return;
 				}
 			}
 
@@ -93,6 +100,29 @@
 					));
 
 			return $query;
+		}
+
+		/**
+		 * Get all categories for a task
+		 * @param  integer $task_id
+		 * @return array
+		 */
+		private function _getCategories($task_id){
+			$query = $this->db->query("SELECT *
+				FROM device_manager_maintenance_task_categories_rel cr
+				LEFT JOIN device_manager_maintenance_task_categories c ON c.category_id = cr.category_id
+				LEFT JOIN device_manager_maintenance_tasks t ON t.task_id = cr.task_id
+				WHERE cr.task_id = ?
+				ORDER BY t.date, t.task_id 
+				", array(
+					$task_id,
+					));
+			
+			if($query->num_rows() > 0){
+				return $query->result_object();
+			}
+
+			return array();
 		}
 	}
 ?>
