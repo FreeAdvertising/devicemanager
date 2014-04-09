@@ -48,8 +48,9 @@
 								<li class="dropdown">
 							 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 							 		<ul class="dropdown-menu">
-							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_device", "Add Device"); ?></li>
-							 			<li class="<?php echo ($page == "add-device" ? 'active"' : ''); ?>"><?php echo anchor("/add_application", "Add Application"); ?></li>
+							 			<li class="<?php echo ($page == "add_device" ? 'active"' : ''); ?>"><?php echo anchor("/add_device", "Add Device"); ?></li>
+							 			<li class="<?php echo ($page == "add_application" ? 'active"' : ''); ?>"><?php echo anchor("/add_application", "Add Application"); ?></li>
+							 			<li class="<?php echo ($page == "add_task_category" ? 'active"' : ''); ?>"><?php echo anchor("/add_task_category", "Add Task Category"); ?></li>
 							 			<li class="divider"></li>
 							 			<li class="<?php echo ($page == "manage_devices" ? 'active"' : ''); ?>"><?php echo anchor("/manage_devices", "Manage Devices"); ?></li>
 							 			<li class="<?php echo ($page == "users" ? 'active"' : ''); ?>"><?php echo anchor("/users", "Manage Users"); ?></li>
@@ -122,6 +123,10 @@
 							<?php case "task": ?>
 								<?php if($subpage == "add"): ?>
 									<h4 class="device-title panel-title">New Task</h4>
+								<?php endif; ?>
+
+								<?php if($subpage == "id"): ?>
+									<h4 class="device-title panel-title">View Task <span class="label label-default floatright">#<?php echo $this->uri->segment(3); ?></span> </h4>
 								<?php endif; ?>
 							<?php break; ?>
 

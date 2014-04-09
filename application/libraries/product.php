@@ -53,7 +53,7 @@
 		 * Create the object
 		 */
 		public function __construct(){
-			$this->_dateFormat = "Y-m-d";
+			$this->_dateFormat = "F jS, Y";
 
 			$this->_options = new Generic();
 			$this->_options->set("RAM", array(
@@ -276,6 +276,10 @@
 
 		public function getVersion(){
 			return $this->_version;
+		}
+
+		public function convertMySQLDate($mysqldate){
+			return date($this->getDefaultDateFormat(), strtotime($mysqldate));
 		}
 	}
 

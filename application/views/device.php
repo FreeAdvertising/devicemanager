@@ -1,5 +1,3 @@
-<?php //echo "<pre>"; var_dump($device_info); echo "</pre>"; ?>
-
 <div class="row">
 	<section class="col-md-9">
 		<div class="row">

@@ -11,8 +11,14 @@
 
 		public function getRecord($id = 0){
 			if($id > 0){
-				
+				$query = $this->db->query("SELECT * FROM device_manager_maintenance_tasks WHERE task_id = ?", array($id));
+
+				if($query->num_rows() > 0){
+					return $query->row();
+				}
 			}
+
+			return null;
 		}
 
 		/**

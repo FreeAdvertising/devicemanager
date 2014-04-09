@@ -54,8 +54,8 @@
 	<aside class="module">
 		<div class="list-group">
 			<h3 class="list-group-item">Information</h3>
-			<li class="list-group-item">Date format: <abbr title="<?php echo $this->product->getDefaultDateFormat(); ?>">Year - Month - Day</abbr></li>
 			<li class="list-group-item">Version <?php echo $this->product->getVersion(); ?></li>
+			<li class="list-group-item">Date format: <abbr title="<?php echo $this->product->getDefaultDateFormat(); ?>">Year - Month - Day</abbr></li>
 		</div>
 
 		<div class="list-group">
@@ -76,7 +76,7 @@
 			<?php if(sizeof($tasks["staff"]) > 0): ?>
 				<h3 class="list-group-item">My Maintenance Tasks</h3>
 				<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
-					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all\">%s</span>", truncate($obj[$i]->description, 10), $obj[$i]->date), array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all\">%s</span>", truncate($obj[$i]->description, 15), $obj[$i]->date), array("class" => "list-group-item")); ?>
 				<?php endfor; ?>
 			<?php endif ;?>		</div>
 	</aside>

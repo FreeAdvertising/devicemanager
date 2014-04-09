@@ -69,7 +69,7 @@
 				d.uuid
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
-				ORDER BY t.date, t.device_id
+				ORDER BY t.date DESC, t.device_id
 				LIMIT ?
 				", array(
 					Product::MAX_SHORT_LIST,
@@ -87,7 +87,7 @@
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
 				WHERE t.created_by = ?
-				ORDER BY t.date, t.device_id
+				ORDER BY t.date DESC, t.device_id
 				LIMIT ?
 				", array(
 					$this->hydra->get("id"),
