@@ -6,6 +6,10 @@
 			return parent::__construct();
 		}
 
+		/**
+		 * Get all users and how many devices they currently have checked out
+		 * @return array
+		 */
 		public function getUsers(){
 			$query = $this->db->query("SELECT 
 						u.username,
@@ -24,8 +28,10 @@
 			return $query->result_object();
 		}
 
-		//this query will require further testing with more data to confirm
-		//the parameters are correct (specifically, the GROUP BY statement)
+		/**
+		 * Get all device records from the database
+		 * @return array
+		 */
 		public function getRecords(){
 			$return = array();
 			$query = $this->db->query("SELECT 
@@ -59,8 +65,14 @@
 			return $results;
 		}
 
+		/**
+		 * Determine whether the device is assigned to someone or not
+		 * TODO: may be unused, REMOVE ME if so
+		 * @param  UUID   $uuid
+		 * @return integer
+		 */
 		private function _getAssignmentStatus(UUID $uuid){
-			if($uuid){
+			if($uuid->get()){
 				$id = $this->product->getDeviceID($uuid);
 
 				$query = $this->db->query("SELECT
@@ -81,8 +93,14 @@
 			return Product::DEVICE_CHECKED_OUT;
 		}
 
+		/**
+		 * Determine whether the device is reserved or not
+		 * TODO: may be unused, REMOVE ME if so
+		 * @param  UUID   $uuid
+		 * @return integer
+		 */
 		private function _getReservedStatus(UUID $uuid){
-			if($uuid){
+			if($uuid->get()){
 				$id = $this->product->getDeviceID($uuid);
 
 				$query = $this->db->query("SELECT
@@ -103,6 +121,12 @@
 			return Product::DEVICE_CHECKED_OUT;
 		}
 
+		/**
+		 * Determine who is assigned to the device
+		 * @param  UUID   $uuid   
+		 * @param  string $column Column name from the users table to return
+		 * @return mixed
+		 */
 		private function _getUser(UUID $uuid, $column = "username"){
 			$user = null;
 			$id = $this->product->getDeviceID($uuid);

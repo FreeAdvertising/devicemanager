@@ -100,9 +100,10 @@
 				<table class="table table-striped">
 					<thead>
 						<th width="1"></th>
-						<th>Ticket ID</th>
-						<th>Assignee</th>
-						<th width="10px">Status</th>
+						<th width="60%">Task Name</th>
+						<th>Created By</th>
+						<th>Assigned To</th>
+						<th width="1">Status</th>
 					</thead>
 					<tbody>
 						<?php if(sizeof($tasks) > 0): ?>
@@ -112,11 +113,12 @@
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 								</tr>
 							<?php endfor; ?>
 						<?php else : ?>
 							<tr>
-								<td colspan="4">No active tickets.</td>
+								<td colspan="5">No active tickets.</td>
 							</tr>
 						<?php endif; ?>
 					</tbody>
