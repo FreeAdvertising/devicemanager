@@ -42,7 +42,7 @@
 		/**
 		 * Specific limits and lengths
 		 */
-		const DEVICE_MAX_TRACKED_APPS = 5;
+		const DEVICE_MAX_TRACKED_APPS = 5; //DEPRECATED
 		const MAX_SHORT_LIST = 5;
 
 		private $_dateFormat;

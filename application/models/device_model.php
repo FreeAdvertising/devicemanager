@@ -252,7 +252,8 @@
 				`date`
 				FROM device_manager_maintenance_tasks
 				WHERE device_id = ?
-				", array($device_id));
+				LIMIT ?
+				", array($device_id, Product::MAX_SHORT_LIST));
 
 			if($query->num_rows() > 0){
 				return $query->result_object();
