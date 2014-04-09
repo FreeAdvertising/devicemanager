@@ -17,7 +17,7 @@
 					<h3><?php echo anchor("/tasks", "Maintenance Tasks"); ?></h3>
 					<ul>
 						<?php for($i = 0, $obj = $tasks["admin"]; $i < sizeof($obj); $i++): ?>
-							<li><?php echo anchor(sprintf("/device/%s", $obj[$i]->uuid), $obj[$i]->uuid); ?></a> - #<?php echo $obj[$i]->task_id; ?> - <?php echo $obj[$i]->date; ?></li>
+							<li><?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), truncate($obj[$i]->description)); ?> <span class="all"><?php echo $obj[$i]->date; ?></span></li>
 						<?php endfor; ?>
 					</ul>
 				</section>
@@ -41,7 +41,7 @@
 				<h3><?php echo anchor("/tasks", "Maintenance Tasks"); ?></h3>
 				<ul>
 					<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
-						<li><?php echo anchor(sprintf("/device/%s", $obj[$i]->uuid), $obj[$i]->uuid); ?></a> - #<?php echo $obj[$i]->task_id; ?> - <?php echo $obj[$i]->date; ?></li>
+						<li><?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), truncate($obj[$i]->description)); ?> <span class="all"><?php echo $obj[$i]->date; ?></span></li>
 					<?php endfor; ?>
 					<li><?php echo anchor("/task/add", "Create New Task"); ?></li>
 				</ul>
@@ -67,9 +67,11 @@
 				<?php endfor; ?>
 			<?php endif ;?>
 
-			<h3 class="list-group-item">My Maintenance Tickets</h3>
-			<a href="#" class="list-group-item">Task#XX</a>
-			<a href="#" class="list-group-item">Task#XX</a>
-		</div>
+			<?php if(sizeof($tasks["staff"]) > 0): ?>
+				<h3 class="list-group-item">My Maintenance Tasks</h3>
+				<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
+					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all\">%s</span>", truncate($obj[$i]->description, 10), $obj[$i]->date), array("class" => "list-group-item")); ?>
+				<?php endfor; ?>
+			<?php endif ;?>		</div>
 	</aside>
 </section>

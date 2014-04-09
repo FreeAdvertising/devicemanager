@@ -65,6 +65,7 @@
 			$admin_query = $this->db->query("SELECT 
 				t.task_id, 
 				t.date,
+				t.description,
 				d.uuid
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
@@ -81,6 +82,7 @@
 			$staff_query = $this->db->query("SELECT 
 				t.task_id, 
 				t.date,
+				t.description,
 				d.uuid
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id

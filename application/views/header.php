@@ -39,7 +39,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "View All"); ?></li>
-									<li class="<?php echo ($page == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add Task"); ?></li>
+									<li class="<?php echo ($page == "task" && $subpage == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add Task"); ?></li>
 								</ul>
 							</li>
 							<!--<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>-->
