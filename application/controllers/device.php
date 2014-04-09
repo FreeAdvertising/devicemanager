@@ -180,6 +180,7 @@
 			//set specific page data
 			$data->set("device_uuid", $uuid);
 			$data->set("show_pagination", true);
+			$data->set("categories", $this->device_model->getTaskCategories());
 
 
 			//load the relevant views

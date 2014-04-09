@@ -289,6 +289,22 @@
 
 			return array();
 		}
+
+		/**
+		 * Get all maintenance task categories
+		 * @return array
+		 */
+		public function getTaskCategories(){
+			$return = array();
+
+			$query = $this->db->query("SELECT category_id, name FROM device_manager_maintenance_task_categories");
+
+			if($query->num_rows() > 0){
+				return $query->result_object();
+			}
+
+			return $return;
+		}
 	}
 
 ?>
