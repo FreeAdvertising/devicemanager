@@ -1,7 +1,7 @@
 <section class="main col-md-9">
 	<div class="row">
 		<?php if($this->hydra->isAdmin()): ?>
-			<div class="admin quicklinks col-md-12">
+			<div class="admin quicklinks">
 				<h3>Admin Quick Links</h3>
 
 				<section class="module col-md-6">
@@ -25,7 +25,7 @@
 		<?php endif; ?>
 	</div>
 	<div class="row">
-		<div class="staff quicklinks col-md-12">
+		<div class="staff quicklinks">
 			<h3>Staff Quick Links</h3>
 
 			<section class="module col-md-6">
