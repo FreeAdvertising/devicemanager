@@ -105,8 +105,8 @@
 
 			$history = array(
 				"overview" => History::get($uuid), 
-				"recent_owners" => $this->device_model->getPastOwners($uuid, Product::DEVICE_MAX_TRACKED_APPS), 
-				"maintenance" => array()
+				"recent_owners" => $this->device_model->getPastOwners($uuid, Product::MAX_SHORT_LIST), 
+				"maintenance" => $this->device_model->getMaintenanceTasks($uuid),
 				);
 			$data->set("history", $history);
 
@@ -163,7 +163,7 @@
 		 * @param  string $key
 		 * @return void
 		 */
-		public function new_task($key){
+		public function add_task($key){
 			$uuid = new UUID($key);
 
 			if(false === $uuid->get()){
@@ -186,7 +186,7 @@
 			$this->load->view('header', $data);
 			
 			if($this->hydra->isAuthenticated()){
-				$this->load->view('form_add_application');
+				$this->load->view('form_device_task_add');
 			}else {
 				$this->load->view("login", $data);
 			}

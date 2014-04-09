@@ -47,6 +47,7 @@
 
 		private $_dateFormat;
 		private $_options;
+		private $_version = "1.0.0b1";
 
 		/**
 		 * Create the object
@@ -267,6 +268,14 @@
 			}
 
 			return false;
+		}
+
+		public function getDefaultDateFormat(){
+			return $this->_dateFormat;
+		}
+
+		public function getVersion(){
+			return $this->_version;
 		}
 	}
 

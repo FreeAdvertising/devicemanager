@@ -73,6 +73,11 @@
 		 * @return bool
 		 */
 		public function insert($data){
+			if(isset($data["uuid"])){
+				$id = $this->product->getDeviceID(UUID::convert($data["uuid"]));
+				$data["device_id"] = $id;
+			}
+
 			$query = $this->db->query("INSERT INTO device_manager_maintenance_tasks 
 				(`device_id`, `created_by`, `description`, `date`) VALUES 
 				(?, ?, ?, NOW())", array(

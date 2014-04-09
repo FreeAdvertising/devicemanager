@@ -1,5 +1,5 @@
 <div class="tab_content tab_overview">
-	<h3>Device History - Overview</h3>
+	<h3>Overview</h3>
 	<p class="alert alert-info">Information in this table is sorted by date descending so the latest updates are always at the top.  It is limited to 100 results by default.</p>
 
 	<table class="table table-striped table-hover">
@@ -21,7 +21,7 @@
 </div>
 
 <div class="tab_content tab_recent_owners">
-	<h3>Device History - Recent Owners</h3>
+	<h3>Recent Owners</h3>
 
 	<table class="table table-striped table-hover">
 		<thead>
@@ -40,20 +40,24 @@
 </div>
 
 <div class="tab_content tab_maintenance">
-	<h3>Device History - Maintenance</h3>
+	<h3>Maintenance</h3>
 
 	<table class="table table-striped table-hover">
 		<thead>
-			<th width="33%">Action</th>
-			<th width="53%">Performed By</th>
-			<th width="13%">Date</th>
+			<th width="1"></th>
+			<th width="60%">Task Name</th>
+			<th>Created By</th>
+			<th>Assigned To</th>
+			<th>Status</th>
 		</thead>
 		<tbody>
 			<?php for($i = 0; $i < sizeof($history["maintenance"]); $i++): ?>
-				<tr>
-					<td><?php echo $history["maintenance"][$i]->action; ?></td>
-					<td><?php echo $history["maintenance"][$i]->user->name; ?></td>
-					<td><?php echo $history["maintenance"][$i]->record->date; ?></td>
+				<tr data-location="<?php echo $history["maintenance"][$i]->created_by; ?>" data-status="<?php echo $history["maintenance"][$i]->status; ?>">
+					<td><?php echo ($i+1); ?></td>
+					<td><?php echo anchor(sprintf("/task/id/%d", $history["maintenance"][$i]->task_id), truncate($history["maintenance"][$i]->description), array("title" => "View task details")); ?></td>
+					<td><?php echo $this->product->getUser($history["maintenance"][$i]->created_by)->name; ?></td>
+					<td><?php echo $this->product->getUser($history["maintenance"][$i]->assignee)->name; ?></td>
+					<td><?php echo $history["maintenance"][$i]->status; ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>

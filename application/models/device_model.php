@@ -258,6 +258,36 @@
 				return $query->result_object();
 			}
 		}
+
+		/**
+		 * Get the list of maintenance tasks for the device
+		 * @return array
+		 */
+		public function getMaintenanceTasks(UUID $uuid){
+			$id = $this->product->getDeviceID($uuid);
+
+			$query = $this->db->query("SELECT 
+				t.task_id, 
+				t.date,
+				t.description,
+				t.created_by,
+				t.assignee,
+				t.status,
+				d.uuid
+				FROM device_manager_maintenance_tasks t 
+				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
+				WHERE t.device_id = ?
+				ORDER BY t.date, t.device_id
+				", array(
+					$id,
+					));
+			
+			if($query->num_rows() > 0){
+				return $query->result_object();
+			}
+
+			return array();
+		}
 	}
 
 ?>

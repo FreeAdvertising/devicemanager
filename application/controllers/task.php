@@ -59,14 +59,23 @@
 		}
 
 		public function insert(){
-			if($this->tasks_model->insert($this->input->post())){
+			if($this->task_model->insert($this->input->post())){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Maintenance task successfully added to the database");
 			}else {
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: maintenance task could not be created");
 			}
 
-			return redirect(base_url(). "/tasks/add");
+			//if the item was inserted from the device/add_task form, redirect
+			//back to that form - else redirect to the regular task/add form
+			$redirect = base_url() . "task/add";
+			$pData = $this->input->post();
+
+			if(isset($pData["uuid"])){
+				$redirect = base_url() . sprintf("device/%s/add_task", $pData["uuid"]);
+			}
+
+			return redirect($redirect);
 		}
 	}
 

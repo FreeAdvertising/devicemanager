@@ -146,7 +146,9 @@
 									<h4 class="floatleft">Edit Device UUID:<?php echo $device_info->uuid; ?></h4>
 								<?php endif;?>
 
-								
+								<?php if($subpage == "add_task"): ?>
+									<h4 class="floatleft">Add Task to Device UUID:<?php echo $device_uuid; ?></h4>
+								<?php endif;?>								
 							<?php break; ?>
 						<?php } ?>
 

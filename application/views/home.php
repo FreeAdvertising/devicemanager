@@ -53,6 +53,12 @@
 <section class="sidebar col-md-3">
 	<aside class="module">
 		<div class="list-group">
+			<h3 class="list-group-item">Information</h3>
+			<li class="list-group-item">Date format: <abbr title="<?php echo $this->product->getDefaultDateFormat(); ?>">Year - Month - Day</abbr></li>
+			<li class="list-group-item">Version <?php echo $this->product->getVersion(); ?></li>
+		</div>
+
+		<div class="list-group">
 			<?php if(sizeof($my_devices) > 0): ?>
 				<h3 class="list-group-item">My Devices</h3>
 				<?php for($i = 0; $i < sizeof($my_devices); $i++): ?>

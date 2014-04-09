@@ -136,7 +136,7 @@
 					<?php echo anchor(sprintf("/device/%s/add_application", $device_info->uuid), "Add Application", array("class" => "list-group-item")); ?>
 				<?php endif; ?>
 
-				<?php echo anchor(sprintf("/device/%s/create_ticket", $device_info->uuid), "Create Maintenance Ticket", array("class" => "list-group-item")); ?>
+				<?php echo anchor(sprintf("/device/%s/add_task", $device_info->uuid), "Create Maintenance Task", array("class" => "list-group-item")); ?>
 				<?php echo anchor(sprintf("/device/%s/history", $device_info->uuid), "History", array("class" => "list-group-item")); ?>
 
 				<?php if($this->product->isCheckedOutByUser($device_info->uuid)): ?>
