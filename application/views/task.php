@@ -23,7 +23,7 @@
 	<div class="col-md-4 meta-device">
 		<table class="table table-striped">
 			<thead>
-				<th width="50%">Device Meta</th>
+				<th width="50%"><?php echo anchor(sprintf("/device/%s", $record->uuid), "Device Meta"); ?></th>
 				<th width="50%"></th>
 			</thead>
 			<tbody>
@@ -87,3 +87,12 @@
 		<h3 class="dotted">Comment &amp; Update History</h3>
 	</div>
 </div>
+
+<?php if($record->can_edit == 1 || $this->hydra->isAdmin()): ?>
+	<div class="col-md-12 edit form-footer">
+		<button class="btn btn-primary edit">Edit Task</button>
+		<?php if($this->hydra->isAdmin()): ?>
+			<button class="btn btn-danger delete floatright">Delete</button>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>

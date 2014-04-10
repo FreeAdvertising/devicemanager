@@ -37,7 +37,11 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 //product specific constants
-define("IS_DEV", ($_SERVER["REMOTE_ADDR"] == "127.0.0.1" && (int) $_SERVER["SERVER_PORT"] > 79));
+if((int) $_SERVER["SERVER_PORT"] === 81){
+	define("IS_DEV", true);
+}else {
+	define("IS_DEV", ($_SERVER["REMOTE_ADDR"] == "127.0.0.1"));
+}
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

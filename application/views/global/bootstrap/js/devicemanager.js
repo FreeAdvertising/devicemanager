@@ -13,10 +13,11 @@
  				var _items = [],
  					_user_list = Array.prototype.slice.call(document.querySelectorAll(".user-list a.list-group-item")),
  					_type_list = Array.prototype.slice.call(document.querySelectorAll(".type-list a.list-group-item")),
+ 					_device_list = Array.prototype.slice.call(document.querySelectorAll(".device-list a.list-group-item")),
  					_reset_filters = Array.prototype.slice.call(document.querySelectorAll(".reset-filters")),
  					_devices = Array.prototype.slice.call(document.querySelectorAll(".list-devices tr"));
 
- 				_items = _items.concat(_type_list, _user_list);
+ 				_items = _items.concat(_type_list, _user_list, _device_list);
  				
  				for(var i = 0; i < _items.length; i++){
  					_items[i].classList.remove("active");

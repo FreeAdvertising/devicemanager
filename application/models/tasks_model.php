@@ -33,6 +33,28 @@
 		}
 
 		/**
+		 * Get all devices and the count of issues/device
+		 * @return array
+		 */
+		public function getDevices(){
+			$query = $this->db->query("SELECT 
+					    d.name,
+					    d.device_id,
+					    (SELECT 
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.device_id = d.device_id) as count
+					FROM
+					    device_manager_devices d
+					ORDER BY count DESC , d.device_id
+					");
+
+			return $query->result_object();
+		}
+
+		/**
 		 * Get all maintenance tasks from the database
 		 * @return array
 		 */

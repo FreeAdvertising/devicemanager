@@ -1,5 +1,5 @@
 <!-- Form data -->
-<?php echo form_open(sprintf("%stask/insert", $nav_path), array("role" => "form")); ?>
+<?php echo form_open(sprintf("%stask/do_insert", $nav_path), array("role" => "form")); ?>
 	<?php if($this->session->flashdata("model_save_success")): ?>
 		<div class="alert alert-success">
 			<?php echo $this->session->flashdata("model_save_success"); ?>
@@ -14,9 +14,8 @@
 
 	<div class="form-wrapper">
 		<div class="form-group">
-			<label for="category">Category</label>
-			<select name="category" id="category" class="form-control">
-				<option value="0">Select a category</option>
+			<label for="categories">Category</label>
+			<select name="categories[]" id="categories" multiple="multiple" class="form-control">
 				<?php for($i = 0; $i < sizeof($categories); $i++): ?>
 					<option value="<?php echo $categories[$i]->category_id; ?>"><?php echo $categories[$i]->name; ?></option>
 				<?php endfor; ?>

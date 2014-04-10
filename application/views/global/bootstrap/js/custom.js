@@ -96,6 +96,34 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		this.classList.add("active");
 	});
 
+	//filter by device
+	jQuery(".device-list a.list-group-item").click(function(evt){
+		evt.preventDefault();
+
+		ProductInstance.Helpers.clearSidebarFilters();
+
+		var _others = document.querySelectorAll(".device-list a.list-group-item"),
+			_reslist = document.querySelectorAll(".list-devices tbody tr");
+
+		for(var i = 0; i < _others.length; i++){
+			_others[i].classList.remove("active");
+		}
+
+		for(var i = 0; i < _reslist.length; i++){
+			_reslist[i].classList.add("hidden");
+
+			if(_reslist[i].dataset.device == this.dataset.device){
+				_reslist[i].classList.remove("hidden");
+
+			}
+		}
+
+		if(this.dataset.device)
+			jQuery(".device-filter-header .reset-filters").removeClass("hidden");
+		
+		this.classList.add("active");
+	});
+
 	//history page tab functionality
 	jQuery(".faux-tabs li a").click(function(evt){
 		evt.preventDefault();
@@ -116,6 +144,15 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		jQuery(".tab_content").hide();
 		jQuery(hash.replace("#", ".tab_")).show();
 	}
+
+	//redirect user to the edit page for a given task
+	jQuery(".edit").click(function(evt){
+		evt.preventDefault();
+
+		var location = window.location.href;
+
+		return (window.location.href = location.replace("id", "edit"));
+	});
 });
 
 //functions
