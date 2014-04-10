@@ -89,10 +89,10 @@
 </div>
 
 <?php if($record->can_edit == 1 || $this->hydra->isAdmin()): ?>
-	<div class="col-md-12 edit form-footer">
+	<div class="col-md-12 form-footer">
 		<button class="btn btn-primary edit">Edit Task</button>
 		<?php if($this->hydra->isAdmin()): ?>
-			<button class="btn btn-danger delete floatright">Delete</button>
+			<button class="btn btn-default manage-task floatright">Manage</button>
 		<?php endif; ?>
 	</div>
 <?php endif; ?>

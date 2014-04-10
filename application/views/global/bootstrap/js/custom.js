@@ -86,7 +86,6 @@ window.addEventListener("DOMContentLoaded", function(evt){
 
 			if(_reslist[i].dataset.status == this.dataset.type){
 				_reslist[i].classList.remove("hidden");
-
 			}
 		}
 
@@ -114,7 +113,6 @@ window.addEventListener("DOMContentLoaded", function(evt){
 
 			if(_reslist[i].dataset.device == this.dataset.device){
 				_reslist[i].classList.remove("hidden");
-
 			}
 		}
 
@@ -152,6 +150,13 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		var location = window.location.href;
 
 		return (window.location.href = location.replace("id", "edit"));
+	});
+
+	//launch manage task modal
+	jQuery(".manage-task").click(function(evt){
+		evt.preventDefault();
+
+		
 	});
 });
 
