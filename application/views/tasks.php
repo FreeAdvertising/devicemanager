@@ -24,14 +24,14 @@
 </section>
 
 <section class="sidebar col-md-3">
-	<aside class="module">
+	<!--<aside class="module">
 		<div class="list-group type-list">
 			<h3 class="list-group-item type-filter-header">Filter by Type <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
 			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available</a>
 			<a href="#" data-type="<?php echo Product::DEVICE_CHECKED_OUT; ?>" class="list-group-item">Checked Out</a>
 			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance</a>
 		</div>
-	</aside>
+	</aside>-->
 
 	<aside class="module">
 		<div class="list-group user-list">
