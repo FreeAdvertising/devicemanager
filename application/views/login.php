@@ -19,20 +19,20 @@
 	<?php endif; ?>
 	
 	<div class="form-group">
-		<label for="username">Username</label><input class="form-control" type="text" name="username" id="username" autocomplete="off" />
+		<label for="username">Username</label><input class="form-control" tabindex="1" type="text" name="username" id="username" autocomplete="off" />
 	</div>
 
 	<div class="form-group">
-		<label for="password">Password</label><input class="form-control" type="password" name="password" id="password" autocomplete="off" />
+		<label for="password">Password</label><input class="form-control" tabindex="2" type="password" name="password" id="password" autocomplete="off" />
 	</div>
 
 	<?php if($isIPExternal): ?>
 		<div class="form-group">
-			<label for="secret_question">Secret Question Answer</label><input class="form-control" type="text" name="secret_question" id="secret_question" autocomplete="off" />
+			<label for="secret_question">Secret Question Answer</label><input class="form-control" tabindex="3" type="text" name="secret_question" id="secret_question" autocomplete="off" />
 		</div>
 	<?php endif; ?>
 
 	<div class="form-footer">
-		<input class="btn btn-primary" type="submit" value="Login" />
+		<input class="btn btn-primary" tabindex="3" type="submit" value="Login" />
 	</div>
 <?php echo form_close(); ?>
