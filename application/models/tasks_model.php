@@ -14,7 +14,7 @@
 		 * the task list
 		 * @return array
 		 */
-		public function getUsers(){
+		public function getCreatedByUsers(){
 			$query = $this->db->query("SELECT 
 					    u.username,
 					    u.userid,
@@ -27,6 +27,28 @@
 					FROM
 					    users u
 					ORDER BY count DESC , u.userid
+					");
+
+			return $query->result_object();
+		}
+
+		/**
+		 * Get all users and how many devices they currently have checked out
+		 * @return array
+		 */
+		public function getAssigneeUsers(){
+			$query = $this->db->query("SELECT 
+						u.username,
+						u.userid,
+						(SELECT 
+							COUNT(t.task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.assignee = u.userid) as count
+					FROM
+						users u
+					ORDER BY count DESC, u.userid
 					");
 
 			return $query->result_object();

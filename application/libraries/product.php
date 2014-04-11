@@ -94,10 +94,10 @@
 				));
 
 			$this->_options->set("TSTAT", array(
-				self::TASK_STATUS_AVAILABLE   => "Available",
-				self::TASK_STATUS_UNAVAILABLE => "Unavailable",
-				self::TASK_STATUS_MAINTENANCE => "Servicing",
-				self::TASK_STATUS_INVALID     => "Invalid",
+				self::TASK_STATUS_AVAILABLE   => "success",
+				self::TASK_STATUS_UNAVAILABLE => "warning",
+				self::TASK_STATUS_MAINTENANCE => "info",
+				self::TASK_STATUS_INVALID     => "danger",
 				));
 		}
 

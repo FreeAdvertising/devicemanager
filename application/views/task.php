@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td>Current Status</td>
-					<td><?php echo $this->product->get_task_status($record->status); ?></td>
+					<td><span class="status-circle floatleft btn-<?php echo $this->product->get_task_status($record->status); ?>"></span></td>
 				</tr>
 			</tbody>
 		</table>

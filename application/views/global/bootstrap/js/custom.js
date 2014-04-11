@@ -68,6 +68,33 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		this.classList.add("active");
 	});
 
+	//assignee user filtering
+	jQuery(".user-assignee-list a.list-group-item").click(function(evt){
+		evt.preventDefault();
+
+		ProductInstance.Helpers.clearSidebarFilters();
+
+		var _others = document.querySelectorAll(".user-assignee-list a.list-group-item"),
+			_reslist = document.querySelectorAll(".list-devices tbody tr");
+
+		for(var i = 0; i < _others.length; i++){
+			_others[i].classList.remove("active");
+		}
+
+		for(var i = 0; i < _reslist.length; i++){
+			_reslist[i].classList.add("hidden");
+
+			if(_reslist[i].dataset.assignee == this.dataset.user){
+				_reslist[i].classList.remove("hidden");
+			}
+		}
+
+		if(this.dataset.user)
+			jQuery(".user-assignee-filter-header .reset-filters").removeClass("hidden");
+
+		this.classList.add("active");
+	});
+
 	//filter by status/type (available, checked out, etc)
 	jQuery(".type-list a.list-group-item").click(function(evt){
 		evt.preventDefault();

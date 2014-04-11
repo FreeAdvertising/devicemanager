@@ -10,12 +10,12 @@
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
-					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-device="<?php echo $records[$i]->device_id; ?>" data-status="<?php echo $records[$i]->status; ?>">
+					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-assignee="<?php echo $records[$i]->assignee; ?>" data-device="<?php echo $records[$i]->device_id; ?>" data-status="<?php echo $records[$i]->status; ?>">
 						<td><?php echo ($i+1); ?>.</td>
 						<td><?php echo anchor(sprintf("/task/id/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
 						<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
 						<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
-						<td><?php echo $records[$i]->status; ?></td>
+						<td><span class="status-circle btn-<?php echo $this->product->get_task_status($records[$i]->status); ?>"></span></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>
@@ -39,6 +39,13 @@
 			<?php for($i = 0; $i < sizeof($users); $i++): ?>
 				<a href="#" data-user="<?php echo $users[$i]->userid; ?>" class="list-group-item"><?php echo $users[$i]->username; ?> <span class="all badge"><?php echo $users[$i]->count; ?></span></a>
 			<?php endfor; ?>
+		
+			<div class="user-assignee-list">
+				<h3 class="list-group-item user-assignee-filter-header">Assignee <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+				<?php for($i = 0; $i < sizeof($assignee_users); $i++): ?>
+					<a href="#" data-user="<?php echo $assignee_users[$i]->userid; ?>" class="list-group-item"><?php echo $assignee_users[$i]->username; ?> <span class="all badge"><?php echo $assignee_users[$i]->count; ?></span></a>
+				<?php endfor; ?>
+			</div>
 		</div>
 	</aside>
 

@@ -33,25 +33,25 @@
 				<option 
 					value="<?php echo Product::TASK_STATUS_AVAILABLE; ?>"
 					<?php echo ($record->status == Product::TASK_STATUS_AVAILABLE ? 'selected="selected"' : ''); ?>>
-					<?php echo $this->product->get_task_status(Product::TASK_STATUS_AVAILABLE); ?>
+					Available
 				</option>
 
 				<option 
 					value="<?php echo Product::TASK_STATUS_UNAVAILABLE; ?>" 
 					<?php echo ($record->status == Product::TASK_STATUS_UNAVAILABLE ? 'selected="selected"' : ''); ?>>
-					<?php echo $this->product->get_task_status(Product::TASK_STATUS_UNAVAILABLE); ?>
+					Unavailable
 				</option>
 
 				<option 
 					value="<?php echo Product::TASK_STATUS_MAINTENANCE; ?>" 
 					<?php echo ($record->status == Product::TASK_STATUS_MAINTENANCE ? 'selected="selected"' : ''); ?>>
-					<?php echo $this->product->get_task_status(Product::TASK_STATUS_MAINTENANCE); ?>
+					Servicing
 				</option>
 
 				<option 
 					value="<?php echo Product::TASK_STATUS_INVALID; ?>" 
 					<?php echo ($record->status == Product::TASK_STATUS_INVALID ? 'selected="selected"' : ''); ?>>
-					<?php echo $this->product->get_task_status(Product::TASK_STATUS_INVALID); ?>
+					Invalid
 				</option>
 			</select>
 		</div>

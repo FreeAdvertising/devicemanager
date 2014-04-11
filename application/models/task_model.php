@@ -255,7 +255,7 @@
 		}
 
 		/**
-		 * Get all users and how many devices they currently have checked out
+		 * Get all users and how many tasks they have assigned to them
 		 * @return array
 		 */
 		public function getUsers(){

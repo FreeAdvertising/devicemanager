@@ -17,7 +17,8 @@
 
 			//set specific page data
 			$data->set("records", $this->tasks_model->getRecords());
-			$data->set("users", $this->tasks_model->getUsers());
+			$data->set("users", $this->tasks_model->getCreatedByUsers());
+			$data->set("assignee_users", $this->tasks_model->getAssigneeUsers());
 			$data->set("devices", $this->tasks_model->getDevices());
 
 			//load the relevant views
