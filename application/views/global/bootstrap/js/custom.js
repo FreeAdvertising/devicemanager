@@ -156,7 +156,9 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	jQuery(".manage-task").click(function(evt){
 		evt.preventDefault();
 
-		
+		// jQuery.get("/task/manage/" + this.dataset.task, function(data){
+		// 	console.log(data);
+		// });
 	});
 });
 

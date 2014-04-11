@@ -13,7 +13,6 @@
 		}
 
 		public function getRecords(){
-			//$query = $this->db->query("SELECT device_id, name, uuid, status, os, location FROM device_manager_devices WHERE status <> 2 ORDER BY device_id");
 			$query = $this->db->query("SELECT 
 				d.device_id, 
 				d.name, 

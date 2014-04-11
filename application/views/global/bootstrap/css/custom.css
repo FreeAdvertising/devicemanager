@@ -191,3 +191,7 @@ tr[data-status="2"] {
 .dotted.no-margin {
 	margin-bottom: 0px;	
 }
+
+.modal.manage {
+	margin-top: 5%;
+}

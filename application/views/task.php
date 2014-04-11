@@ -70,6 +70,10 @@
 					<td>Created On</td>
 					<td><?php echo $this->product->convertMySQLDate($record->date); ?></td>
 				</tr>
+				<tr>
+					<td>Current Status</td>
+					<td><?php echo $this->product->get_task_status($record->status); ?></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -92,7 +96,10 @@
 	<div class="col-md-12 form-footer">
 		<button class="btn btn-primary edit">Edit Task</button>
 		<?php if($this->hydra->isAdmin()): ?>
-			<button class="btn btn-default manage-task floatright">Manage</button>
+			<button class="btn btn-default manage-task floatright" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
 		<?php endif; ?>
 	</div>
 <?php endif; ?>
+
+<!-- Management Modal container-->
+<div class="manage modal fade"></div>

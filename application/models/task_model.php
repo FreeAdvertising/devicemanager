@@ -213,6 +213,25 @@
 		}
 
 		/**
+		 * Edit a task
+		 * @param  array $data Post data
+		 * @return bool
+		 */
+		public function manage_task($data){
+			if(sizeof($data) > 0){
+				$query = $this->db->query("UPDATE device_manager_maintenance_tasks SET assignee = ?, status = ? WHERE task_id = ?", array(
+						$data["assignee"],
+						$data["status"],
+						$data["task_id"],
+					));
+
+				return $query;
+			}
+
+			return false;
+		}
+
+		/**
 		 * Get all categories for a task
 		 * @param  integer $task_id
 		 * @return array
@@ -233,6 +252,28 @@
 			}
 
 			return array();
+		}
+
+		/**
+		 * Get all users and how many devices they currently have checked out
+		 * @return array
+		 */
+		public function getUsers(){
+			$query = $this->db->query("SELECT 
+						u.username,
+						u.userid,
+						(SELECT 
+							COUNT(t.task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.assignee = u.userid) as count
+					FROM
+						users u
+					ORDER BY count DESC, u.userid
+					");
+
+			return $query->result_object();
 		}
 	}
 ?>

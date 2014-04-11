@@ -39,22 +39,25 @@
 		const DEVICE_TYPE_SERVER     = 3;
 		const DEVICE_TYPE_PERIPHERAL = 4;
 
+		const TASK_STATUS_AVAILABLE   = 0;
+		const TASK_STATUS_MAINTENANCE = 1;
+		const TASK_STATUS_UNAVAILABLE = 2;
+		const TASK_STATUS_INVALID     = 3;
+
 		/**
 		 * Specific limits and lengths
 		 */
 		const DEVICE_MAX_TRACKED_APPS = 5; //DEPRECATED
 		const MAX_SHORT_LIST = 5;
 
-		private $_dateFormat;
 		private $_options;
+		private $_dateFormat = "F jS, Y";
 		private $_version = "1.0.0b1";
 
 		/**
 		 * Create the object
 		 */
 		public function __construct(){
-			$this->_dateFormat = "F jS, Y";
-
 			$this->_options = new Generic();
 			$this->_options->set("RAM", array(
 					self::DEVICE_RAM_1GB   => 1,
@@ -88,6 +91,13 @@
 					self::DEVICE_OS_OSX     => "OSX",
 					self::DEVICE_OS_WINDOWS => "WIN",
 					self::DEVICE_OS_LINUX   => "LIN",
+				));
+
+			$this->_options->set("TSTAT", array(
+				self::TASK_STATUS_AVAILABLE   => "Available",
+				self::TASK_STATUS_UNAVAILABLE => "Unavailable",
+				self::TASK_STATUS_MAINTENANCE => "Servicing",
+				self::TASK_STATUS_INVALID     => "Invalid",
 				));
 		}
 
@@ -159,6 +169,10 @@
 			if($query->num_rows() === 1){
 				return $query->row()->username;
 			}
+		}
+
+		public function get_task_status($key){
+			return $this->_options->TSTAT[$key];
 		}
 
 		public function getDeviceID(UUID $uuid){
