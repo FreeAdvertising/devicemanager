@@ -43,6 +43,7 @@
 		const TASK_STATUS_MAINTENANCE = 1;
 		const TASK_STATUS_UNAVAILABLE = 2;
 		const TASK_STATUS_INVALID     = 3;
+		const TASK_STATUS_COMPLETE    = 4;
 
 		/**
 		 * Specific limits and lengths
@@ -95,9 +96,10 @@
 
 			$this->_options->set("TSTAT", array(
 				self::TASK_STATUS_AVAILABLE   => "success",
-				self::TASK_STATUS_UNAVAILABLE => "warning",
-				self::TASK_STATUS_MAINTENANCE => "info",
-				self::TASK_STATUS_INVALID     => "danger",
+				self::TASK_STATUS_UNAVAILABLE => "danger",
+				self::TASK_STATUS_MAINTENANCE => "warning",
+				self::TASK_STATUS_INVALID     => "invalid",
+				self::TASK_STATUS_COMPLETE    => "info",
 				));
 		}
 

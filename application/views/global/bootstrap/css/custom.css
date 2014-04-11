@@ -195,3 +195,7 @@ tr[data-status="2"] {
 .modal.manage {
 	margin-top: 5%;
 }
+
+.btn-invalid {
+	background: black;
+}

@@ -76,7 +76,7 @@
 			<?php if(sizeof($tasks["staff"]) > 0): ?>
 				<h3 class="list-group-item">My Maintenance Tasks</h3>
 				<?php for($i = 0, $obj = $tasks["staff"]; $i < sizeof($obj); $i++): ?>
-					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all\">%s</span>", truncate($obj[$i]->description, 15), $obj[$i]->date), array("class" => "list-group-item")); ?>
+					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all status-circle btn-%s\"></span>", truncate($obj[$i]->description, 15), $this->product->get_task_status($obj[$i]->status)), array("class" => "list-group-item")); ?>
 				<?php endfor; ?>
 			<?php endif ;?>		</div>
 	</aside>

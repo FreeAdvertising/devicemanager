@@ -42,7 +42,7 @@
 			//admins should be able to create tickets for any device in the 
 			//database, other users should only be able to create tickets for
 			//devices they currently have checked out
-			if($this->hydra->get("gid") === 2){ //admins
+			if($this->hydra->isAdmin()){ //admins
 				$sql = "SELECT 
 						ar.device_id,
 						IF(d.name IS NULL, d.uuid, d.name) as name

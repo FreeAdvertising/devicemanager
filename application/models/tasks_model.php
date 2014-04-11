@@ -83,7 +83,17 @@
 		public function getRecords(){
 			$return = array();
 
-			$query = $this->db->query("SELECT task_id, device_id, assignee, created_by, description, status FROM device_manager_maintenance_tasks ORDER BY device_id, assignee");
+			//admins can see invalid tickets, staff cannot
+			if($this->hydra->isAdmin()){
+				$sql = "SELECT task_id, device_id, assignee, created_by, description, status FROM device_manager_maintenance_tasks 
+				ORDER BY status";
+			}else {
+				$sql = "SELECT task_id, device_id, assignee, created_by, description, status FROM device_manager_maintenance_tasks 
+				WHERE status < 3
+				ORDER BY status";
+			}
+
+			$query = $this->db->query($sql);
 
 			if($query->num_rows() > 0){
 				return $query->result_object();

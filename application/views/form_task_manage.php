@@ -53,6 +53,12 @@
 					<?php echo ($record->status == Product::TASK_STATUS_INVALID ? 'selected="selected"' : ''); ?>>
 					Invalid
 				</option>
+
+				<option 
+					value="<?php echo Product::TASK_STATUS_COMPLETE; ?>" 
+					<?php echo ($record->status == Product::TASK_STATUS_COMPLETE ? 'selected="selected"' : ''); ?>>
+					Complete
+				</option>
 			</select>
 		</div>
 
