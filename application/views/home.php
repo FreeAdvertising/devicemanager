@@ -61,7 +61,7 @@
 						</tr>
 
 						<tr>
-							<td>Task opened/closed ratio</td>
+							<td><abbr title="# invalid tasks/# created tasks">Invalid Task Ratio</abbr></td>
 							<td><?php echo $user_stats->dm_task_ratio; ?></td>
 						</tr>
 					</tbody>

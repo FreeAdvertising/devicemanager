@@ -121,9 +121,9 @@
 			$output->set("dm_devices_owned", (int) $dm_num_owned_query->row()->num_owned);
 
 			//get total ticket opened vs. closed ratio
-			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_COMPLETE));
+			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_INVALID));
 			$tasks_closed = (int) $dm_tasks_closed->row()->num_closed;
-			$output->set("dm_task_ratio", (abs($tasks_closed/$output->dm_tasks_created) * 100) ."%");
+			$output->set("dm_task_ratio", number_format(($tasks_closed/$output->dm_tasks_created) * 100, 0) ."%");
 
 			return $output;
 		}
