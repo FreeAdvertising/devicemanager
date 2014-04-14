@@ -60,25 +60,7 @@
 		 * @return array
 		 */
 		public function getMaintenanceTasks(){
-			$output = array("admin" => array(), "staff" => array());
-
-			$admin_query = $this->db->query("SELECT 
-				t.task_id, 
-				t.date,
-				t.description,
-				t.status,
-				d.uuid
-				FROM device_manager_maintenance_tasks t 
-				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
-				ORDER BY t.status DESC, t.date DESC
-				LIMIT ?
-				", array(
-					Product::MAX_SHORT_LIST,
-					));
-
-			if($admin_query->num_rows() > 0){
-				$output["admin"] = $admin_query->result_object();
-			}
+			$output = array();
 
 			$staff_query = $this->db->query("SELECT 
 				t.task_id, 
@@ -88,22 +70,23 @@
 				d.uuid
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
-				WHERE t.created_by = ?
+				WHERE t.created_by = ? AND t.status < ?
 				ORDER BY t.status DESC, t.date DESC
 				LIMIT ?
 				", array(
 					$this->hydra->get("id"),
+					Product::TASK_STATUS_COMPLETE,
 					Product::MAX_SHORT_LIST,
 					));
 			
 			if($staff_query->num_rows() > 0){
-				$output["staff"] = $staff_query->result_object();
+				$output = $staff_query->result_object();
 			}
 
 			return $output;
 		}
 
-		public function getUserStats(){
+		public function getMyStats(){
 			$user = $this->hydra->get("id");
 			$output = new Generic();
 
@@ -120,10 +103,32 @@
 			$dm_num_owned_query = $this->db->query("SELECT COUNT(ass_id) as num_owned FROM device_manager_assignments_rel WHERE userid = ?", array($user));
 			$output->set("dm_devices_owned", (int) $dm_num_owned_query->row()->num_owned);
 
-			//get total ticket opened vs. closed ratio
-			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_INVALID));
+			//get invalid ticket ratio (i.e. requests that wasted time)
+			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_invalid FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_INVALID));
+			$tasks_invalid = (int) $dm_tasks_closed->row()->num_invalid;
+			$output->set("dm_invalid_task_ratio", number_format(($tasks_invalid/$output->dm_tasks_created) * 100, 0) ."%");
+
+			//get completed ticket ratio (i.e. successful support requests)
+			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_COMPLETE));
 			$tasks_closed = (int) $dm_tasks_closed->row()->num_closed;
-			$output->set("dm_task_ratio", number_format(($tasks_closed/$output->dm_tasks_created) * 100, 0) ."%");
+			$output->set("dm_completed_task_ratio", number_format(($tasks_closed/$output->dm_tasks_created) * 100, 0) ."%");
+
+			return $output;
+		}
+
+		public function getUserStats(){
+			$output = new Generic();
+
+			//get user with best completed task ratio
+			$dm_best_task_ratio_query = $this->db->query("SELECT
+				* from users WHERE userid = 1 LIMIT ?
+				", array(1
+					));
+			$output->set("best_ratio", $dm_best_task_ratio_query->row()->username);
+			$output->set("worst_ratio", $dm_best_task_ratio_query->row()->username);
+			$output->set("most_tickets", $dm_best_task_ratio_query->row()->username);
+			$output->set("most_records", $dm_best_task_ratio_query->row()->username);
+			$output->set("most_devices", $dm_best_task_ratio_query->row()->username);
 
 			return $output;
 		}
