@@ -70,7 +70,7 @@
 				d.uuid
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
-				ORDER BY t.date DESC, t.device_id
+				ORDER BY t.status DESC, t.date DESC
 				LIMIT ?
 				", array(
 					Product::MAX_SHORT_LIST,
@@ -89,7 +89,7 @@
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
 				WHERE t.created_by = ?
-				ORDER BY t.date DESC, t.device_id
+				ORDER BY t.status DESC, t.date DESC
 				LIMIT ?
 				", array(
 					$this->hydra->get("id"),
@@ -99,6 +99,31 @@
 			if($staff_query->num_rows() > 0){
 				$output["staff"] = $staff_query->result_object();
 			}
+
+			return $output;
+		}
+
+		public function getUserStats(){
+			$user = $this->hydra->get("id");
+			$output = new Generic();
+
+			//get total number of records created by the user in the Freepass
+			//application
+			$freepass_records_created_query = $this->db->query("SELECT COUNT(record_id) as num_records FROM records WHERE user_id = ?", array($user));
+			$output->set("fp_records_created", (int) $freepass_records_created_query->row()->num_records);
+
+			//get total number of device manager tasks created by user
+			$dm_tasks_created_query = $this->db->query("SELECT COUNT(task_id) as num_tasks FROM device_manager_maintenance_tasks WHERE created_by = ?", array($user));
+			$output->set("dm_tasks_created", (int) $dm_tasks_created_query->row()->num_tasks);
+
+			//get number of devices owned by user
+			$dm_num_owned_query = $this->db->query("SELECT COUNT(ass_id) as num_owned FROM device_manager_assignments_rel WHERE userid = ?", array($user));
+			$output->set("dm_devices_owned", (int) $dm_num_owned_query->row()->num_owned);
+
+			//get total ticket opened vs. closed ratio
+			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_COMPLETE));
+			$tasks_closed = (int) $dm_tasks_closed->row()->num_closed;
+			$output->set("dm_task_ratio", (abs($tasks_closed/$output->dm_tasks_created) * 100) ."%");
 
 			return $output;
 		}

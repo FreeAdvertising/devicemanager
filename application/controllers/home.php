@@ -19,6 +19,7 @@
 			$data->set("my_reservations", $this->home_model->getMyReservations());
 			$data->set("my_devices", $this->home_model->getMyDevices());
 			$data->set("tasks", $this->home_model->getMaintenanceTasks());
+			$data->set("user_stats", $this->home_model->getUserStats());
 
 			//load the relevant views
 			$this->load->view('header', $data);
