@@ -1,58 +1,42 @@
 <section class="main col-md-9">
-		<?php if($this->hydra->isAdmin()): ?>
-			<div class="row">
-				<div class="admin quicklinks">
-					<h3>Admin Dashboard</h3>
-
-					<section class="module col-md-6">
-						<table class="table table-striped table-hover">
-							<thead>
-								<th width="90%">Overall User Stats</th>
-								<th></th>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Best Ratio</td>
-									<td><?php echo $user_stats->best_ratio; ?></td>
-								</tr>
-
-								<tr>
-									<td>Worst Ratio</td>
-									<td><?php echo $user_stats->worst_ratio; ?></td>
-								</tr>
-
-								<tr>
-									<td>Most Tickets Created</td>
-									<td><?php echo $user_stats->most_tickets; ?></td>
-								</tr>
-
-								<tr>
-									<td>Most Records Created</td>
-									<td><?php echo $user_stats->most_records; ?></td>
-								</tr>
-
-								<tr>
-									<td>Most Devices Owned</td>
-									<td><?php echo $user_stats->most_devices; ?></td>
-								</tr>
-							</tbody>
-						</table>
-					</section>
-
-					<section class="module col-md-6">
-						<h3>Manage</h3>
-						<ul>
-							<li><?php echo anchor("/manage_devices", "Devices"); ?></li>
-							<li><?php echo anchor("/users", "Users"); ?></li>
-							<li><?php echo anchor("/tasks", "Maintenance Tasks"); ?></li>
-						</ul>
-					</section>
-				</div>
-			</div>
-		<?php endif; ?>
 	<div class="row">
-		<div class="staff quicklinks">
-			<h3>Staff Dashboard</h3>
+		<div class="admin quicklinks">
+			<h3>Statistics</h3>
+
+			<section class="module col-md-6">
+				<table class="table table-striped table-hover">
+					<thead>
+						<th width="90%">Overall User Stats</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Best Ratio</td>
+							<td><?php echo $user_stats->best_ratio; ?></td>
+						</tr>
+
+						<tr>
+							<td>Worst Ratio</td>
+							<td><?php echo $user_stats->worst_ratio; ?></td>
+						</tr>
+
+						<tr>
+							<td>Most Tickets Created</td>
+							<td><?php echo $user_stats->most_tickets; ?></td>
+						</tr>
+
+						<tr>
+							<td>Most Records Created</td>
+							<td><?php echo $user_stats->most_records; ?></td>
+						</tr>
+
+						<tr>
+							<td>Most Devices Owned</td>
+							<td><?php echo $user_stats->most_devices; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
 
 			<section class="module col-md-6">
 				<table class="table table-striped table-hover">
@@ -87,16 +71,6 @@
 						</tr>
 					</tbody>
 				</table>
-			</section>
-
-			<section class="module col-md-6">
-				<h3>View</h3>
-				<ul>
-					<li><a href="#">Latest Reservations</a></li>
-					<li><a href="#">Latest Check In's</a></li>
-					<li><a href="#">Latest Check Out's</a></li>
-					<li><?php echo anchor("/devices", "Devices"); ?></li>
-				</ul>
 			</section>
 		</div>
 	</div>
