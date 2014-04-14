@@ -1,5 +1,25 @@
 <section class="main col-md-9">
 	<div class="row">
+		<h3 class="dotted">Legend <a class="label label-default expand-legend floatright" href="#">View</a></h3>
+		<table class="table table-striped table-hover legend hidden">
+			<thead>
+				<th align="center" width="20%">Available</th>
+				<th align="center" width="20%">Unavailable</th>
+				<th align="center" width="20%">Servicing</th>
+				<th align="center" width="20%">Invalid Task</th>
+				<th align="center" width="20%">Task Complete</th>
+			</thead>
+			<tbody>
+				<td><span class="status-circle btn-success"></span></td>
+				<td><span class="status-circle btn-danger"></span></td>
+				<td><span class="status-circle btn-warning"></span></td>
+				<td><span class="status-circle btn-invalid"></span></td>
+				<td><span class="status-circle btn-info"></span></td>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="row">
 		<table class="table table-striped table-hover list-devices">
 			<thead>
 				<th width="1"></th>

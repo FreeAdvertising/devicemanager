@@ -187,6 +187,19 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		// 	console.log(data);
 		// });
 	});
+
+	//expand legend(s)
+	jQuery(".expand-legend").click(function(evt){
+		evt.preventDefault();
+
+		var _lgnd = jQuery(".legend");
+
+		if(_lgnd.hasClass("hidden")){
+			_lgnd.removeClass("hidden");
+		}else {
+			_lgnd.addClass("hidden");
+		}
+	});
 });
 
 //functions
