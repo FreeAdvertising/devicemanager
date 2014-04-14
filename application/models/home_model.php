@@ -106,12 +106,14 @@
 			//get invalid ticket ratio (i.e. requests that wasted time)
 			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_invalid FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_INVALID));
 			$tasks_invalid = (int) $dm_tasks_closed->row()->num_invalid;
-			$output->set("dm_invalid_task_ratio", number_format(($tasks_invalid/$output->dm_tasks_created) * 100, 0) ."%");
+			$_tmp = ($tasks_invalid === 0 ? 0 : number_format(($tasks_invalid/$output->dm_tasks_created) * 100, 0));
+			$output->set("dm_invalid_task_ratio", $_tmp ."%");
 
 			//get completed ticket ratio (i.e. successful support requests)
 			$dm_tasks_closed = $this->db->query("SELECT COUNT(task_id) as num_closed FROM device_manager_maintenance_tasks WHERE created_by = ? AND status = ?", array($user, Product::TASK_STATUS_COMPLETE));
 			$tasks_closed = (int) $dm_tasks_closed->row()->num_closed;
-			$output->set("dm_completed_task_ratio", number_format(($tasks_closed/$output->dm_tasks_created) * 100, 0) ."%");
+			$_tmp = ($tasks_closed === 0 ? 0 : number_format(($tasks_closed/$output->dm_tasks_created) * 100, 0));
+			$output->set("dm_completed_task_ratio", $_tmp ."%");
 
 			return $output;
 		}
