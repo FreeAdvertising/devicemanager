@@ -43,6 +43,24 @@
 			return false;
 		}
 
+		/**
+		 * Get data about a specific user
+		 * TODO: build a User class, modify this class to only accept properties
+		 * of that class (i.e. User $id)
+		 * 
+		 * @param  int $id The user's ID
+		 * @return bool
+		 */
+		public function getQuarantinedUser($id){
+			if(is_numeric($id) && $id > 0){
+				$result = $this->db->query("SELECT username, secret_question_answer, group_id, userid FROM users_quarantine WHERE userid = ?", array($id));
+
+				return $result->result_object();
+			}
+
+			return false;
+		}
+
 		public function getGroups(){
 			$result = $this->db->query("SELECT group_id, name FROM usergroups ORDER BY group_id");
 

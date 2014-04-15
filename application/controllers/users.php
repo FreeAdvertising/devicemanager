@@ -6,7 +6,6 @@
 			parent::__construct();
 
 			$this->load->model("users_model");
-			$this->load->helper("form");
 		}
 
 		public function index(){
@@ -16,6 +15,9 @@
 			$data->set("records", $this->users_model->getUsers());
 			$data->set("page", $this->uri->segment(1));
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
+
+			//set specific page data
+			$data->set("list", $this->users_model->getUsers());
 
 			//load the relevant views
 			$this->load->view('header', $data);

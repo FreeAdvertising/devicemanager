@@ -114,6 +114,18 @@
 								<p class="small overview">All apps tracked by the system.</p>
 							<?php break; ?>
 
+							<?php case "user": ?>
+								<?php if($subpage == "edit"): ?>
+									<h4 class="panel-title">User Information</h4>
+									<p class="small overview">Edit user details.</p>
+								<?php endif; ?>
+							<?php break; ?>
+
+							<?php case "users": ?>
+								<h4 class="panel-title">User Information</h4>
+								<p class="small overview">Choose a user from the list to modify them or click the appropriate button to reset their password/secret question answer.</p>
+							<?php break; ?>
+
 							<?php case "tasks": ?>
 								<?php if($subpage == ""): ?>
 									<h4 class="panel-title">Maintenance Tasks</h4>

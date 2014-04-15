@@ -38,9 +38,9 @@
 				$postdata = $this->input->post();
 				
 				if(false === $this->register_model->do_register($postdata)){
-					$this->session->set_flashdata("model_save_fail", "There was an error processing your request and your account could not be created.");
+					$this->session->set_flashdata("model_save_fail", "There was an error processing the request and your account could not be created.");
 				}else {
-					$this->session->set_flashdata("model_save_success", "Your account was created but it must be approved by an administrator before you can login.");
+					$this->session->set_flashdata("model_save_success", "Your account was created but it must be approved by an administrator before you can login.  You will be notified via email when this is complete.");
 				}
 			}
 

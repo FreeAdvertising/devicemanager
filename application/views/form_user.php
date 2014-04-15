@@ -1,8 +1,8 @@
 <!-- Form data -->
-<?php if($page == "user"): ?>
-	<?php echo form_open(sprintf("%suser/insert", $nav_path), array("role" => "form")); ?>
+<?php if($page == "user" && $subpage != "edit"): ?>
+	<?php echo form_open(sprintf("%suser/do_insert", $nav_path), array("role" => "form")); ?>
 <?php else : ?>
-	<?php echo form_open(sprintf("%sedit/modify_user/%d", $nav_path, $this->uri->segment(3)), array("role" => "form")); ?>
+	<?php echo form_open(sprintf("%suser/do_edit/%d", $nav_path, $this->uri->segment(3)), array("role" => "form")); ?>
 <?php endif; ?>
 	<?php if($this->session->flashdata("model_save_success")): ?>
 		<div class="alert alert-success">
@@ -15,8 +15,7 @@
 			<?php echo $this->session->flashdata("model_save_fail"); ?>
 		</div>
 	<?php endif; ?>
-
-	<h3>User Information</h3>
+	
 	<div class="form-wrapper">
 		<div class="form-group text">
 			<label for="name">Name</label><input type="text" id="name" name="name" value="<?php echo (isset($record[0]->username) ? $record[0]->username : ""); ?>" class="client-name form-control" placeholder="Chris Bolivar" />

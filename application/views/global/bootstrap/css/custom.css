@@ -199,3 +199,7 @@ tr[data-status="2"] {
 .btn-invalid {
 	background: black;
 }
+
+span.input-group-btn {
+	top: 13px;
+}
