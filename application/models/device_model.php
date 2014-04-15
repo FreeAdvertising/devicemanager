@@ -251,9 +251,10 @@
 				`created_by`, 
 				`date`
 				FROM device_manager_maintenance_tasks
-				WHERE device_id = ?
+				WHERE `device_id` = ? AND `status` < ?
+				ORDER BY `status` DESC, `date` DESC
 				LIMIT ?
-				", array($device_id, Product::MAX_SHORT_LIST));
+				", array($device_id, Product::TASK_STATUS_INVALID, Product::MAX_SHORT_LIST));
 
 			if($query->num_rows() > 0){
 				return $query->result_object();
@@ -278,7 +279,7 @@
 				FROM device_manager_maintenance_tasks t 
 				LEFT JOIN device_manager_devices d ON d.device_id = t.device_id
 				WHERE t.device_id = ?
-				ORDER BY t.date, t.device_id
+				ORDER BY t.status DESC, t.date DESC
 				", array(
 					$id,
 					));

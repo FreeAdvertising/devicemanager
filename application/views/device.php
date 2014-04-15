@@ -94,7 +94,7 @@
 			</div> <!-- end installed apps table -->
 
 			<div class="module col-md-12">
-				<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tickets"); ?></h3>
+				<h3><?php echo anchor(sprintf("/device/%s/history#maintenance", $device_info->uuid), "Maintenance Tasks"); ?></h3>
 				<table class="table table-striped">
 					<thead>
 						<th width="1"></th>
@@ -111,7 +111,7 @@
 									<td><?php echo anchor(sprintf("/task/id/%d", $tasks[$i]->task_id), truncate($tasks[$i]->description), array("title" => "View task details")); ?></td>
 									<td><?php echo $this->product->getUser($tasks[$i]->created_by)->name; ?></td>
 									<td><?php echo $this->product->getUser($tasks[$i]->assignee)->name; ?></td>
-									<td><?php echo $tasks[$i]->status; ?></td>
+									<td><span class="status-circle btn-<?php echo $this->product->get_task_status($tasks[$i]->status); ?>"></span></td>
 								</tr>
 							<?php endfor; ?>
 						<?php else : ?>
