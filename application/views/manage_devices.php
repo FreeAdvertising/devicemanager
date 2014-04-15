@@ -26,7 +26,7 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<th width="1"></th>
-				<th width="15%">Name</th>
+				<th width="30%">Name</th>
 				<th>Description</th>
 			</thead>
 			<tbody>
