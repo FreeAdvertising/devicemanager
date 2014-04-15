@@ -1,6 +1,6 @@
 <section class="main col-md-9">
 	<div class="row">
-		<h3 class="dotted"><?php echo anchor("/devices", "Devices"); ?> (<?php echo Product::DEVICE_MAX_TRACKED_APPS; ?>)</h3>
+		<h3 class="dotted"><?php echo anchor("/devices", "Devices"); ?> (<?php echo Product::MAX_SHORT_LIST; ?>)</h3>
 		<table class="table table-striped table-hover list-devices">
 			<thead>
 				<th width="85%">Device Name (UUID)</th>
@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="row">
-		<h3 class="dotted"><?php echo anchor("/tracked_applications", "Installed Applications"); ?> (<?php echo Product::DEVICE_MAX_TRACKED_APPS; ?>)</h3>
+		<h3 class="dotted"><?php echo anchor("/tracked_applications", "Installed Applications"); ?> (<?php echo Product::MAX_SHORT_LIST; ?>)</h3>
 
 		<table class="table table-striped table-hover">
 			<thead>
