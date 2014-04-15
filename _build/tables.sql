@@ -34,7 +34,6 @@ CREATE TABLE `freepass`.`users` (
   PRIMARY KEY (`userid`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC));
 
-# NOT COMMITTED LIVE YET
 CREATE TABLE `freepass`.`users_quarantine` (
   `userid` INT NOT NULL AUTO_INCREMENT,
   `group_id` INT NOT NULL,
@@ -226,5 +225,4 @@ CREATE TABLE `freepass`.`device_manager_history` (
 #INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
 #UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
 
-# NOT COMMITTED LIVE YET
 ALTER TABLE `freepass`.`users` ADD COLUMN `email` VARCHAR(45) NOT NULL AFTER `password`
