@@ -96,6 +96,7 @@
 
 							<?php case "add_device": ?>
 								<h4 class="panel-title">Add New Device</h4>
+								<p class="small overview">Add a new device to the database.</p>
 							<?php break; ?>
 
 							<?php case "add_application": ?>
@@ -128,6 +129,11 @@
 								<?php if($subpage == "id"): ?>
 									<h4 class="device-title panel-title">View Task <span class="label label-default floatright">#<?php echo $this->uri->segment(3); ?></span> </h4>
 								<?php endif; ?>
+							<?php break; ?>
+
+							<?php case "add_task_category" : ?>
+								<h4 class="device-title panel-title">New Task Category</h4>
+								<p class="small overview">Create categories which can be used to organize and filter tasks.</p>
 							<?php break; ?>
 
 							<?php case "device": ?>

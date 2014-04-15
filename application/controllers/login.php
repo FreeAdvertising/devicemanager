@@ -24,7 +24,7 @@
 				}
 				
 				if(false === $this->login_model->authenticate($authdata)){
-					$this->session->set_flashdata("model_save_fail", "Invalid login credentials");
+					$this->session->set_flashdata("model_save_fail", "Sorry! We couldn't log you in with those credentials.");
 				}
 			}
 

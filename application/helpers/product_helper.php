@@ -77,4 +77,30 @@
 
 		return base_url();
 	}
+
+	/**
+	 * Determines if an array has items and if those items have values, false if
+	 * both conditions fail
+	 * @param  mixed  $arr Accepts any type of input but returns false if not array
+	 * @return boolean
+	 */
+	function array_has_values($arr){
+		//it's an array and it has some items
+		if(is_array($arr) && sizeof($arr) > 0){
+			//not sure if this is numeric or associative so..
+			foreach($arr as $item){
+				if(is_array($item)){
+					return is_array_empty($item);
+				}else {
+					if(strlen($item) === 0 || is_null($item)){
+						return false;
+					}else {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
 ?>
