@@ -26,9 +26,12 @@
 				$get = $this->db->query("SELECT COUNT(userid) as registered_users FROM users WHERE username = ? AND email = ?", array($data["username"], $data["email"]));
 
 				$passwords_match = ($data["password"] === $data["conf-password"]);
-
-				//there are no users with that email/username combination
-				if($get->row()->registered_users == 0 && $passwords_match){
+				$valid_email = (strpos($data["email"], "@") > 0);
+				$valid_email = ($valid_email && strpos($data["email"], "wearefree.ca") > 0); //check against our desired domain
+				
+				//there are no users with that email/username combination,
+				//proceed with registration
+				if($get->row()->registered_users == 0 && $passwords_match && $valid_email){
 					$register_query = $this->db->query("INSERT INTO 
 						users_quarantine(`username`, `password`, `email`, `group_id`, `is_reset`)
 						VALUES(?, ?, ?, 1, 0)", array(
