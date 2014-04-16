@@ -166,6 +166,8 @@
 						));
 				}
 
+				History::recordTask($max_task_id, __FUNCTION__, sprintf("Created by <span class=\"task-status\">%s</span>", $this->hydra->get("name")));
+
 				return $assoc_query;
 			}
 
@@ -305,7 +307,7 @@
 				t.date
 				FROM device_manager_history h
 				LEFT JOIN device_manager_maintenance_tasks t ON t.task_id = h.rel_id
-				WHERE h.rel_id = ? AND h.type = 'do_manage_task' AND h.value IS NOT NULL
+				WHERE h.rel_id = ? AND h.type IN('do_manage_task', 'do_insert') AND h.value IS NOT NULL
 				ORDER BY t.date
 				", array($task_id));
 
