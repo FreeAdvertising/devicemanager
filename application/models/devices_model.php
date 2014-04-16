@@ -22,6 +22,12 @@
 							ar.userid = u.userid AND ar.checked_in = 0) as count
 					FROM
 						users u
+					WHERE (SELECT 
+							COUNT(ar.device_id)
+						FROM
+							device_manager_assignments_rel ar
+						WHERE
+							ar.userid = u.userid AND ar.checked_in = 0) > 0
 					ORDER BY count DESC , u.userid
 					");
 
