@@ -154,14 +154,13 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: maintenance task could not be edited");
 			}
 
-			//return redirect(base_url() . sprintf("task/id/%d", $post["task_id"]));
 			return redirect(base_url() . sprintf("task/edit/%d", $post["task_id"]));
 		}
 
 		public function do_manage_task(){
 			$post = $this->input->post();
 
-			if($this->task_model->manage_task($post)){
+			if($this->task_model->do_manage_task($post)){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Status/Assignee updated successfully");
 			}else {

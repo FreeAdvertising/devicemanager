@@ -88,13 +88,29 @@
 
 <div class="row">
 	<div class="col-md-12 comment-update-history">
-		<h3 class="dotted">Comment &amp; Update History</h3>
+		<h3 class="dotted">Update History</h3>
+
+		<table class="table table-striped">
+			<thead>
+				<th width="85%">Note</th>
+				<th style="text-align: right;">Date</th>
+			</thead>
+			<tbody>
+				<?php for($i = 0; $i < sizeof($record->history); $i++): ?>
+					<tr>
+						<td><?php echo $record->history[$i]->value; ?></td>
+						<td align="right"><?php echo $this->product->convertMySQLDate($record->history[$i]->date); ?></td>
+					</tr>
+				<?php endfor; ?>
+			</tbody>
+		</table>
 	</div>
 </div>
 
 <?php if($record->can_edit == 1 || $this->hydra->isAdmin()): ?>
 	<div class="col-md-12 form-footer">
 		<button class="btn btn-primary edit">Edit Task</button>
+		<button class="btn btn-link task-back">Back</button>
 		<?php if($this->hydra->isAdmin()): ?>
 			<button class="btn btn-default manage-task floatright" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
 		<?php endif; ?>

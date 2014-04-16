@@ -200,6 +200,19 @@ window.addEventListener("DOMContentLoaded", function(evt){
 			_lgnd.addClass("hidden");
 		}
 	});
+
+	//back button for task views
+	jQuery(".task-back").click(function(evt){
+		evt.preventDefault();
+
+		var _location = "/tasks";
+
+		if(this.dataset.task){
+			_location = "/task/id/"+ this.dataset.task;
+		}
+
+		return window.location.href = _location;
+	});
 });
 
 //functions

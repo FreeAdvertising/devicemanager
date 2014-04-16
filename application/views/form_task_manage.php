@@ -68,6 +68,7 @@
 			</div>
 
 			<input type="hidden" name="task_id" value="<?php echo $record->task_id; ?>" />
+			<input type="hidden" name="uuid" value="<?php echo $record->uuid; ?>" />
 		</div>
 
 		<div class="modal-footer">

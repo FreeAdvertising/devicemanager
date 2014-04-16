@@ -2,9 +2,9 @@
 # Create Product tables
 #
 # freepass tables
-CREATE DATABASE `freepass` ;
+CREATE DATABASE IF NOT EXISTS `freepass` ;
 
-CREATE TABLE `freepass`.`clients` (
+CREATE TABLE IF NOT EXISTS `freepass`.`clients` (
   `client_id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `freepass`.`clients` (
   PRIMARY KEY (`client_id`),
   UNIQUE INDEX `client_id_UNIQUE` (`client_id` ASC));
 
-CREATE TABLE `freepass`.`records` (
+CREATE TABLE IF NOT EXISTS `freepass`.`records` (
   `record_id` INT NOT NULL AUTO_INCREMENT,
   `client_id` INT NOT NULL,
   `user_id` INT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `freepass`.`records` (
   `desc` VARCHAR(45) NULL,
   PRIMARY KEY (`record_id`));
 
-CREATE TABLE `freepass`.`users` (
+CREATE TABLE IF NOT EXISTS `freepass`.`users` (
   `userid` INT NOT NULL AUTO_INCREMENT,
   `group_id` INT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `freepass`.`users` (
   PRIMARY KEY (`userid`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC));
 
-CREATE TABLE `freepass`.`users_quarantine` (
+CREATE TABLE IF NOT EXISTS `freepass`.`users_quarantine` (
   `userid` INT NOT NULL AUTO_INCREMENT,
   `group_id` INT NOT NULL,
   `username` VARCHAR(45) NOT NULL,
@@ -45,13 +45,13 @@ CREATE TABLE `freepass`.`users_quarantine` (
   PRIMARY KEY (`userid`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC));
 
-CREATE TABLE `freepass`.`usergroups` (
+CREATE TABLE IF NOT EXISTS `freepass`.`usergroups` (
   `group_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `desc` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`group_id`));
 
-CREATE TABLE `freepass`.`categories` (
+CREATE TABLE IF NOT EXISTS `freepass`.`categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `colour` VARCHAR(45) NOT NULL,
@@ -59,13 +59,13 @@ CREATE TABLE `freepass`.`categories` (
   `slug` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`category_id`));
 
-CREATE TABLE `freepass`.`rel_categories` (
+CREATE TABLE IF NOT EXISTS `freepass`.`rel_categories` (
   `rel_id` INT NOT NULL AUTO_INCREMENT,
   `record_id` INT NOT NULL,
   `category_id` INT NOT NULL,
   PRIMARY KEY (`rel_id`));
 
-CREATE TABLE `freepass`.`rel_starred_categories` (
+CREATE TABLE IF NOT EXISTS `freepass`.`rel_starred_categories` (
   `rel_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `category_id` INT NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `freepass`.`rel_starred_categories` (
 ##
 # device_manager tables
 # 
-CREATE TABLE `freepass`.`device_manager_devices` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_devices` (
   `device_id` INT NOT NULL AUTO_INCREMENT,
   `uuid` VARCHAR(8) NOT NULL,
   `os` INT NOT NULL, #ENUM
@@ -89,7 +89,7 @@ CREATE TABLE `freepass`.`device_manager_devices` (
   `location` INT NOT NULL, #ENUM
   PRIMARY KEY (`device_id`));
 
-CREATE TABLE `freepass`.`device_manager_tracked_applications` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_tracked_applications` (
   `app_id` INT NOT NULL AUTO_INCREMENT,
   #`device_id` INT NOT NULL, # DROP THIS
   `name` VARCHAR(255) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `freepass`.`device_manager_tracked_applications` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_tracked_applications_rel` (
   `tapp_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `app_id` INT NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `freepass`.`device_manager_tracked_applications_rel` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_tasks` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `assignee` INT NOT NULL,
@@ -137,13 +137,13 @@ CREATE TABLE `freepass`.`device_manager_maintenance_tasks` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_maintenance_task_categories` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_task_categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` BLOB NOT NULL,
   PRIMARY KEY (`category_id`));
 
-CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_task_categories_rel` (
   `rel_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `task_id` INT NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE `freepass`.`device_manager_maintenance_task_categories_rel` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_reservations_rel` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_reservations_rel` (
   `res_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
@@ -188,7 +188,7 @@ CREATE TABLE `freepass`.`device_manager_reservations_rel` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_assignments_rel` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_assignments_rel` (
   `ass_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
@@ -207,7 +207,7 @@ CREATE TABLE `freepass`.`device_manager_assignments_rel` (
     ON DELETE CASCADE
   );
 
-CREATE TABLE `freepass`.`device_manager_history` (
+CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_history` (
   `hist_id` INT NOT NULL AUTO_INCREMENT,
   `rel_id` INT NOT NULL, # i.e. res_id, ass_id, maint_id - to get details about the item
   `type` VARCHAR(25) NOT NULL, # i.e. assignment, reservation, maintenance
@@ -221,8 +221,5 @@ CREATE TABLE `freepass`.`device_manager_history` (
 # existing data)
 # 
 
-#INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('registered', 'Registered users');
-#INSERT INTO `freepass`.`usergroups` (`name`, `desc`) VALUES ('administrator', 'Can perform administration actions');
-#UPDATE `freepass`.`users` SET `group_id`='2' WHERE `userid`='1';
-
-ALTER TABLE `freepass`.`users` ADD COLUMN `email` VARCHAR(45) NOT NULL AFTER `password`
+#alter table device_manager_history drop column value;
+#ALTER TABLE device_manager_history ADD COLUMN value VARCHAR(255) DEFAULT NULL

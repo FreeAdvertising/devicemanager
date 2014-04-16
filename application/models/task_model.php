@@ -25,6 +25,7 @@
 					$return = $query->row();
 					$return->categories = $this->_getCategories($id);
 					$return->category_ids = $this->getTaskCategoryIDs($id);
+					$return->history = $this->_getTaskHistory($id);
 
 					return $return;
 				}
@@ -220,15 +221,29 @@
 		 * @param  array $data Post data
 		 * @return bool
 		 */
-		public function manage_task($data){
-			if(sizeof($data) > 0){
-				$query = $this->db->query("UPDATE device_manager_maintenance_tasks SET assignee = ?, status = ? WHERE task_id = ?", array(
+		public function do_manage_task($data){
+			if(array_has_values($data)){
+				$curr_data_query = $this->db->query("SELECT * FROM device_manager_maintenance_tasks WHERE task_id = ? LIMIT 1", array($data["task_id"]));
+				$curr_data = $curr_data_query->row();
+
+				$query = $this->db->query("UPDATE device_manager_maintenance_tasks SET assignee = ?, status = ? WHERE task_id = ? LIMIT 1", array(
 						$data["assignee"],
 						$data["status"],
 						$data["task_id"],
 					));
 
-				return $query;
+				//record the action for the task's history
+				if($query){
+					if($curr_data->status != $data["status"]){
+						History::recordTask($data["task_id"], __FUNCTION__, sprintf("Status set to <span class=\"task-status\">%s</span>", $this->product->get_task_status($data["status"])));
+					}
+
+					if($curr_data->assignee != $data["assignee"]){
+						History::recordTask($data["task_id"], __FUNCTION__, sprintf("Assigned to <span class=\"task-status\">%s</span>", $this->product->getUser($data["assignee"])->name));
+					}
+
+					return true;
+				}
 			}
 
 			return false;
@@ -275,6 +290,24 @@
 						users u
 					ORDER BY count DESC, u.userid
 					");
+
+			return $query->result_object();
+		}
+
+		/**
+		 * Get all history items for the given task_id
+		 * @param  int $task_id
+		 * @return array
+		 */
+		private function _getTaskHistory($task_id){
+			$query = $this->db->query("SELECT 
+				h.value,
+				t.date
+				FROM device_manager_history h
+				LEFT JOIN device_manager_maintenance_tasks t ON t.task_id = h.rel_id
+				WHERE h.rel_id = ? AND h.type = 'do_manage_task' AND h.value IS NOT NULL
+				ORDER BY t.date
+				", array($task_id));
 
 			return $query->result_object();
 		}

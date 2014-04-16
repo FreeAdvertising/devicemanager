@@ -8,8 +8,9 @@
 		/**
 		 * Add an action to the device's history
 		 * @param  UUID   $uuid
-		 * @param  [type] $type
-		 * @return [type]
+		 * @param  string Method in which the History::record method was called
+		 * @param  string A value to record
+		 * @return mixed
 		 */
 		public static function record(UUID $uuid, $method){
 			try{
@@ -44,16 +45,17 @@
 						throw new Exception("Method argument required");
 				}
 
-				$query = $ci->db->query(sprintf("SELECT %s FROM %s WHERE device_id = ? AND userid = ?",
+				$query = $ci->db->query(sprintf("SELECT %s FROM %s WHERE device_id = ? %s",
 						$_data[1],
-						$_data[0]
+						$_data[0],
+						($accept_user ? " AND userid = ?" : "")
 					), array(
 						$id,
 						$user,
 					));
 
 				//add data from the above query to the history table
-				if(sizeof($query->row()) > 0){
+				if($query->num_rows() > 0){
 					return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`) VALUES (?, ?)", array($query->row()->$_data[1], $method));
 				}
 
@@ -61,6 +63,19 @@
 			}catch(Exception $e){
 				echo $e->getMessage();
 			}
+		}
+
+		/**
+		 * Add an action to the device's history
+		 * @param  int $task_id
+		 * @param  string Method in which the History::recordTask method was called
+		 * @param  string A value to record
+		 * @return mixed
+		 */
+		public static function recordTask($task_id, $method, $value){
+			$ci = get_instance();		
+			
+			return $ci->db->query("INSERT INTO device_manager_history (`rel_id`, `type`, `value`) VALUES (?, ?, ?)", array($task_id, $method, $value));
 		}
 
 		/**

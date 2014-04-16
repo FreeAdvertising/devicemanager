@@ -203,3 +203,9 @@ tr[data-status="2"] {
 span.input-group-btn {
 	top: 13px;
 }
+
+span.task-status {
+	background: pink;
+	padding: 3px;
+	border-radius: 4px;
+}
