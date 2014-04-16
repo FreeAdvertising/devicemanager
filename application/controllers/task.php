@@ -115,16 +115,12 @@
 				show_error("Invalid task ID");
 			}
 
-			//load the relevant views
-			$this->load->view('ajax_header', $data);
-			
+			//load the relevant views			
 			if($this->hydra->isAuthenticated()){
-				$this->load->view('form_task_manage');
+				$this->load->view('form_task_manage', $data);
 			}else {
 				$this->load->view("login", $data);
 			}
-
-			$this->load->view('ajax_footer', $data);
 		}
 
 		public function do_insert(){

@@ -1,20 +1,24 @@
-<div class="col-md-12">
-	<div class="row">
-		<h3 class="dotted">Manage Task</h3>
+<?php echo form_open(sprintf("%stask/do_manage_task", $nav_path), array("role" => "form")); ?>
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Modal title</h4>
+		</div>
+		
+		<div class="modal-body">
+			<?php if($this->session->flashdata("model_save_success")): ?>
+				<div class="alert alert-success">
+					<?php echo $this->session->flashdata("model_save_success"); ?>
+				</div>
+			<?php endif; ?>
 
-		<?php if($this->session->flashdata("model_save_success")): ?>
-			<div class="alert alert-success">
-				<?php echo $this->session->flashdata("model_save_success"); ?>
-			</div>
-		<?php endif; ?>
+			<?php if($this->session->flashdata("model_save_fail")): ?>
+				<div class="alert alert-danger">
+					<?php echo $this->session->flashdata("model_save_fail"); ?>
+				</div>
+			<?php endif; ?>
 
-		<?php if($this->session->flashdata("model_save_fail")): ?>
-			<div class="alert alert-danger">
-				<?php echo $this->session->flashdata("model_save_fail"); ?>
-			</div>
-		<?php endif; ?>
-
-		<?php echo form_open(sprintf("%stask/do_manage_task", $nav_path), array("role" => "form")); ?>
 			<div class="form-group">
 				<label for="assignee">Assignee [# of tasks currently assigned]</label>
 				<select name="assignee" id="assignee" class="form-control">
@@ -64,11 +68,12 @@
 			</div>
 
 			<input type="hidden" name="task_id" value="<?php echo $record->task_id; ?>" />
+		</div>
 
-			<div class="form-footer">
-				<input type="submit" value="Save" class="btn btn-primary" />
-				<button class="btn btn-default floatright" data-dismiss="modal">Close</button>
-			</div>
-		<?php echo form_close(); ?>
-	</div>
-</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<input type="submit" value="Save Changes" class="btn btn-primary" />
+		</div>
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<?php echo form_close(); ?>
