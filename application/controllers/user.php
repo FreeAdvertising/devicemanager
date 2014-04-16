@@ -91,7 +91,7 @@
 			$this->load->view('header', $data);
 			
 			if($this->hydra->isAuthenticated()){
-				$this->load->view('form_user');
+				$this->load->view('form_user_qedit');
 			}else {
 				$this->load->view("login", $data);
 			}

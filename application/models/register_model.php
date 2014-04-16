@@ -23,7 +23,7 @@
 		 */
 		public function do_register($data = array()){
 			if(array_has_values($data)){
-				$get = $this->db->query("SELECT COUNT(userid) as registered_users FROM users WHERE username = ? AND email = ?", array($data["username"], $data["email"]));
+				$get = $this->db->query("SELECT COUNT(userid) as registered_users FROM users WHERE username = ? OR email = ?", array($data["username"], $data["email"]));
 
 				$passwords_match = ($data["password"] === $data["conf-password"]);
 				$valid_email = (strpos($data["email"], "@") > 0);
