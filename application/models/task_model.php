@@ -120,7 +120,7 @@
 		 * @param  array $data Post data
 		 * @return bool
 		 */
-		public function insert($data){
+		public function do_insert($data){
 			//if UUID is set, this was called from the device/add_task view and
 			//relies on the UUID to determine the device ID
 			if(isset($data["uuid"])){
@@ -134,12 +134,6 @@
 				}
 			}
 
-			//get max task ID because, for some reason, last_insert() returns a 
-			//value that isn't actually in the DB..
-			$max_task_query = $this->db->query("SELECT MAX(task_id) as max FROM device_manager_maintenance_tasks LIMIT 1");
-			$_tmp = $max_task_query->row();
-			$max_task_id = (int) $_tmp->max;
-
 			$query = $this->db->query("INSERT INTO device_manager_maintenance_tasks 
 				(`device_id`, `created_by`, `description`, `date`) VALUES 
 				(?, ?, ?, NOW())", array(
@@ -149,6 +143,12 @@
 					));
 
 			if($query){
+				//get max task ID because, for some reason, last_insert() returns a 
+				//value that isn't actually in the DB..
+				$max_task_query = $this->db->query("SELECT MAX(task_id) as max FROM device_manager_maintenance_tasks LIMIT 1");
+				$_tmp = $max_task_query->row();
+				$max_task_id = (int) $_tmp->max;
+
 				foreach($data["categories"] as $cat_id){
 					$assoc_query = $this->db->query("INSERT INTO device_manager_maintenance_task_categories_rel (
 						`device_id`, 
@@ -161,7 +161,7 @@
 						)", array(
 							$data["device_id"],
 							$max_task_id,
-							$cat_id, 
+							(int) $cat_id, 
 						));
 				}
 
@@ -176,8 +176,8 @@
 		 * @param  array $data Post data
 		 * @return bool
 		 */
-		public function edit($data){
-			if(sizeof($data) > 0){
+		public function do_edit($data){
+			if(array_has_values($data)){
 				//update the description and device id
 				$query = $this->db->query("UPDATE device_manager_maintenance_tasks SET device_id = ?, description = ? WHERE task_id = ?",
 					array(
@@ -187,26 +187,29 @@
 						));
 
 				//delete all category associations so we can add the new ones
-				$disassociate_categories_query = $this->db->query("DELETE FROM device_manager_maintenance_task_categories_rel WHERE task_id = ?", array($data["task_id"]));
+				$disassociate_categories_query = $this->db->query("DELETE FROM device_manager_maintenance_task_categories_rel WHERE task_id = ?", array((int) $data["task_id"]));
 
-				//add the new category associations
-				foreach($data["categories"] as $cat_id){
-					$assoc_query = $this->db->query("INSERT INTO device_manager_maintenance_task_categories_rel (
-						`device_id`, 
-						`task_id`, 
-						`category_id`
-						) VALUES (
-						?, 
-						?, 
-						?
-						)", array(
-							(int) $data["device_id"],
-							(int) $data["task_id"],
-							(int) $cat_id, 
-						));
+				if(array_has_values($data["categories"])){
+					//add the new category associations
+					foreach($data["categories"] as $cat_id){
+						$assoc_query = $this->db->query("INSERT INTO device_manager_maintenance_task_categories_rel (
+							`device_id`, 
+							`task_id`, 
+							`category_id`
+							) VALUES (
+							?, 
+							?, 
+							?
+							)", array(
+								(int) $data["device_id"],
+								(int) $data["task_id"],
+								(int) $cat_id, 
+							));
+					}
+					return $assoc_query;
+				}else {
+					return $disassociate_categories_query;
 				}
-
-				return $assoc_query;
 			}
 
 			return false;

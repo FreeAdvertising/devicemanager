@@ -130,7 +130,7 @@
 		public function do_insert(){
 			$pData = $this->input->post();
 
-			if($this->task_model->insert($pData)){
+			if($this->task_model->do_insert($pData)){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Maintenance task successfully added to the database");
 			}else {
@@ -151,7 +151,7 @@
 		public function do_edit(){
 			$post = $this->input->post();
 
-			if($this->task_model->edit($post)){
+			if($this->task_model->do_edit($post)){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "Maintenance task edited");
 			}else {

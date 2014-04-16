@@ -12,9 +12,11 @@
 		</div>
 	<?php endif; ?>
 
-	<div class="alert alert-info">
-		<p>If you don't see any devices in the list, have no fear!  You can only create tasks for devices you have checked out (unless you are an admin).</p>
-	</div>
+	<?php if(false === $this->session->flashdata("model_save_fail") && false === $this->session->flashdata("model_save_success")): ?>
+		<div class="alert alert-info">
+			<p>If you don't see any devices in the list, have no fear!  You can only create tasks for devices you have checked out (unless you are an admin).</p>
+		</div>
+	<?php endif; ?>
 
 	<div class="form-wrapper">
 		<div class="form-group">

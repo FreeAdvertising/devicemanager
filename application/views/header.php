@@ -141,6 +141,10 @@
 								<?php if($subpage == "id"): ?>
 									<h4 class="device-title panel-title">View Task <span class="label label-default floatright">#<?php echo $this->uri->segment(3); ?></span> </h4>
 								<?php endif; ?>
+
+								<?php if($subpage == "edit"): ?>
+									<h4 class="device-title panel-title">Edit Task <span class="label label-default floatright">#<?php echo $this->uri->segment(3); ?></span> </h4>
+								<?php endif; ?>
 							<?php break; ?>
 
 							<?php case "add_task_category" : ?>
