@@ -57,7 +57,7 @@
 					<td><?php echo anchor(sprintf("/task/id/%d", $history["maintenance"][$i]->task_id), truncate($history["maintenance"][$i]->description), array("title" => "View task details")); ?></td>
 					<td><?php echo $this->product->getUser($history["maintenance"][$i]->created_by)->name; ?></td>
 					<td><?php echo $this->product->getUser($history["maintenance"][$i]->assignee)->name; ?></td>
-					<td><?php echo $history["maintenance"][$i]->status; ?></td>
+					<td><span class="status-circle btn-<?php echo $this->product->get_task_status($history["maintenance"][$i]->status); ?>"></span></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
