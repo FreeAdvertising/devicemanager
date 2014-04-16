@@ -26,6 +26,12 @@
 				            t.created_by = u.userid) as count
 					FROM
 					    users u
+					WHERE (SELECT 
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.created_by = u.userid) > 0
 					ORDER BY count DESC , u.userid
 					");
 
@@ -48,6 +54,12 @@
 							t.assignee = u.userid) as count
 					FROM
 						users u
+					WHERE (SELECT 
+							COUNT(t.task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.assignee = u.userid) > 0
 					ORDER BY count DESC, u.userid
 					");
 
@@ -70,6 +82,12 @@
 				            t.device_id = d.device_id) as count
 					FROM
 					    device_manager_devices d
+					WHERE (SELECT 
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.device_id = d.device_id) > 0
 					ORDER BY count DESC , d.device_id
 					");
 
