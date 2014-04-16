@@ -60,7 +60,7 @@
 		 */
 		public function getDevices(){
 			$query = $this->db->query("SELECT 
-					    d.name,
+					    IF(d.name IS NOT NULL, d.name, d.uuid) as name,
 					    d.device_id,
 					    (SELECT 
 				            COUNT(t.device_id)

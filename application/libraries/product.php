@@ -295,7 +295,7 @@
 		}
 
 		public function convertMySQLDate($mysqldate = null){
-			return date($this->getDefaultDateFormat(), strtotime($mysqldate));
+			return date($this->_dateFormat, strtotime($mysqldate));
 		}
 	}
 

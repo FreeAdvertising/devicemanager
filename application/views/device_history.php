@@ -13,7 +13,7 @@
 				<tr>
 					<td><?php echo $history["overview"][$i]->action; ?></td>
 					<td><?php echo $history["overview"][$i]->username; ?></td>
-					<td><?php echo $history["overview"][$i]->date; ?></td>
+					<td><?php echo $this->product->convertMySQLDate($history["overview"][$i]->date); ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
@@ -32,7 +32,7 @@
 			<?php for($i = 0; $i < sizeof($history["recent_owners"]); $i++): ?>
 				<tr>
 					<td><?php echo $history["recent_owners"][$i]->username; ?></td>
-					<td><?php echo $history["recent_owners"][$i]->date; ?></td>
+					<td><?php echo $this->product->convertMySQLDate($history["recent_owners"][$i]->date); ?></td>
 				</tr>
 			<?php endfor; ?>
 		</tbody>
