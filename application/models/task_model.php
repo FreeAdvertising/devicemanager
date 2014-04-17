@@ -39,30 +39,15 @@
 		 * with a specific device
 		 * @return array
 		 */
-		public function getMyDevices(){
-			//admins should be able to create tickets for any device in the 
-			//database, other users should only be able to create tickets for
-			//devices they currently have checked out
-			if($this->hydra->isAdmin()){ //admins
-				$sql = "SELECT 
-						ar.device_id,
-						IF(d.name IS NULL, d.uuid, d.name) as name
-						FROM device_manager_assignments_rel ar
-						LEFT JOIN device_manager_devices d ON d.device_id = ar.device_id
-						WHERE checked_in = 0
-						GROUP BY d.uuid";
-			}else {
-				$sql = "SELECT 
-						ar.device_id,
-						IF(d.name IS NULL, d.uuid, d.name) as name
-						FROM device_manager_assignments_rel ar
-						LEFT JOIN device_manager_devices d ON d.device_id = ar.device_id
-						WHERE userid = ? AND checked_in = 0
-						GROUP BY d.uuid";
-			}
-
-			$query = $this->db->query($sql, array($this->hydra->get("id")));
-
+		public function getDevices(){
+			$sql = "SELECT 
+					d.device_id,
+					IF(d.name IS NULL, d.uuid, d.name) as name
+					FROM device_manager_devices d
+					GROUP BY d.uuid";
+			
+			$query = $this->db->query($sql);
+			
 			if($query->num_rows() > 0){
 				return $query->result_object();
 			}

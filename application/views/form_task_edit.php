@@ -12,22 +12,16 @@
 		</div>
 	<?php endif; ?>
 
-	<?php if(false === $this->session->flashdata("model_save_fail") && false === $this->session->flashdata("model_save_success")): ?>
-		<div class="alert alert-info">
-			<p>If you don't see any devices in the list, have no fear!  You can only create tasks for devices you have checked out (unless you are an admin).</p>
-		</div>
-	<?php endif; ?>
-
 	<div class="form-wrapper">
 		<div class="form-group">
 			<label for="device_id">Device</label>
 			<select name="device_id" id="device_id" class="form-control">
 				<option value="0">Select Device</option>
-				<?php for($i = 0; $i < sizeof($my_devices); $i++): ?>
-					<?php if($record->device_id == $my_devices[$i]->device_id): ?>
-						<option value="<?php echo $my_devices[$i]->device_id; ?>" selected="selected"><?php echo $my_devices[$i]->name; ?></option>
+				<?php for($i = 0; $i < sizeof($devices); $i++): ?>
+					<?php if($record->device_id == $devices[$i]->device_id): ?>
+						<option value="<?php echo $devices[$i]->device_id; ?>" selected="selected"><?php echo $devices[$i]->name; ?></option>
 					<?php else : ?>
-						<option value="<?php echo $my_devices[$i]->device_id; ?>"><?php echo $my_devices[$i]->name; ?></option>
+						<option value="<?php echo $devices[$i]->device_id; ?>"><?php echo $devices[$i]->name; ?></option>
 					<?php endif; ?>
 				<?php endfor; ?>
 			</select>

@@ -47,7 +47,7 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
-			$data->set("my_devices", $this->task_model->getMyDevices());
+			$data->set("devices", $this->task_model->getDevices());
 			$data->set("categories", $this->task_model->getTaskCategories());
 
 			//load the relevant views
@@ -76,7 +76,7 @@
 
 			//set specific page data
 			$data->set("record", $this->task_model->getRecord($id));
-			$data->set("my_devices", $this->task_model->getMyDevices());
+			$data->set("devices", $this->task_model->getDevices());
 			$data->set("categories", $this->task_model->getTaskCategories());
 
 			if(is_null($data->record)){

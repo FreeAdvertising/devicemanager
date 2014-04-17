@@ -12,17 +12,13 @@
 		</div>
 	<?php endif; ?>
 
-	<div class="alert alert-info">
-		<p>If you don't see any devices in the list, have no fear!  You can only create tasks for devices you have checked out (unless you are an admin).</p>
-	</div>
-
 	<div class="form-wrapper">
 		<div class="form-group">
 			<label for="device_id">Device</label>
 			<select name="device_id" id="device_id" class="form-control">
 				<option value="0">Select Device</option>
-				<?php for($i = 0; $i < sizeof($my_devices); $i++): ?>
-					<option value="<?php echo $my_devices[$i]->device_id; ?>"><?php echo $my_devices[$i]->name; ?></option>
+				<?php for($i = 0; $i < sizeof($devices); $i++): ?>
+					<option value="<?php echo $devices[$i]->device_id; ?>"><?php echo $devices[$i]->name; ?></option>
 				<?php endfor; ?>
 			</select>
 		</div>
