@@ -69,7 +69,7 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	});
 
 	//assignee user filtering
-	jQuery(".user-assignee-list a.list-group-item").click(function(evt){
+	jQuery(".user-assignee-list").click(function(evt){
 		evt.preventDefault();
 
 		ProductInstance.Helpers.clearSidebarFilters();
@@ -123,12 +123,12 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	});
 
 	//filter by device
-	jQuery(".device-list a.list-group-item").click(function(evt){
+	jQuery(".devices-list").click(function(evt){
 		evt.preventDefault();
 
 		ProductInstance.Helpers.clearSidebarFilters();
 
-		var _others = document.querySelectorAll(".device-list a.list-group-item"),
+		var _others = document.querySelectorAll(".devices-list"),
 			_reslist = document.querySelectorAll(".list-devices tbody tr");
 
 		for(var i = 0; i < _others.length; i++){
@@ -145,6 +145,33 @@ window.addEventListener("DOMContentLoaded", function(evt){
 
 		if(this.dataset.device)
 			jQuery(".device-filter-header .reset-filters").removeClass("hidden");
+		
+		this.classList.add("active");
+	});
+
+	//filter by user who created the item
+	jQuery(".user-createdby-list").click(function(evt){
+		evt.preventDefault();
+
+		ProductInstance.Helpers.clearSidebarFilters();
+
+		var _others = document.querySelectorAll(".user-createdby-list"),
+			_reslist = document.querySelectorAll(".list-devices tbody tr");
+
+		for(var i = 0; i < _others.length; i++){
+			_others[i].classList.remove("active");
+		}
+
+		for(var i = 0; i < _reslist.length; i++){
+			_reslist[i].classList.add("hidden");
+
+			if(_reslist[i].dataset.createdby == this.dataset.user){
+				_reslist[i].classList.remove("hidden");
+			}
+		}
+
+		if(this.dataset.user)
+			jQuery(".user-filter-header .reset-filters").removeClass("hidden");
 		
 		this.classList.add("active");
 	});

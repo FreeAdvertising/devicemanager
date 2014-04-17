@@ -213,3 +213,11 @@ span.task-status {
 	padding: 3px;
 	border-radius: 4px;
 }
+
+.module .list-group div h3[class$="-header"] {
+	border-radius: 0px;
+}
+
+.reset-filters {
+	float: right;
+}
