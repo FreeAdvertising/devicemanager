@@ -188,6 +188,10 @@ tr[data-status="2"] {
 	opacity: 0.5;
 }
 
+.list-tasks tr[data-status="2"] {
+	opacity: 1;
+}
+
 .dotted.no-margin {
 	margin-bottom: 0px;	
 }

@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="row">
-		<table class="table table-striped table-hover list-devices">
+		<table class="table table-striped table-hover list-devices list-tasks">
 			<thead>
 				<th width="1"></th>
 				<th width="60%">Task Name</th>

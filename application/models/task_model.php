@@ -221,11 +221,11 @@
 
 				//record the action for the task's history
 				if($query){
-					if($curr_data->status != $data["status"]){
-						History::recordTask($data["task_id"], __FUNCTION__, sprintf("Status set to <span class=\"task-status\">%s</span>", $this->product->get_task_status($data["status"])));
+					if($curr_data->status !== $data["status"]){
+						History::recordTask($data["task_id"], __FUNCTION__, sprintf("Status set to <span class=\"task-status\">%s</span>", $this->product->get_task_status_verbiage($data["status"])));
 					}
 
-					if($curr_data->assignee != $data["assignee"]){
+					if($curr_data->assignee !== $data["assignee"] && $curr_data->created_by !== $data["assignee"]){
 						History::recordTask($data["task_id"], __FUNCTION__, sprintf("Assigned to <span class=\"task-status\">%s</span>", $this->product->getUser($data["assignee"])->name));
 					}
 

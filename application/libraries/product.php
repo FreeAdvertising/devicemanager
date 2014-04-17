@@ -101,6 +101,14 @@
 				self::TASK_STATUS_INVALID     => "invalid",
 				self::TASK_STATUS_COMPLETE    => "info",
 				));
+
+			$this->_options->set("TSTAT_VERB", array(
+				self::TASK_STATUS_AVAILABLE   => "Available",
+				self::TASK_STATUS_UNAVAILABLE => "Unavailable",
+				self::TASK_STATUS_MAINTENANCE => "Maintenance",
+				self::TASK_STATUS_INVALID     => "Invalid",
+				self::TASK_STATUS_COMPLETE    => "Completed",
+				));
 		}
 
 		/**
@@ -175,6 +183,10 @@
 
 		public function get_task_status($key){
 			return $this->_options->TSTAT[$key];
+		}
+
+		public function get_task_status_verbiage($key){
+			return $this->_options->TSTAT_VERB[$key];
 		}
 
 		public function getDeviceID(UUID $uuid){
