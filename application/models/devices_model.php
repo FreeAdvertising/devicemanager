@@ -55,7 +55,7 @@
 				#LEFT JOIN device_manager_reservations_rel rr ON rr.device_id = d.device_id 
 				#LEFT JOIN device_manager_maintenance_rel mr ON mr.device_id = d.device_id 
 				#GROUP BY ar.userid, d.name
-				ORDER BY d.device_id
+				ORDER BY d.status, d.device_id
 				");
 
 			if($results = $query->result_object()){

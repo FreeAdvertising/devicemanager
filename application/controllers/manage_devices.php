@@ -7,6 +7,7 @@
 			parent::__construct();
 
 			$this->load->model("manage_devices_model");
+			$this->load->model("devices_model");
 		}
 
 		public function index(){
@@ -18,8 +19,8 @@
 			$data->set("isIPExternal", $this->hydra->isIPExternal());
 
 			//set specific page data
-			$data->set("users", $this->manage_devices_model->getUsers());
-			$data->set("records", $this->manage_devices_model->getRecords());
+			$data->set("users", $this->devices_model->getUsers());
+			$data->set("records", $this->devices_model->getRecords());
 			$data->set("apps", $this->manage_devices_model->getApps());
 
 			//load the relevant views
