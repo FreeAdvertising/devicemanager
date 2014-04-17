@@ -128,7 +128,7 @@
 
 			if($this->task_model->do_insert($pData)){
 				//setup a success message here
-				$this->session->set_flashdata("model_save_success", "Maintenance task successfully added to the database");
+				$this->session->set_flashdata("model_save_success", "Thanks for the report!  We'll take a look and get back to you.");
 			}else {
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: maintenance task could not be created");
 			}
