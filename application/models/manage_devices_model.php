@@ -70,7 +70,7 @@
 		}
 
 		public function getApps(){
-			$query = $this->db->query("SELECT name, app_id, description FROM device_manager_tracked_applications ORDER BY app_id");
+			$query = $this->db->query("SELECT name, app_id, description FROM device_manager_tracked_applications ORDER BY app_id LIMIT ?", array(Product::MAX_SHORT_LIST));
 			
 			return $query->result_object();
 		}
