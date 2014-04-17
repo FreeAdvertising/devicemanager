@@ -165,7 +165,7 @@
 								<?php endif; ?>
 
 								<?php if($subpage == "history"): ?>
-									<ul class="nav nav-pills faux-tabs floatleft">
+									<ul class="nav nav-pills faux-tabs pull-left">
 										<li class="active"><a href="#" id="overview">Overview</a></li>
 										<li><a href="#" id="recent_owners">Recent Owners</a></li>
 										<li><a href="#" id="maintenance">Maintenance</a></li>
@@ -180,6 +180,13 @@
 									<h4 class="floatleft">Edit Device UUID:<?php echo $device_info->uuid; ?></h4>
 								<?php endif;?>
 
+								<?php if($subpage == "apps"): ?>
+									<div class="pull-left">
+										<h4 class="device-title panel-title">Installed Applications on UUID:<?php echo $this->uri->segment(2); ?></h4>
+										<p class="small overview">Note: this does not include ALL applications, only those in the <?php echo anchor("/tracked_applications", "tracked applications", array("target" => "_blank")); ?> list.</p>
+									</div>
+								<?php endif;?>
+
 								<?php if($subpage == "add_task"): ?>
 									<h4 class="floatleft">Add Task to Device UUID:<?php echo $device_uuid; ?></h4>
 								<?php endif;?>								
@@ -187,7 +194,7 @@
 						<?php } ?>
 
 						<?php if(isset($show_pagination) && $show_pagination): ?>
-							<ul class="pagination nav nav-pills floatright">
+							<ul class="pagination nav nav-pills pull-right">
 								<li><?php echo anchor(sprintf("/device/%s", $this->uri->segment(2)), "&larr; Back"); ?></li>
 							</ul>
 						<?php endif; ?>

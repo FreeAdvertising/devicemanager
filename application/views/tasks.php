@@ -1,32 +1,30 @@
 <section class="main col-md-9">
-	<div class="row">
-		<table class="table table-striped table-hover list-devices list-tasks">
-			<thead>
-				<th width="1"></th>
-				<th width="60%">Task Name</th>
-				<th>Created By</th>
-				<th>Assigned To</th>
-				<th>Status</th>
-			</thead>
-			<tbody>
-				<?php if(sizeof($records) > 0): ?>
-					<?php for($i = 0; $i < sizeof($records); $i++): ?>
-						<tr data-location="<?php echo $records[$i]->created_by; ?>" data-assignee="<?php echo $records[$i]->assignee; ?>" data-device="<?php echo $records[$i]->device_id; ?>" data-status="<?php echo $records[$i]->status; ?>" data-createdby="<?php echo $records[$i]->created_by; ?>">
-							<td><?php echo ($i+1); ?>.</td>
-							<td><?php echo anchor(sprintf("/task/id/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
-							<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
-							<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
-							<td><span class="status-circle btn-<?php echo $this->product->get_task_status($records[$i]->status); ?>"></span></td>
-						</tr>
-					<?php endfor; ?>
-				<?php else : ?>
-					<tr>
-						<td colspan="5">There are no maintenance tasks yet.  <?php echo anchor("/task/add", "Add one now"); ?>.</td>
+	<table class="table table-striped table-hover list-devices list-tasks">
+		<thead>
+			<th width="1"></th>
+			<th width="60%">Task Name</th>
+			<th>Created By</th>
+			<th>Assigned To</th>
+			<th>Status</th>
+		</thead>
+		<tbody>
+			<?php if(sizeof($records) > 0): ?>
+				<?php for($i = 0; $i < sizeof($records); $i++): ?>
+					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-assignee="<?php echo $records[$i]->assignee; ?>" data-device="<?php echo $records[$i]->device_id; ?>" data-status="<?php echo $records[$i]->status; ?>" data-createdby="<?php echo $records[$i]->created_by; ?>">
+						<td><?php echo ($i+1); ?>.</td>
+						<td><?php echo anchor(sprintf("/task/id/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
+						<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
+						<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
+						<td><span class="status-circle btn-<?php echo $this->product->get_task_status($records[$i]->status); ?>"></span></td>
 					</tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-	</div>
+				<?php endfor; ?>
+			<?php else : ?>
+				<tr>
+					<td colspan="5">There are no maintenance tasks yet.  <?php echo anchor("/task/add", "Add one now"); ?>.</td>
+				</tr>
+			<?php endif; ?>
+		</tbody>
+	</table>
 </section>
 
 <section class="sidebar col-md-3">
