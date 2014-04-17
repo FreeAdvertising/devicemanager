@@ -112,9 +112,9 @@
 		}
 
 		/**
-		 * Map the status code (integer) to a string
+		 * Map the status code (integer) to a constant value
 		 * @param  int $id
-		 * @return string
+		 * @return int
 		 */
 		public function get_status($data){
 			if((int) $data->checkout_status === 1){
@@ -133,6 +133,31 @@
 			// 	return "info";
 
 			return self::DEVICE_CHECKED_OUT;
+		}
+
+		/**
+		 * Map the status code (integer) to a string
+		 * @param  int $id
+		 * @return string
+		 */
+		public function get_status_verbiage($data){
+			if((int) $data->checkout_status === 1){
+				return "success";
+			}
+
+			if((int) $data->checkout_status === self::DEVICE_CHECKED_OUT){
+				return "danger";
+			}
+
+			if((int) $data->reserved_status === 0){
+				return "warning";
+			}
+
+			if((int) $data->checkout_status === self::DEVICE_MAINTENANCE){
+				return "info";
+			}
+
+			return "danger";
 		}
 
 		/**

@@ -6,6 +6,7 @@
 				<th width="85%">Device Name (UUID)</th>
 				<th>Apps</th>
 				<th>OS</th>
+				<th>Status</th>
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($records); $i++): ?>
@@ -20,6 +21,7 @@
 
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
 						<td><span class="os <?php echo strtolower($this->product->get_os($records[$i]->os)); ?>"><?php echo $this->product->get_os($records[$i]->os); ?></span></td>
+						<td><span class="status-circle btn-<?php echo $this->product->get_status_verbiage($records[$i]); ?>"></span></td>
 					</tr>
 				<?php endfor; ?>
 			</tbody>
@@ -30,10 +32,10 @@
 <section class="sidebar col-md-3">
 	<aside class="module">
 		<div class="list-group type-list">
-			<h3 class="list-group-item type-filter-header">Filter by Type <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available</a>
-			<a href="#" data-type="<?php echo Product::DEVICE_CHECKED_OUT; ?>" class="list-group-item">Checked Out</a>
-			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance</a>
+			<h3 class="list-group-item type-filter-header">Legend <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available <span class="floatright status-circle btn-success"></span></a>
+			<a href="#" data-type="<?php echo Product::DEVICE_CHECKED_OUT; ?>" class="list-group-item">Checked Out <span class="floatright status-circle btn-danger"></span></a>
+			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance <span class="floatright status-circle btn-info"></span></a>
 		</div>
 	</aside>
 
