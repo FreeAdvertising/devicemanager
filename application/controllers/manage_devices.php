@@ -11,6 +11,10 @@
 		}
 
 		public function index(){
+			if(false === $this->hydra->isAdmin()){
+				show_error("You do not have permission to view this page.");
+			}
+			
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");

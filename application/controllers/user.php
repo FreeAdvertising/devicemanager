@@ -9,27 +9,11 @@
 			$this->load->helper("form");
 		}
 
-		/*public function index(){
-			$data = new Generic;
-			$data->set("template_path", base_url() ."application/views/global");
-			$data->set("nav_path", base_url() ."index.php/");
-			$data->set("groups", $this->user_model->getGroups());
-			$data->set("page", $this->uri->segment(1));
-			$data->set("isIPExternal", $this->hydra->isIPExternal());
-
-			//load the relevant views
-			$this->load->view('header', $data);
-			
-			if($this->hydra->isAuthenticated()){
-				$this->load->view('form_user');
-			}else {
-				$this->load->view("login", $data);
+		public function do_insert(){
+			if(false === $this->hydra->isAdmin()){
+				show_error("You do not have permission to view this page.");
 			}
 
-			$this->load->view('footer', $data);
-		}*/
-
-		public function do_insert(){
 			if($this->user_model->insert($this->input->post())){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "User created successfully");
@@ -41,6 +25,10 @@
 		}
 
 		public function do_edit($id){
+			if(false === $this->hydra->isAdmin()){
+				show_error("You do not have permission to view this page.");
+			}
+
 			if($this->user_model->modify($this->input->post(), $id)){
 				//setup a success message here
 				$this->session->set_flashdata("model_save_success", "User modified");
@@ -52,6 +40,10 @@
 		}
 
 		public function edit($id){
+			if(false === $this->hydra->isAdmin()){
+				show_error("You do not have permission to view this page.");
+			}
+
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
@@ -76,6 +68,10 @@
 		}
 
 		public function qedit($id){
+			if(false === $this->hydra->isAdmin()){
+				show_error("You do not have permission to view this page.");
+			}
+
 			$data = new Generic;
 			$data->set("template_path", base_url() ."application/views/global");
 			$data->set("nav_path", base_url() ."index.php/");
@@ -107,7 +103,7 @@
 			$ret["message"] = "The secret question could not be reset";
 			$ret["type"] = "error";
 
-			if($this->hydra->isAuthenticated()){
+			if($this->hydra->isAuthenticated() && $this->hydra->isAdmin()){
 				if($this->user_model->reset_secret_question($id)){
 					$ret["message"] = "Secret question reset";
 					$ret["type"] = "success";
