@@ -90,9 +90,9 @@
 			//not sure if this is numeric or associative so..
 			foreach($arr as $item){
 				if(is_array($item)){
-					return is_array_empty($item);
+					return array_has_values($item);
 				}else {
-					if(strlen($item) === 0 || is_null($item)){
+					if(is_null($item)){
 						return false;
 					}else {
 						return true;

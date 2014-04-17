@@ -48,7 +48,7 @@
 				$this->session->set_flashdata("model_save_fail", "There was a problem editing this user");
 			}
 
-			return redirect(sprintf("user/edit/%d", $id));
+			return redirect(base_url() ."/users");
 		}
 
 		public function edit($id){
@@ -115,6 +115,32 @@
 			}
 			
 			echo json_encode($ret);
+		}
+
+		/*
+		 * AJAX endpoint
+		 */
+		public function do_approve($id){
+			$return = false;
+
+			if($this->user_model->approve($id) && $this->hydra->isAuthenticated() && $this->hydra->isAdmin()){
+				$return = true;
+			}
+
+			$this->output->set_content_type("application/json")->set_output(json_encode($return));
+		}
+
+		/*
+		 * AJAX endpoint
+		 */
+		public function do_reject($id){
+			$return = false;
+
+			if($this->user_model->reject($id) && $this->hydra->isAuthenticated() && $this->hydra->isAdmin()){
+				$return = true;
+			}
+
+			$this->output->set_content_type("application/json")->set_output(json_encode($return));
 		}
 	}
 

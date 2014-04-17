@@ -61,12 +61,22 @@
 			return false;
 		}
 
+		/**
+		 * Get all usergroups
+		 * @return array
+		 */
 		public function getGroups(){
 			$result = $this->db->query("SELECT group_id, name FROM usergroups ORDER BY group_id");
 
 			return $result->result_object();
 		}
 
+		/**
+		 * Modify a user
+		 * @param  array $data   Post data
+		 * @param  int   $id     The user's ID
+		 * @return bool
+		 */
 		public function modify($data, $id){
 			if($id > 0 && is_numeric($id)){
 				if($data["password"] != $data["conf-password"]){
@@ -99,6 +109,11 @@
 			return true;
 		}
 
+		/**
+		 * Create a new user
+		 * @param  array $data  Post data
+		 * @return bool
+		 */
 		public function insert($data){
 			if($data["password"] != $data["conf-password"]){
 				$this->session->set_flashdata("model_save_fail", "The Password and Confirm Password fields must match");
@@ -123,6 +138,47 @@
 			}
 
 			return true;
+		}
+
+		/**
+		 * Approve a quarantined user
+		 * @param  integer $id The user's ID
+		 * @return bool
+		 */
+		public function approve($id = 0){
+			if((int) $id > 0){
+				$get_quarantined_data_query = $this->db->query("SELECT * FROM users_quarantine WHERE userid = ? LIMIT 1", array($id));
+				$user = ($get_quarantined_data_query->row() ? $get_quarantined_data_query->row() : false);
+
+				if(false !== $user){
+					$approve_user_query = $this->db->query("INSERT INTO users(`group_id`, `username`, `password`, `email`, `secret_question_answer`, `is_reset`) VALUES(?, ?, ?, ?, ?, ?)",
+						array($user->group_id, $user->username, $user->password, $user->email, $user->secret_question_answer, $user->is_reset)
+						);
+
+					if($approve_user_query){
+						$remove_from_quarantine_query = $this->db->query("DELETE FROM users_quarantine WHERE userid = ?", array($id));
+
+						return $remove_from_quarantine_query;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Reject a quarantined user
+		 * @param  integer $id The user's ID
+		 * @return bool
+		 */
+		public function reject($id = 0){
+			if((int) $id > 0){
+				$remove_from_quarantine_query = $this->db->query("DELETE FROM users_quarantine WHERE userid = ?", array($id));
+
+				return $remove_from_quarantine_query;
+			}
+
+			return false;
 		}
 	}
 

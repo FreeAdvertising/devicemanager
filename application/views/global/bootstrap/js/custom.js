@@ -180,13 +180,13 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	});
 
 	//launch manage task modal
-	jQuery(".manage-task").click(function(evt){
-		evt.preventDefault();
+	// jQuery(".manage-task").click(function(evt){
+	// 	evt.preventDefault();
 
-		// jQuery.get("/task/manage/" + this.dataset.task, function(data){
-		// 	console.log(data);
-		// });
-	});
+	// 	// jQuery.get("/task/manage/" + this.dataset.task, function(data){
+	// 	// 	console.log(data);
+	// 	// });
+	// });
 
 	//expand legend(s)
 	jQuery(".expand-legend").click(function(evt){
@@ -212,6 +212,34 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		}
 
 		return window.location.href = _location;
+	});
+
+	//approve a quarantined user
+	jQuery(".approve-user").click(function(evt){
+		evt.preventDefault();
+
+		var _quser = this.dataset.quser;
+
+		if(confirm("Approve user #"+ _quser +"?")){
+			jQuery.get("/user/do_approve/" + _quser, function(data){
+				if(data == true)
+					window.location.href = "/users";
+			});
+		}
+	});
+
+	//approve a quarantined user
+	jQuery(".reject-user").click(function(evt){
+		evt.preventDefault();
+
+		var _quser = this.dataset.quser;
+
+		if(confirm("Reject user #"+ _quser +"?")){
+			jQuery.get("/user/do_reject/" + _quser, function(data){
+				if(data == true)
+					window.location.href = "/users";
+			});
+		}
 	});
 });
 
