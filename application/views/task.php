@@ -96,12 +96,18 @@
 				<th style="text-align: right;">Date</th>
 			</thead>
 			<tbody>
-				<?php for($i = 0; $i < sizeof($record->history); $i++): ?>
+				<?php if(array_has_values($record->history)): ?>
+					<?php for($i = 0; $i < sizeof($record->history); $i++): ?>
+						<tr>
+							<td><?php echo $record->history[$i]->value; ?></td>
+							<td align="right"><?php echo $this->product->convertMySQLDate($record->history[$i]->date); ?></td>
+						</tr>
+					<?php endfor; ?>
+				<?php else : ?>
 					<tr>
-						<td><?php echo $record->history[$i]->value; ?></td>
-						<td align="right"><?php echo $this->product->convertMySQLDate($record->history[$i]->date); ?></td>
+						<td colspan="2">No updates or comments yet.</td>
 					</tr>
-				<?php endfor; ?>
+				<?php endif; ?>
 			</tbody>
 		</table>
 	</div>
@@ -111,8 +117,9 @@
 	<div class="col-md-12 form-footer">
 		<button class="btn btn-primary edit">Edit Task</button>
 		<button class="btn btn-link task-back">Back</button>
+
 		<?php if($this->hydra->isAdmin()): ?>
-			<button class="btn btn-default manage-task floatright" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
+			<button class="btn btn-default manage-task pull-left" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
 		<?php endif; ?>
 	</div>
 <?php endif; ?>

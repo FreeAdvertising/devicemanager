@@ -95,8 +95,9 @@ a[data-toggle="collapse"] {
 .form-footer {
 	float: left;
 	width: 100%;
+	margin-top: 1em;
 	padding: 1em 0.5em;
-	border-top: 2px solid rgba(0,0,0,0.1);
+	border-top: 3px solid rgba(0,0,0,0.1);
 }
 
 .form-footer input,
