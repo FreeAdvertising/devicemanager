@@ -1,6 +1,6 @@
 <section class="main col-md-9">
 	<div class="row">
-		<h3 class="dotted"><?php echo anchor("/devices", "Devices"); ?> (<?php echo Product::MAX_SHORT_LIST; ?>)</h3>
+		<h3 class="dotted">Devices</h3>
 		<table class="table table-striped table-hover list-devices">
 			<thead>
 				<th width="85%">Device Name (UUID)</th>
@@ -17,7 +17,7 @@
 						<?php else : ?>
 							<td><?php echo anchor(sprintf("/device/%s", strtoupper($records[$i]->uuid)), sprintf("%s", $records[$i]->uuid)); ?></td>
 						<?php endif; ?>
-						
+
 						<td><?php echo anchor(sprintf("/device/%s/apps", $records[$i]->uuid), "View"); ?></td>
 						<td><span class="os <?php echo strtolower($this->product->get_os($records[$i]->os)); ?>"><?php echo $this->product->get_os($records[$i]->os); ?></span></td>
 						<td><span class="status-circle btn-<?php echo $this->product->get_status_verbiage($records[$i]); ?>"></span></td>
@@ -52,7 +52,7 @@
 <section class="sidebar col-md-3">
 	<aside class="module">
 		<div class="list-group type-list">
-			<h3 class="list-group-item type-filter-header">Filter by Type <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+			<h3 class="list-group-item type-filter-header">Legend <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
 			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available <span class="floatright status-circle btn-success"></span></a>
 			<a href="#" data-type="<?php echo Product::DEVICE_CHECKED_OUT; ?>" class="list-group-item">Checked Out <span class="floatright status-circle btn-danger"></span></a>
 			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance <span class="floatright status-circle btn-info"></span></a>

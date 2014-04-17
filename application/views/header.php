@@ -33,13 +33,20 @@
 					<nav class="collapse navbar-collapse" id="main-nav">
 						<ul class="nav navbar-nav">
 							<li class="<?php echo ($page == "" ? 'active"' : ''); ?>"><?php echo anchor("/", "Dashboard"); ?></li>
-							<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "Check In/Out"); ?></li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Devices & Apps <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li class="<?php echo ($page == "devices" ? 'active"' : ''); ?>"><?php echo anchor("/devices", "View Devices"); ?></li>
+									<li class="<?php echo ($page == "tracked_applications" ? 'active"' : ''); ?>"><?php echo anchor("/tracked_applications", "View Tracked Apps"); ?></li>
+								</ul>
+							</li>
 
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "View All"); ?></li>
-									<li class="<?php echo ($page == "task" && $subpage == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add Task"); ?></li>
+									<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "View Tasks"); ?></li>
+									<li class="<?php echo ($page == "task" && $subpage == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add New"); ?></li>
 								</ul>
 							</li>
 							<!--<li class="<?php echo ($page == "reservations" ? 'active"' : ''); ?>"><?php echo anchor("/reservations", "Reservations"); ?></li>-->
