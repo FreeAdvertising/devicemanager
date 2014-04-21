@@ -90,11 +90,6 @@
 			$user = $this->hydra->get("id");
 			$output = new Generic();
 
-			//get total number of records created by the user in the Freepass
-			//application
-			$freepass_records_created_query = $this->db->query("SELECT COUNT(record_id) as num_records FROM records WHERE user_id = ?", array($user));
-			$output->set("fp_records_created", (int) $freepass_records_created_query->row()->num_records);
-
 			//get total number of device manager tasks created by user
 			$dm_tasks_created_query = $this->db->query("SELECT COUNT(task_id) as num_tasks FROM device_manager_maintenance_tasks WHERE created_by = ?", array($user));
 			$output->set("dm_tasks_created", (int) $dm_tasks_created_query->row()->num_tasks);

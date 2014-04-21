@@ -46,11 +46,6 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Freepass Records Created</td>
-								<td><?php echo $my_stats->fp_records_created; ?></td>
-							</tr>
-
-							<tr>
 								<td>Tasks Created</td>
 								<td><?php echo $my_stats->dm_tasks_created; ?></td>
 							</tr>
