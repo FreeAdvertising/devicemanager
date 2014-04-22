@@ -5,9 +5,9 @@
 	 * Generic object class
 	 */
 	class Generic {
-		protected $_errors = array();
+		private $_errors = array();
 
-		private $error;
+		public $hasError = false;
 
 		public function __construct($properties = array()){		
 			return $this;
@@ -20,10 +20,14 @@
 		public function get($key = null, $default = null){
 			$ret = $default;
 
-			if(false === is_null($key)){
-				if(isset($this->$key)){
-					$ret = $this->$key;
+			if(false === $this->hasError){
+				if(false === is_null($key)){
+					if(isset($this->$key)){
+						$ret = $this->$key;
+					}
 				}
+			}else {
+				$ret = $this->getError();
 			}
 
 			return $ret;
@@ -70,6 +74,8 @@
 
 			$this->_errors[] = $ret;
 
+			$this->hasError = true;
+
 			return $ret;
 		}
 
@@ -78,7 +84,7 @@
 		 * @return mixed
 		 */
 		public function getError(){
-			if(sizeof($this->_errors) > 0){
+			if($this->hasError){
 				return $this->_errors;
 			}
 

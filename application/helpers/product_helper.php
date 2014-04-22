@@ -92,7 +92,7 @@
 				if(is_array($item)){
 					return array_has_values($item);
 				}else {
-					return is_null($item);
+					return (false === is_null($item));
 				}
 			}
 		}

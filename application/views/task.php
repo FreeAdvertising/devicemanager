@@ -1,4 +1,3 @@
-<div class="row">
 	<div class="col-md-4 meta-category">
 		<table class="table table-striped">
 			<thead>
@@ -77,16 +76,12 @@
 			</tbody>
 		</table>
 	</div>
-</div>
 
-<div class="row">
 	<div class="col-md-12 description">
 		<h3 class="dotted">Description of Problem</h3>
 		<p class="well well-lg"><?php echo nl2br($record->description); ?></p>
 	</div>
-</div>
 
-<div class="row">
 	<div class="col-md-12 comment-update-history">
 		<h3 class="dotted">Update History</h3>
 
@@ -111,16 +106,17 @@
 			</tbody>
 		</table>
 	</div>
-</div>
 
 <?php if($record->can_edit == 1 || $this->hydra->isAdmin()): ?>
-	<div class="col-md-12 form-footer">
-		<button class="btn btn-primary edit">Edit Task</button>
-		<button class="btn btn-link task-back">Back</button>
+	<div class="col-md-12">
+		<div class="form-footer">
+			<button class="btn btn-primary edit">Edit Task</button>
+			<button class="btn btn-link task-back">Back</button>
 
-		<?php if($this->hydra->isAdmin()): ?>
-			<button class="btn btn-default manage-task pull-left" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
-		<?php endif; ?>
+			<?php if($this->hydra->isAdmin()): ?>
+				<button class="btn btn-default manage-task pull-left" data-toggle="modal" data-target=".manage" href="/task/manage/<?php echo $record->task_id; ?>">Manage</button>
+			<?php endif; ?>
+		</div>
 	</div>
 <?php endif; ?>
 

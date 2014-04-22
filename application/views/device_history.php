@@ -11,11 +11,18 @@
 			</thead>
 			<tbody>
 				<?php for($i = 0; $i < sizeof($history["overview"]); $i++): ?>
-					<tr>
-						<td><?php echo $history["overview"][$i]->action; ?></td>
-						<td><?php echo $history["overview"][$i]->username; ?></td>
-						<td><?php echo $this->product->convertMySQLDate($history["overview"][$i]->date); ?></td>
-					</tr>
+					<?php for($j = 0; $j < sizeof($history["overview"][$i]->data); $j++): ?>
+						<?php 
+							$item = $history["overview"][$i]->data[$j]; 
+
+							if(false === $item->hasError): ?>
+							<tr>
+								<td><?php echo $item->action; ?></td>
+								<td><?php echo $item->username; ?></td>
+								<td><?php echo $this->product->convertMySQLDate($item->date); ?></td>
+							</tr>
+						<?php endif; ?>
+					<?php endfor; ?>
 				<?php endfor; ?>
 			</tbody>
 		</table>

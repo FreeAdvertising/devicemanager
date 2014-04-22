@@ -292,7 +292,7 @@
 				t.date
 				FROM device_manager_history h
 				LEFT JOIN device_manager_maintenance_tasks t ON t.task_id = h.rel_id
-				WHERE h.rel_id = ? AND h.type IN('do_manage_task', 'do_insert') AND h.value IS NOT NULL
+				WHERE t.task_id = ? AND h.type IN('do_manage_task', 'do_insert') AND h.value IS NOT NULL
 				ORDER BY t.date
 				", array($task_id));
 
