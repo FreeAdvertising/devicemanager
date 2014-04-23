@@ -123,8 +123,8 @@
 					$parent = $oos->indexOf(1);
 
 					$status = new Generic();
-					$status->set("action", self::_parseAction($current->type));
-					$status->set("value", self::_parseAction($current->value));
+					$status->set("action", History::_parseAction($current->type));
+					$status->set("value", History::_parseAction($current->value));
 					$status->set("username", $_ci->product->getUser($parent->userid)->name);
 					$status->set("date", $parent->date);
 
