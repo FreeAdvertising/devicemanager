@@ -16,6 +16,12 @@
 		private $_type = null;
 
 		/**
+		 * Used in GenericList::sort to get around usort scope issue
+		 * @var string
+		 */
+		private $_key = null;
+
+		/**
 		 * Number of elements in the _bucket
 		 * @var integer
 		 */
@@ -96,7 +102,7 @@
 		 * @param  string $default A default value to return if the key value does not exist
 		 * @return string
 		 */
-		public function get($key, $default = null){
+		public function indexOf($key, $default = null){
 			if(isset($this->_bucket[$key])){
 				return $this->_bucket[$key];
 			}
@@ -105,11 +111,95 @@
 		}
 
 		/**
+		 * Returns a value in the array, if an element in the array satisfies 
+		 * the provided testing function. Otherwise a default is returned.
+		 * @param  string $value   The value you want to locate within _bucket
+		 * @param  mixed  $default A default value to return
+		 * @return mixed
+		 */
+		public function find($value, $default = null){
+			$match = null;
+
+			for($i = 0; $i < $this->length; $i++){
+				if(is_object($this->_bucket[$i]) || is_array($this->_bucket[$i])){
+					foreach($this->_bucket[$i] as $key => $_item){
+						if($key == $value || $_item == $value){
+							$match = $this->_bucket[$i];
+						}
+					}
+				}else {
+					if($value == $this->_bucket[$i]){
+						$match = $this->_bucket[$i];
+					}
+				}
+			}
+
+			if(false === is_null($match)){
+				return $match;
+			}
+
+			return $default;
+		}
+
+		/**
+		 * Get the key values of the _bucket list
+		 * @param  string $filter  Only get keys whose values equal this
+		 * @return array
+		 */
+		public function keys($filter = null){
+			if(false === is_null($filter))
+				return array_keys($this->_bucket, $filter);
+
+			return array_keys($this->_bucket);
+		}
+
+		/**
+		 * Sort the _bucket list by KEY
+		 * @param string $key  Key value to sort the array by
+		 * @param string $dir  Sorting direction
+		 * @return array
+		 */
+		public function sort($key, $dir = "DESC"){
+			//hack to get around scoping issue
+			$this->_key = $key;
+			$dir = strtoupper($dir);
+
+			if($dir == "DESC"){
+				usort($this->_bucket, function($a, $b){
+					if(is_object($a) && is_object($b)){
+						return $a->{$this->_key} - $b->{$this->_key};
+					}
+
+					return $a[$this->_key] - $b[$this->_key];
+				});
+			}elseif($dir == "ASC"){
+				usort($this->_bucket, function($a, $b){
+					if(is_object($a) && is_object($b)){
+						return $a->{$this->_key} - $b->{$this->_key} * -1;
+					}
+
+					return $a[$this->_key] - $b[$this->_key] * -1;
+				});
+			}
+
+			return $this->_bucket;
+		}
+
+		/**
 		 * View the raw _bucket list
 		 * @return array
 		 */
 		public function dump(){
 			return $this->_bucket;
+		}
+
+		/**
+		 * String representation of the array
+		 * TODO: implement recursive stringification
+		 * @return string
+		 */
+		public function toString(){
+			return implode($this->_bucket, ",");
 		}
 
 		/**

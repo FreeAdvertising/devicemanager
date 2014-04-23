@@ -145,15 +145,15 @@
 
 			//determine child history items and set special properties
 			$list->loop(function($item, $oos){
-				$_ci = $oos->get(0);
+				$_ci = $oos->indexOf(0);
 
 				$meta = $_ci->db->query("SELECT type, value FROM device_manager_history WHERE rel_id = ? ORDER BY hist_id", array($item->rel_id));
 
 				$item->data = new GenericList($meta->result_object(), "associative");
 
 				$item->data->loop(function($current, $oos){
-					$_ci = $oos->get(0);
-					$parent = $oos->get(1);
+					$_ci = $oos->indexOf(0);
+					$parent = $oos->indexOf(1);
 
 					$status = new Generic();
 					$status->set("action", self::_parseAction($current->type));
