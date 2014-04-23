@@ -16,12 +16,13 @@
 						$ci = $oos->indexOf(0);
 
 						$parent->data->loop(function($item, $oos){
+							$ci = $oos->indexOf(0); //shortcut for readability
 							?>
 						<tr>
 							<td><?php echo 1; ?></td>
 							<td><?php echo $item->data->action; ?></td>
 							<td><?php echo $item->data->username; ?></td>
-							<td><?php echo $oos->indexOf(0)->product->convertMySQLDate($item->data->date); ?></td>
+							<td><?php echo $ci->product->convertMySQLDate($item->data->date); ?></td>
 						</tr>
 						<?php //$c++; ?>
 					<?php }, array($ci)); ?>
