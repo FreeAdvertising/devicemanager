@@ -144,7 +144,7 @@
 		 * @param  string $action Action/method name
 		 * @return string
 		 */
-		private static function _parseAction($action){
+		public static function _parseAction($action){
 			switch($action){
 				case "do_manage_task": 
 					$output = "Assigned user/status updated"; break;
