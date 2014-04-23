@@ -13,8 +13,6 @@
 			<tbody>
 				<?php 
 					$history["overview"]->loop(function($parent, $oos){
-						$ci = $oos->indexOf(0);
-
 						$parent->data->loop(function($item, $oos){
 							$ci = $oos->indexOf(0); //shortcut for readability
 							?>
@@ -25,7 +23,7 @@
 							<td><?php echo $ci->product->convertMySQLDate($item->data->date); ?></td>
 						</tr>
 						<?php //$c++; ?>
-					<?php }, array($ci)); ?>
+					<?php }, array($oos->indexOf(0))); ?>
 				<?php }, array($this)); ?>
 			</tbody>
 		</table>
