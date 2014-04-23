@@ -12,7 +12,8 @@
 			</thead>
 			<tbody>
 				<?php 
-					$history["overview"]->loop(function($parent){
+					$history["overview"]->loop(function($parent, $oos){
+						$ci = $oos->get(0);
 						$parent->data->loop(function($item, $oos){
 							var_dump($oos);
 							?>
@@ -23,7 +24,7 @@
 							<td><?php echo $this->product->convertMySQLDate($item->data->date); ?></td>
 						</tr>
 						<?php //$c++; ?>
-					<?php }, array($this)); ?>
+					<?php }, array($ci)); ?>
 				<?php }, array($this)); ?>
 			</tbody>
 		</table>
