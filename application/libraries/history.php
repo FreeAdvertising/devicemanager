@@ -129,37 +129,47 @@
 			$ci = get_instance();
 			$id = $ci->product->getDeviceID($uuid);
 			
-			//determine sources
-			$assignments_query = $ci->db->query("SELECT userid, ass_id as rel_id, `date` FROM device_manager_assignments_rel WHERE device_id = ?", array($id));
-			$reservations_query = $ci->db->query("SELECT userid, res_id as rel_id, `date` FROM device_manager_reservations_rel WHERE device_id = ?", array($id));
+			//rewrite #4: use a temporary table (so temporary it gets destroyed 
+			//every time you hit /history)
+			$ci->db->query("DROP TABLE IF EXISTS `temp_device_manager_history`");
 
-			//combine results into one god-like array
-			$results = array_merge($assignments_query->result_object(), $reservations_query->result_object());
-			
+			$sql = "CREATE TEMPORARY TABLE `temp_device_manager_history`";
+			$sql .= sprintf("SELECT userid, ass_id as rel_id, `date` FROM device_manager_assignments_rel WHERE device_id = %d ", $id);
+			$sql .= sprintf("UNION SELECT userid, res_id as rel_id, `date` FROM device_manager_reservations_rel WHERE device_id = %d ", $id);
+			$sql .= sprintf("UNION SELECT created_by as userid, task_id as rel_id, `date` FROM device_manager_maintenance_tasks WHERE device_id = %d ", $id);
+
+			$ci->db->query($sql);
+
+			$temp = $ci->db->query("SELECT * FROM temp_device_manager_history ORDER BY `date` DESC");
+			$list = new GenericList($temp->result_object(), "associative");
+
 			//determine child history items and set special properties
-			for($i = 0, $obj = $results; $i < sizeof($obj); $i++){
-				$meta_query = $ci->db->query("SELECT type, value FROM device_manager_history WHERE rel_id = ? ORDER BY hist_id", array($obj[$i]->rel_id));
-				unset($obj[$i]->rel_id);
-				
-				$obj[$i]->data = $meta_query->result_object();
+			$list->loop(function($item, $oos){
+				$_ci = $oos->get(0);
 
-				//process raw method names into human readable action names
-				for($j = 0; $j < sizeof($obj[$i]->data); $j++){
+				$meta = $_ci->db->query("SELECT type, value FROM device_manager_history WHERE rel_id = ? ORDER BY hist_id", array($item->rel_id));
+
+				$item->data = new GenericList($meta->result_object(), "associative");
+
+				$item->data->loop(function($current, $oos){
+					$_ci = $oos->get(0);
+					$parent = $oos->get(1);
+
 					$status = new Generic();
-					$status->set("action", self::_parseAction($obj[$i]->data[$j]->type));
-					$status->set("value", self::_parseAction($obj[$i]->data[$j]->value));
-					$status->set("username", $ci->product->getUser($obj[$i]->userid)->name);
-					$status->set("date", $obj[$i]->date);
+					$status->set("action", self::_parseAction($current->type));
+					$status->set("value", self::_parseAction($current->value));
+					$status->set("username", $_ci->product->getUser($parent->userid)->name);
+					$status->set("date", $parent->date);
 
 					if(is_null($status->value)){
 						$status->setError("this->value not set or was NULL");
 					}
 
-					$obj[$i]->data[$j] = $status;
-				}
-			}
+					$current->data = $status;
+				}, array($_ci, $item));
+			}, array($ci));
 
-			return $results;
+			return $list;
 		}
 
 		/**

@@ -334,6 +334,31 @@
 		public function convertMySQLDate($mysqldate = null){
 			return date($this->_dateFormat, strtotime($mysqldate));
 		}
+
+		//REMOVE ME
+		public function dbCreateTempTable($table, $query_args = array(), $queries = array()){
+			$sql = sprintf("CREATE TEMPORARY TABLE IF NOT EXISTS `%s`", $table);
+			$ci = get_instance();
+
+			if(array_has_values($queries)){
+				$sql .= " AS ";
+
+				for($i = 0; $i < sizeof($queries); $i++){
+					$sql .= $queries[$i] ." ";
+				}
+
+				return $ci->db->query($sql, $query_args);
+			}
+
+			return false;
+		}
+
+		public function dbTableExists($table){
+			$ci = get_instance();
+			$query = $ci->db->query("SHOW TABLES LIKE ?", array($table));
+
+			return ($query->num_rows() === 1);
+		}
 	}
 
 ?>

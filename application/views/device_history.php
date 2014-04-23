@@ -5,25 +5,24 @@
 
 		<table class="table table-striped table-hover">
 			<thead>
+				<th width="1"></th>
 				<th width="33%">Action</th>
 				<th width="53%">Performed By</th>
 				<th width="13%">Date</th>
 			</thead>
 			<tbody>
-				<?php for($i = 0; $i < sizeof($history["overview"]); $i++): ?>
-					<?php for($j = 0; $j < sizeof($history["overview"][$i]->data); $j++): ?>
-						<?php 
-							$item = $history["overview"][$i]->data[$j]; 
-
-							if(false === $item->hasError): ?>
-							<tr>
-								<td><?php echo $item->action; ?></td>
-								<td><?php echo $item->username; ?></td>
-								<td><?php echo $this->product->convertMySQLDate($item->date); ?></td>
-							</tr>
-						<?php endif; ?>
-					<?php endfor; ?>
-				<?php endfor; ?>
+				<?php 
+					$history["overview"]->loop(function($parent){
+						$parent->data->loop(function($item, $oos){ ?>
+						<tr>
+							<td><?php echo 1; ?></td>
+							<td><?php echo $item->data->action; ?></td>
+							<td><?php echo $item->data->username; ?></td>
+							<td><?php echo $this->product->convertMySQLDate($item->data->date); ?></td>
+						</tr>
+						<?php //$c++; ?>
+					<?php }); ?>
+				<?php }); ?>
 			</tbody>
 		</table>
 	</div>
