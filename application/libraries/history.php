@@ -92,39 +92,6 @@
 		 * @param  mixed   $uuid
 		 * @return array
 		 */
-		public static function get_OLD($uuid){
-			$ci = get_instance();
-			$id = $ci->product->getDeviceID($uuid);
-			$return = array();
-
-			$query = $ci->db->query("SELECT rr.*, ar.*, h.type as action, IF(rr.date, rr.date, ar.date) as `date`, ar.date as ar_date, rr.date as rr_date, u.username
-				FROM
-				    device_manager_history h
-				        LEFT JOIN
-				    device_manager_assignments_rel AS ar ON ar.ass_id = h.rel_id
-				        LEFT JOIN
-				    device_manager_reservations_rel AS rr ON rr.res_id = h.rel_id
-				        LEFT JOIN
-				    users AS u ON IF(ar.userid, ar.userid, rr.userid) = u.userid
-				WHERE (IF(rr.date, rr.date, ar.date) BETWEEN CURDATE() - INTERVAL 6 MONTH AND CURDATE()) AND ar.device_id = ?
-				ORDER BY h.hist_id DESC, ar.date DESC
-				LIMIT 100
-				", array($id));
-			$results = $query->result_object();
-			var_dump($results);
-
-			for($i = 0; $i < sizeof($results); $i++){
-				$results[$i]->action = self::_parseAction($results[$i]->action);
-			}
-
-			return $results;
-		}
-
-		/**
-		 * Retrieve all historical data for the given UUID
-		 * @param  mixed   $uuid
-		 * @return array
-		 */
 		public static function get(UUID $uuid){
 			$ci = get_instance();
 			$id = $ci->product->getDeviceID($uuid);
