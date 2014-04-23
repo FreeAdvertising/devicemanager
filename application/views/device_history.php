@@ -13,7 +13,9 @@
 			<tbody>
 				<?php 
 					$history["overview"]->loop(function($parent){
-						$parent->data->loop(function($item, $oos){ ?>
+						$parent->data->loop(function($item, $oos){ 
+							var_dump($this->product);
+							?>
 						<tr>
 							<td><?php echo 1; ?></td>
 							<td><?php echo $item->data->action; ?></td>
