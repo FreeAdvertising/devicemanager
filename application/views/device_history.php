@@ -24,7 +24,7 @@
 						</tr>
 						<?php //$c++; ?>
 					<?php }, array($this)); ?>
-				<?php }); ?>
+				<?php }, array($this)); ?>
 			</tbody>
 		</table>
 	</div>
