@@ -13,7 +13,7 @@
 			<tbody>
 				<?php 
 					$history["overview"]->loop(function($parent, $oos){
-						$ci = $oos->get(0);
+						$ci = $oos->indexOf(0);
 						$parent->data->loop(function($item, $oos){
 							var_dump($oos);
 							?>
