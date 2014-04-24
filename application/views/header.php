@@ -166,9 +166,9 @@
 
 								<?php if($subpage == "history"): ?>
 									<ul class="nav nav-pills faux-tabs pull-left">
-										<li class="active"><a href="#" id="overview">Overview</a></li>
-										<li><a href="#" id="recent_owners">Recent Owners</a></li>
-										<li><a href="#" id="maintenance">Maintenance</a></li>
+										<li class="active"><a href="#overview" id="overview">Overview</a></li>
+										<li><a href="#recent_owners" id="recent_owners">Recent Owners</a></li>
+										<li><a href="#maintenance" id="maintenance">Maintenance</a></li>
 									</ul>
 								<?php endif; ?>
 

@@ -34,7 +34,7 @@
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_AVAILABLE; ?>" class="list-group-item">Available <span class="floatright status-circle btn-success"></span></a>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_UNAVAILABLE; ?>" class="list-group-item">Servicing (external) <span class="floatright status-circle btn-danger"></span></a>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_MAINTENANCE; ?>" class="list-group-item">Servicing (internal) <span class="floatright status-circle btn-warning"></span></a>
-			<a href="#" data-type="<?php echo Product::TASK_STATUS_INVALID; ?>" class="list-group-item">Maintenance <span class="floatright status-circle btn-invalid"></span></a>
+			<a href="#" data-type="<?php echo Product::TASK_STATUS_INVALID; ?>" class="list-group-item">Won't Fix <span class="floatright status-circle btn-invalid"></span></a>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_COMPLETE; ?>" class="list-group-item">Maintenance <span class="floatright status-circle btn-info"></span></a>
 		</div>
 	</aside>

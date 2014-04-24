@@ -187,6 +187,10 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		//hide old content, show new stuff
 		jQuery(".tab_content").hide();
 		jQuery(".tab_"+ this.id).show();
+
+		//when you click a tab on page, change the URL so refreshing the page 
+		//doesn't send to you a different tab
+		window.location.href = this.href;
 	});
 
 	if(hash = window.location.hash){
@@ -206,6 +210,7 @@ window.addEventListener("DOMContentLoaded", function(evt){
 		return (window.location.href = location.replace("id", "edit"));
 	});
 
+	//REMOVE ME
 	//launch manage task modal
 	// jQuery(".manage-task").click(function(evt){
 	// 	evt.preventDefault();
@@ -214,19 +219,20 @@ window.addEventListener("DOMContentLoaded", function(evt){
 	// 	// 	console.log(data);
 	// 	// });
 	// });
+	
+	//REMOVE ME
+	// //expand legend(s)
+	// jQuery(".expand-legend").click(function(evt){
+	// 	evt.preventDefault();
 
-	//expand legend(s)
-	jQuery(".expand-legend").click(function(evt){
-		evt.preventDefault();
+	// 	var _lgnd = jQuery(".legend");
 
-		var _lgnd = jQuery(".legend");
-
-		if(_lgnd.hasClass("hidden")){
-			_lgnd.removeClass("hidden");
-		}else {
-			_lgnd.addClass("hidden");
-		}
-	});
+	// 	if(_lgnd.hasClass("hidden")){
+	// 		_lgnd.removeClass("hidden");
+	// 	}else {
+	// 		_lgnd.addClass("hidden");
+	// 	}
+	// });
 
 	//back button for task views
 	jQuery(".task-back").click(function(evt){
@@ -267,6 +273,12 @@ window.addEventListener("DOMContentLoaded", function(evt){
 					window.location.href = "/users";
 			});
 		}
+	});
+
+	//fix index column on history table(s)
+	var _counter = 1;
+	jQuery("tr td.index").each(function(){
+		this.innerText = _counter++ + ".";
 	});
 });
 

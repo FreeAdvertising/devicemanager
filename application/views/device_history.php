@@ -3,7 +3,7 @@
 		<h3>Overview</h3>
 		<p class="alert alert-info">Information in this table is sorted by date descending so the latest updates are always at the top.  It is limited to 100 results by default.</p>
 
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover history">
 			<thead>
 				<th width="1"></th>
 				<th width="33%">Action</th>
@@ -17,7 +17,7 @@
 							$ci = $oos->indexOf(0); //shortcut for readability
 							?>
 						<tr>
-							<td><?php echo 1; ?></td>
+							<td class="index"><?php echo 1; ?>.</td>
 							<td><?php echo $item->data->action; ?></td>
 							<td><?php echo $item->data->username; ?></td>
 							<td><?php echo $ci->product->convertMySQLDate($item->data->date); ?></td>
@@ -62,7 +62,7 @@
 			<tbody>
 				<?php for($i = 0; $i < sizeof($history["maintenance"]); $i++): ?>
 					<tr data-location="<?php echo $history["maintenance"][$i]->created_by; ?>" data-status="<?php echo $history["maintenance"][$i]->status; ?>">
-						<td><?php echo ($i+1); ?></td>
+						<td><?php echo ($i+1); ?>.</td>
 						<td><?php echo anchor(sprintf("/task/id/%d", $history["maintenance"][$i]->task_id), truncate($history["maintenance"][$i]->description), array("title" => "View task details")); ?></td>
 						<td><?php echo $this->product->getUser($history["maintenance"][$i]->created_by)->name; ?></td>
 						<td><?php echo $this->product->getUser($history["maintenance"][$i]->assignee)->name; ?></td>
