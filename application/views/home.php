@@ -6,33 +6,28 @@
 				<section class="module col-md-6">
 					<table class="table table-striped table-hover">
 						<thead>
-							<th width="90%">Overall User Stats</th>
+							<th width="60%">Overall User Stats</th>
 							<th></th>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Best Ratio</td>
-								<td><?php echo $user_stats->best_ratio; ?></td>
+								<td align="right"><?php echo $user_stats->indexOf("best_ratio"); ?></td>
 							</tr>
 
 							<tr>
 								<td>Worst Ratio</td>
-								<td><?php echo $user_stats->worst_ratio; ?></td>
+								<td align="right"><?php echo $user_stats->indexOf("worst_ratio"); ?></td>
 							</tr>
 
 							<tr>
 								<td>Most Tickets Created</td>
-								<td><?php echo $user_stats->most_tickets; ?></td>
-							</tr>
-
-							<tr>
-								<td>Most Records Created</td>
-								<td><?php echo $user_stats->most_records; ?></td>
+								<td align="right"><?php echo $user_stats->indexOf("most_tickets"); ?></td>
 							</tr>
 
 							<tr>
 								<td>Most Devices Owned</td>
-								<td><?php echo $user_stats->most_devices; ?></td>
+								<td align="right"><?php echo $user_stats->indexOf("most_devices"); ?></td>
 							</tr>
 						</tbody>
 					</table>

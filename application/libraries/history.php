@@ -111,14 +111,14 @@
 			$list = new GenericList($temp->result_object(), "associative");
 
 			//determine child history items and set special properties
-			$list->loop(function($item, $oos){
+			$list->each(function($item, $oos){
 				$_ci = $oos->indexOf(0);
 
 				$meta = $_ci->db->query("SELECT type, value FROM device_manager_history WHERE rel_id = ? ORDER BY hist_id", array($item->rel_id));
 
 				$item->data = new GenericList($meta->result_object(), "associative");
 
-				$item->data->loop(function($current, $oos){
+				$item->data->each(function($current, $oos){
 					$_ci = $oos->indexOf(0);
 					$parent = $oos->indexOf(1);
 

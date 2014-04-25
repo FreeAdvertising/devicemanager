@@ -115,19 +115,52 @@
 
 		public function getUserStats(){
 			$output = new Generic();
+			$list = new GenericList(array("best_ratio" => null, "worst_ratio" => null, "most_tickets" => null, "most_devices" => null), "associative");
 
-			//get user with best completed task ratio
-			$dm_best_task_ratio_query = $this->db->query("SELECT
-				* from users WHERE userid = 1 LIMIT ?
-				", array(1
-					));
-			$output->set("best_ratio", $dm_best_task_ratio_query->row()->username);
-			$output->set("worst_ratio", $dm_best_task_ratio_query->row()->username);
-			$output->set("most_tickets", $dm_best_task_ratio_query->row()->username);
-			$output->set("most_records", $dm_best_task_ratio_query->row()->username);
-			$output->set("most_devices", $dm_best_task_ratio_query->row()->username);
+			$most_devices = $this->db->query("SELECT COUNT(ar.device_id) as count, u.username FROM device_manager_assignments_rel ar LEFT JOIN users u ON u.userid = ar.userid WHERE ar.checked_in = 0 GROUP BY u.userid ORDER BY count LIMIT 1");
+			$list->modify("most_devices", sprintf("%s (%d)", $most_devices->row()->username, (int) $most_devices->row()->count));
 
-			return $output;
+			$most_tickets = $this->db->query("SELECT COUNT(task_id) AS count, u.username FROM device_manager_maintenance_tasks t LEFT JOIN users u ON u.userid = t.created_by ORDER BY count LIMIT 1");
+			$list->modify("most_tickets", sprintf("%s (%d)", $most_tickets->row()->username, (int) $most_tickets->row()->count));
+
+			//get raw usage data and process it into the required format (who
+			//has the best completed/total and worst invalid/total ratios in this
+			//case)
+			$all_user_ratios = $this->db->query(
+				"SELECT 
+					(SELECT 
+							COUNT(task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.status = 4 AND t.created_by = u.userid) as completed_count,
+					(SELECT 
+							COUNT(task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.status = 3 AND t.created_by = u.userid) as invalid_count,
+					(SELECT 
+							COUNT(task_id)
+						FROM
+							device_manager_maintenance_tasks t
+						WHERE
+							t.created_by = u.userid) as total_count,
+					u.username
+				FROM
+					users u
+				ORDER BY completed_count DESC
+			");
+
+			$ratios = new GenericList($all_user_ratios->result_object());
+
+			$best = $ratios->sort("completed_count", "asc")->limit(1)->dump();
+			$worst = $ratios->sort("invalid_count", "asc")->limit(1)->dump();
+
+			$list->modify("best_ratio", $best->username);
+			$list->modify("worst_ratio", $worst->username);
+
+			return $list;
 		}
 	}
 

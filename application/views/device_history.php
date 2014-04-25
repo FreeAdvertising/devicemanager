@@ -12,8 +12,8 @@
 			</thead>
 			<tbody>
 				<?php 
-					$history["overview"]->loop(function($parent, $oos){
-						$parent->data->loop(function($item, $oos){
+					$history["overview"]->each(function($parent, $oos){
+						$parent->data->each(function($item, $oos){
 							$ci = $oos->indexOf(0); //shortcut for readability
 							?>
 						<tr>
