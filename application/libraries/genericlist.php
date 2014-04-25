@@ -243,18 +243,15 @@
 			$clone = $this->_bucket;
 
 			if($dir == "DESC"){
-				usort($clone, function($a, $b){
-					if(is_object($a) && is_object($b)){
-						if(property_exists($a, $this->_key) && property_exists($b, $this->_key))
-							return ($a->{$this->_key} - $b->{$this->_key} > 0);
-
-						return false;
-					}
-
-					return $a[$this->_key] - $b[$this->_key];
-				});
+				usort($clone, $this->_test2($a, $b));
 			}elseif($dir == "ASC"){
-				usort($clone, function($a, $b){
+				usort($clone, $this->_test($a, $b));
+			}
+
+			return new GenericList($clone);
+		}
+
+		private function _test($a, $b){
 					if(is_object($a) && is_object($b)){
 						if(property_exists($a, $this->_key) && property_exists($b, $this->_key))
 							return ($a->{$this->_key} - $b->{$this->_key} < 0);
@@ -263,10 +260,18 @@
 					}
 
 					return $a[$this->_key] - $b[$this->_key] * -1;
-				});
-			}
+				
+		}
 
-			return new GenericList($clone);
+		private function _test2($a, $b){
+			if(is_object($a) && is_object($b)){
+						if(property_exists($a, $this->_key) && property_exists($b, $this->_key))
+							return ($a->{$this->_key} - $b->{$this->_key} > 0);
+
+						return false;
+					}
+
+					return $a[$this->_key] - $b[$this->_key];
 		}
 
 		/**
