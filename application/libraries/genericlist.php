@@ -246,8 +246,8 @@
 			if($dir == "DESC"){
 				usort($clone, function($a, $b) use ($ref) {
 					if(is_object($a) && is_object($b)){
-						if(property_exists($a, $this->_key) && property_exists($b, $this->_key))
-							return ($a->{$this->_key} - $b->{$this->_key} > 0);
+						if(property_exists($a, $ref->_key) && property_exists($b, $ref->_key))
+							return ($a->{$ref->_key} - $b->{$ref->_key} > 0);
 
 						return false;
 					}
@@ -257,8 +257,8 @@
 			}elseif($dir == "ASC"){
 				usort($clone, function($a, $b) use($ref) {
 					if(is_object($a) && is_object($b)){
-						if(property_exists($a, $this->_key) && property_exists($b, $this->_key))
-							return ($a->{$this->_key} - $b->{$this->_key} < 0);
+						if(property_exists($a, $ref->_key) && property_exists($b, $ref->_key))
+							return ($a->{$ref->_key} - $b->{$ref->_key} < 0);
 
 						return false;
 					}
