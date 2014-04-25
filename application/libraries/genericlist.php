@@ -19,7 +19,7 @@
 		 * Used in GenericList::sort to get around usort scope issue
 		 * @var string
 		 */
-		private $_key = null;
+		protected $_key = null;
 
 		/**
 		 * Number of elements in the _bucket
