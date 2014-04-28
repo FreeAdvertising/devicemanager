@@ -17,6 +17,7 @@
 
 		/**
 		 * Used in GenericList::sort to get around usort scope issue
+		 * PUBLIC because of PHP 5.3, don't ask
 		 * @var string
 		 */
 		public $_key = null;

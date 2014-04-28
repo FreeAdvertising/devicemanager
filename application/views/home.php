@@ -11,12 +11,12 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Best Ratio</td>
+								<td><abbr title="Highest Completed/Created task ratio">Best Ratio</abbr></td>
 								<td align="right"><?php echo $user_stats->indexOf("best_ratio"); ?></td>
 							</tr>
 
 							<tr>
-								<td>Worst Ratio</td>
+								<td><abbr title="Highest Invalid/Created task ration">Worst Ratio</abbr></td>
 								<td align="right"><?php echo $user_stats->indexOf("worst_ratio"); ?></td>
 							</tr>
 
