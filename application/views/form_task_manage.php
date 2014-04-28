@@ -21,13 +21,13 @@
 					<?php endif; ?>
 
 					<div class="form-group">
-						<label for="assignee">Assignee [# of tasks currently assigned]</label>
+						<label for="assignee">Assignee (# of tasks currently assigned)</label>
 						<select name="assignee" id="assignee" class="form-control">
 							<?php for($i = 0; $i < sizeof($users); $i++): ?>
 								<?php if($record->assignee == $users[$i]->userid): ?>
-									<option value="<?php echo $users[$i]->userid; ?>" selected="selected"><?php echo sprintf("%s [%d]", $users[$i]->username, $users[$i]->count); ?></option>
+									<option value="<?php echo $users[$i]->userid; ?>" selected="selected"><?php echo sprintf("%s (%d)", $users[$i]->username, $users[$i]->count); ?></option>
 								<?php else : ?>
-									<option value="<?php echo $users[$i]->userid; ?>"><?php echo sprintf("%s [%d]", $users[$i]->username, $users[$i]->count); ?></option>
+									<option value="<?php echo $users[$i]->userid; ?>"><?php echo sprintf("%s (%d)", $users[$i]->username, $users[$i]->count); ?></option>
 								<?php endif; ?>
 							<?php endfor; ?>
 						</select>
