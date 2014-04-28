@@ -37,7 +37,7 @@
 	<aside class="module">
 		<div class="list-group type-list">
 			<h3 class="list-group-item type-filter-header">Legend <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<div data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Mine <span class="floatright glyphicon glyphicon-star"></span></div>
+			<div class="list-group-item">Mine <span class="floatright glyphicon glyphicon-star"></span></div>
 			<a href="#" data-type="<?php echo Product::DEVICE_AVAILABLE; ?>" class="list-group-item">Available <span class="floatright status-circle btn-success"></span></a>
 			<a href="#" data-type="<?php echo Product::DEVICE_CHECKED_OUT; ?>" class="list-group-item">Checked Out <span class="floatright status-circle btn-danger"></span></a>
 			<a href="#" data-type="<?php echo Product::DEVICE_MAINTENANCE; ?>" class="list-group-item">Maintenance <span class="floatright status-circle btn-info"></span></a>

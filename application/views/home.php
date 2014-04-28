@@ -89,7 +89,7 @@
 			<?php endif ;?>
 
 			<?php if(sizeof($tasks) > 0): ?>
-				<h3 class="list-group-item">My Maintenance Tasks</h3>
+				<h3 class="list-group-item"><?php echo anchor("/my_tasks", "My Maintenance Tasks"); ?></h3>
 				<?php for($i = 0, $obj = $tasks; $i < sizeof($obj); $i++): ?>
 					<?php echo anchor(sprintf("/task/id/%d", $obj[$i]->task_id), sprintf("%s <span class=\"all status-circle btn-%s\"></span>", truncate($obj[$i]->description, 15), $this->product->get_task_status($obj[$i]->status)), array("class" => "list-group-item")); ?>
 				<?php endfor; ?>

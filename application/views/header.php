@@ -46,6 +46,8 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li class="<?php echo ($page == "tasks" ? 'active"' : ''); ?>"><?php echo anchor("/tasks", "View Tasks"); ?></li>
+									<li class="<?php echo ($page == "my_tasks" ? 'active"' : ''); ?>"><?php echo anchor("/my_tasks", "My Tasks"); ?></li>
+									<li class="divider"></li>
 									<li class="<?php echo ($page == "task" && $subpage == "add" ? 'active"' : ''); ?>"><?php echo anchor("/task/add", "Add New"); ?></li>
 								</ul>
 							</li>
@@ -137,6 +139,13 @@
 								<?php if($subpage == ""): ?>
 									<h4 class="panel-title">Maintenance Tasks</h4>
 									<p class="small overview">Active tasks on any device.</p>
+								<?php endif; ?>
+							<?php break; ?>
+
+							<?php case "my_tasks": ?>
+								<?php if($subpage == ""): ?>
+									<h4 class="panel-title">My Maintenance Tasks</h4>
+									<p class="small overview">Maintenance tasks which you have created, or tasks that have been assigned to you.</p>
 								<?php endif; ?>
 							<?php break; ?>
 

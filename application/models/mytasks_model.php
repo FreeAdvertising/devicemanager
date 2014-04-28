@@ -1,7 +1,7 @@
 <?php
 	defined("BASEPATH") or die;
 	
-	class Tasks_model extends CI_Model {
+	class Mytasks_model extends CI_Model {
 		/**
 		 * Auto-executed
 		 */
@@ -16,22 +16,22 @@
 		 */
 		public function getCreatedByUsers(){
 			$query = $this->db->query("SELECT 
-						u.username,
-						u.userid,
-						(SELECT 
-							COUNT(t.device_id)
-						FROM
-							device_manager_maintenance_tasks t
-						WHERE
-							t.created_by = u.userid) as count
+					    u.username,
+					    u.userid,
+					    (SELECT 
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.created_by = u.userid) as count
 					FROM
-						users u
+					    users u
 					WHERE (SELECT 
-							COUNT(t.device_id)
-						FROM
-							device_manager_maintenance_tasks t
-						WHERE
-							t.created_by = u.userid) > 0
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.created_by = u.userid) > 0
 					ORDER BY count DESC , u.userid
 					");
 
@@ -72,22 +72,22 @@
 		 */
 		public function getDevices(){
 			$query = $this->db->query("SELECT 
-						IF(d.name IS NOT NULL, d.name, d.uuid) as name,
-						d.device_id,
-						(SELECT 
-							COUNT(t.device_id)
-						FROM
-							device_manager_maintenance_tasks t
-						WHERE
-							t.device_id = d.device_id) as count
+					    IF(d.name IS NOT NULL, d.name, d.uuid) as name,
+					    d.device_id,
+					    (SELECT 
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.device_id = d.device_id) as count
 					FROM
-						device_manager_devices d
+					    device_manager_devices d
 					WHERE (SELECT 
-							COUNT(t.device_id)
-						FROM
-							device_manager_maintenance_tasks t
-						WHERE
-							t.device_id = d.device_id) > 0
+				            COUNT(t.device_id)
+				        FROM
+				            device_manager_maintenance_tasks t
+				        WHERE
+				            t.device_id = d.device_id) > 0
 					ORDER BY count DESC , d.device_id
 					");
 
@@ -100,13 +100,15 @@
 		 */
 		public function getRecords(){
 			$return = array();
+			$user = $this->hydra->get("id");
 
 			$sql = "SELECT 
 						task_id, device_id, assignee, created_by, description, status 
 					FROM device_manager_maintenance_tasks 
+					WHERE created_by = ? OR assignee = ?
 					ORDER BY status";
 
-			$query = $this->db->query($sql);
+			$query = $this->db->query($sql, array($user, $user));
 
 			if($query->num_rows() > 0){
 				return $query->result_object();
