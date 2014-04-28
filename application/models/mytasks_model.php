@@ -15,6 +15,8 @@
 		 * @return array
 		 */
 		public function getCreatedByUsers(){
+			$user = $this->hydra->get("id");
+			
 			$query = $this->db->query("SELECT 
 					    u.username,
 					    u.userid,
@@ -23,7 +25,7 @@
 				        FROM
 				            device_manager_maintenance_tasks t
 				        WHERE
-				            t.created_by = u.userid) as count
+				            t.created_by = u.userid AND (t.assignee = ? OR t.created_by = ?)) as count
 					FROM
 					    users u
 					WHERE (SELECT 
@@ -31,9 +33,9 @@
 				        FROM
 				            device_manager_maintenance_tasks t
 				        WHERE
-				            t.created_by = u.userid) > 0
+				            t.created_by = u.userid AND (t.assignee = ? OR t.created_by = ?)) > 0
 					ORDER BY count DESC , u.userid
-					");
+					", array($user, $user, $user, $user));
 
 			return $query->result_object();
 		}
@@ -43,6 +45,8 @@
 		 * @return array
 		 */
 		public function getAssigneeUsers(){
+			$user = $this->hydra->get("id");
+
 			$query = $this->db->query("SELECT 
 						u.username,
 						u.userid,
@@ -59,9 +63,9 @@
 						FROM
 							device_manager_maintenance_tasks t
 						WHERE
-							t.assignee = u.userid) > 0
+							t.assignee = u.userid AND (t.assignee = ? OR t.created_by = ?)) > 0
 					ORDER BY count DESC, u.userid
-					");
+					", array($user, $user, $user, $user));
 
 			return $query->result_object();
 		}
@@ -71,6 +75,8 @@
 		 * @return array
 		 */
 		public function getDevices(){
+			$user = $this->hydra->get("id");
+
 			$query = $this->db->query("SELECT 
 					    IF(d.name IS NOT NULL, d.name, d.uuid) as name,
 					    d.device_id,
@@ -79,7 +85,7 @@
 				        FROM
 				            device_manager_maintenance_tasks t
 				        WHERE
-				            t.device_id = d.device_id) as count
+				            t.device_id = d.device_id AND (t.assignee = ? OR t.created_by = ?)) as count
 					FROM
 					    device_manager_devices d
 					WHERE (SELECT 
@@ -87,9 +93,10 @@
 				        FROM
 				            device_manager_maintenance_tasks t
 				        WHERE
-				            t.device_id = d.device_id) > 0
+				            t.device_id = d.device_id AND (t.assignee = ? OR t.created_by = ?)) > 0
+					
 					ORDER BY count DESC , d.device_id
-					");
+					", array($user, $user, $user, $user));
 
 			return $query->result_object();
 		}
