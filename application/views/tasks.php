@@ -41,20 +41,26 @@
 
 	<aside class="module">
 		<div class="list-group user-list">
-			<h3 class="list-group-item user-filter-header">Created By <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<?php for($i = 0; $i < sizeof($users); $i++): ?>
-				<a href="#" data-user="<?php echo $users[$i]->userid; ?>" class="list-group-item user-createdby-list"><?php echo $users[$i]->username; ?> <span class="all badge"><?php echo $users[$i]->count; ?></span></a>
-			<?php endfor; ?>
-		
-			<h3 class="list-group-item user-assignee-filter-header">Assignee <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<?php for($i = 0; $i < sizeof($assignee_users); $i++): ?>
-				<a href="#" data-user="<?php echo $assignee_users[$i]->userid; ?>" class="list-group-item user-assignee-list"><?php echo $assignee_users[$i]->username; ?> <span class="all badge"><?php echo $assignee_users[$i]->count; ?></span></a>
-			<?php endfor; ?>
+			<?php if(array_has_values($users) > 0): ?>
+				<h3 class="list-group-item user-filter-header">Created By <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+				<?php for($i = 0; $i < sizeof($users); $i++): ?>
+					<a href="#" data-user="<?php echo $users[$i]->userid; ?>" class="list-group-item user-createdby-list"><?php echo $users[$i]->username; ?> <span class="all badge"><?php echo $users[$i]->count; ?></span></a>
+				<?php endfor; ?>
+			<?php endif; ?>
+			
+			<?php if(array_has_values($assignee_users)): ?>
+				<h3 class="list-group-item user-assignee-filter-header">Assignee <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+				<?php for($i = 0; $i < sizeof($assignee_users); $i++): ?>
+					<a href="#" data-user="<?php echo $assignee_users[$i]->userid; ?>" class="list-group-item user-assignee-list"><?php echo $assignee_users[$i]->username; ?> <span class="all badge"><?php echo $assignee_users[$i]->count; ?></span></a>
+				<?php endfor; ?>
+			<?php endif; ?>
 
-			<h3 class="list-group-item device-filter-header">Filter by Device <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
-			<?php for($i = 0; $i < sizeof($devices); $i++): ?>
-				<a href="#" data-device="<?php echo $devices[$i]->device_id; ?>" class="list-group-item devices-list"><?php echo $devices[$i]->name; ?> <span class="all badge"><?php echo $devices[$i]->count; ?></span></a>
-			<?php endfor; ?>
+			<?php if(array_has_values($devices)): ?>
+				<h3 class="list-group-item device-filter-header">Filter by Device <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+				<?php for($i = 0; $i < sizeof($devices); $i++): ?>
+					<a href="#" data-device="<?php echo $devices[$i]->device_id; ?>" class="list-group-item devices-list"><?php echo $devices[$i]->name; ?> <span class="all badge"><?php echo $devices[$i]->count; ?></span></a>
+				<?php endfor; ?>
+			<?php endif; ?>
 		</div>
 	</aside>
 </section>
