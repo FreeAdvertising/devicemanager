@@ -3,6 +3,7 @@
 		<thead>
 			<th width="1"></th>
 			<th width="60%">Task Name</th>
+			<th></th>
 			<th>Created By</th>
 			<th>Assigned To</th>
 			<th>Status</th>
@@ -13,6 +14,12 @@
 					<tr data-location="<?php echo $records[$i]->created_by; ?>" data-assignee="<?php echo $records[$i]->assignee; ?>" data-device="<?php echo $records[$i]->device_id; ?>" data-status="<?php echo $records[$i]->status; ?>" data-createdby="<?php echo $records[$i]->created_by; ?>">
 						<td><?php echo ($i+1); ?>.</td>
 						<td><?php echo anchor(sprintf("/task/id/%d", $records[$i]->task_id), truncate($records[$i]->description), array("title" => "View task details")); ?></td>
+						<td>
+							<?php if($records[$i]->created_by == $this->hydra->get("id") 
+									|| $records[$i]->assignee == $this->hydra->get("id")): ?>
+								<span class="glyphicon glyphicon-star"></span>
+							<?php endif; ?>
+						</td>
 						<td><?php echo $this->product->getUser($records[$i]->created_by)->name; ?></td>
 						<td><?php echo $this->product->getUser($records[$i]->assignee)->name; ?></td>
 						<td><span class="status-circle btn-<?php echo $this->product->get_task_status($records[$i]->status); ?>"></span></td>
@@ -31,6 +38,7 @@
 	<aside class="module">
 		<div class="list-group type-list">
 			<h3 class="list-group-item type-filter-header">Legend <a href="#" class="reset-filters label label-default hidden">Reset</a></h3>
+			<div class="list-group-item">Mine <span class="floatright glyphicon glyphicon-star"></span></div>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_AVAILABLE; ?>" class="list-group-item">Available <span class="floatright status-circle btn-success"></span></a>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_UNAVAILABLE; ?>" class="list-group-item">Servicing (external) <span class="floatright status-circle btn-danger"></span></a>
 			<a href="#" data-type="<?php echo Product::TASK_STATUS_MAINTENANCE; ?>" class="list-group-item">Servicing (internal) <span class="floatright status-circle btn-warning"></span></a>
