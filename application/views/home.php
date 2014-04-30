@@ -16,7 +16,7 @@
 							</tr>
 
 							<tr>
-								<td><abbr title="Highest Invalid/Created task ration">Worst Ratio</abbr></td>
+								<td><abbr title="Highest Invalid/Created task ratio">Worst Ratio</abbr></td>
 								<td align="right"><?php echo $user_stats->indexOf("worst_ratio"); ?></td>
 							</tr>
 
