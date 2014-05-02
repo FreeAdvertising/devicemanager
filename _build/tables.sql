@@ -23,12 +23,7 @@ CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_tracked_applications
   `app_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` BLOB NOT NULL,
-  PRIMARY KEY (`app_id`),
-  INDEX devid_idx (device_id),
-  FOREIGN KEY (device_id)
-    REFERENCES `device_manager`.`device_manager_devices`(device_id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+  PRIMARY KEY (`app_id`)
   );
 
 CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_tracked_applications_rel` (
