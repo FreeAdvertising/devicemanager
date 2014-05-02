@@ -215,7 +215,7 @@
 		}
 
 		public function getDeviceID(UUID $uuid){
-			if($uuid){
+			if($uuid->get()){
 				$ci = get_instance();
 				$query = $ci->db->query("SELECT device_id FROM device_manager_devices WHERE uuid = ?", array($uuid->get()));
 

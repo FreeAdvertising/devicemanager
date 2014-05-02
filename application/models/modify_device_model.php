@@ -1,38 +1,46 @@
 <?php
 	defined("BASEPATH") or die;
 	
-	class Modifydevice_model extends CI_Model {
+	class Modify_device_model extends CI_Model {
+		private $_uuid;
+		
 		public function __construct(){
 			return parent::__construct();
 		}
 
 		public function modify($data){
-			//if the device is created as "checked out", assign it to the user assigned as the location of the device
-			if((int)$data["status"] === Product::DEVICE_CHECKED_OUT){
-				$data["last_checkedout_by"] = $data["location"];
-			}else {
-				$data["last_checkedout_by"] = 0;
-			}
+			$uuid = UUID::convert($data["uuid"]);
+			$this->_uuid = $uuid;
+			$device_id = $this->product->getDeviceID($uuid);
 
-			$query = $this->db->query("INSERT INTO device_manager_devices(`uuid`, `meta_type`, `os`, `meta_ram`, `meta_hdd`, `location`, `status`, `last_checkedout_by`, `name`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
-					strtoupper($data["uuid"]),
+			$query = $this->db->query("UPDATE device_manager_devices SET 
+					uuid = ?, 
+					name = ?, 
+					meta_type = ?, 
+					meta_ram = ?, 
+					meta_hdd = ?, 
+					os = ?, 
+					status = ?, 
+					location = ? 
+				WHERE 
+					device_id = ?", 
+				array(
+					$data["uuid"],
+					$data["name"],
 					$data["meta_type"],
-					$data["os"],
 					$data["meta_ram"],
 					$data["meta_hdd"],
-					$data["location"],
+					$data["os"],
 					$data["status"],
-					$data["last_checkedout_by"],
-					$data["name"],
+					$data["location"],
+					$device_id,
 				));
 
 			return $query;
 		}
 
-		public function getUsers(){
-			$query = $this->db->query("SELECT u.userid as id, u.username, g.name AS group_name FROM users u LEFT JOIN usergroups g ON u.group_id = g.group_id ORDER BY u.userid");
-
-			return $query->result_object();
+		public function getUUID(){
+			return $this->_uuid;
 		}
 	}
 

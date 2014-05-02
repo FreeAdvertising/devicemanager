@@ -5,7 +5,7 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->load->model("add_device_model");
+			$this->load->model("modify_device_model");
 		}
 
 		public function index(){
@@ -48,7 +48,9 @@
 				$this->session->set_flashdata("model_save_fail", "INTERNAL ERROR: There was a problem modifying this device.  Please try again, or contact a system administrator.");
 			}
 
-			return redirect(base_url(). sprintf("/device/%s/edit", $this->uri->segment(2)));
+			$return_uuid = $this->modify_device_model->getUUID();
+
+			return redirect(base_url(). sprintf("/device/%s/edit", $return_uuid->get()));
 		}
 	}
 
