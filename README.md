@@ -29,3 +29,8 @@ Also, it's free.
 	* Usergroup Management. 
 * 1.2
 	* Device Watchlist.  Users choose any number of already tracked applications from a list and are presented with a list of devices which have those applications installed.
+	* More flexibility in what DM can track.  Currently there are 4 types: laptops, desktops, servers and peripherals.  The plan is to make this a dynamic list of devices or items that you've chosen.
+
+## Disclaimer
+
+This is project is still under development and should be treated as a beta-level product.  Please use the provided issue tracker to raise issues.
