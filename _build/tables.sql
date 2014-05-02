@@ -1,80 +1,10 @@
 ##
-# Create Product tables
-#
-# freepass tables
-CREATE DATABASE IF NOT EXISTS `freepass` ;
-
-CREATE TABLE IF NOT EXISTS `freepass`.`clients` (
-  `client_id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(45) NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `desc` VARCHAR(45) NULL,
-  PRIMARY KEY (`client_id`),
-  UNIQUE INDEX `client_id_UNIQUE` (`client_id` ASC));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`records` (
-  `record_id` INT NOT NULL AUTO_INCREMENT,
-  `client_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `password` VARCHAR(88) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `domain` VARCHAR(45) NULL,
-  `host` VARCHAR(45) NULL,
-  `desc` VARCHAR(45) NULL,
-  PRIMARY KEY (`record_id`));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`users` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
-  `group_id` INT NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `secret_question_answer` VARCHAR(255) NOT NULL,
-  `is_reset` INT NOT NULL,
-  PRIMARY KEY (`userid`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`users_quarantine` (
-  `userid` INT NOT NULL AUTO_INCREMENT,
-  `group_id` INT NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `secret_question_answer` VARCHAR(255) NOT NULL,
-  `is_reset` INT NOT NULL,
-  PRIMARY KEY (`userid`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`usergroups` (
-  `group_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `desc` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`group_id`));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`categories` (
-  `category_id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `colour` VARCHAR(45) NOT NULL,
-  `desc` VARCHAR(255) NOT NULL,
-  `slug` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`category_id`));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`rel_categories` (
-  `rel_id` INT NOT NULL AUTO_INCREMENT,
-  `record_id` INT NOT NULL,
-  `category_id` INT NOT NULL,
-  PRIMARY KEY (`rel_id`));
-
-CREATE TABLE IF NOT EXISTS `freepass`.`rel_starred_categories` (
-  `rel_id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `category_id` INT NOT NULL,
-  PRIMARY KEY (`rel_id`));
-
-##
 # device_manager tables
 # 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_devices` (
+
+CREATE DATABASE IF NOT EXISTS `device_manager` ;
+
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_devices` (
   `device_id` INT NOT NULL AUTO_INCREMENT,
   `uuid` VARCHAR(8) NOT NULL,
   `os` INT NOT NULL, #ENUM
@@ -89,21 +19,19 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_devices` (
   `location` INT NOT NULL, #ENUM
   PRIMARY KEY (`device_id`));
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_tracked_applications` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_tracked_applications` (
   `app_id` INT NOT NULL AUTO_INCREMENT,
-  #`device_id` INT NOT NULL, # DROP THIS
   `name` VARCHAR(255) NOT NULL,
   `description` BLOB NOT NULL,
-  #`version` VARCHAR(10) NOT NULL, # DROP THIS
   PRIMARY KEY (`app_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_tracked_applications_rel` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_tracked_applications_rel` (
   `tapp_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `app_id` INT NOT NULL,
@@ -112,16 +40,16 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_tracked_applications_rel` 
   INDEX devid_idx (device_id),
   INDEX appid_idx (app_id),
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   FOREIGN KEY (app_id)
-    REFERENCES `freepass`.`device_manager_tracked_applications`(app_id)
+    REFERENCES `device_manager`.`device_manager_tracked_applications`(app_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_tasks` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_maintenance_tasks` (
   `task_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `assignee` INT NOT NULL,
@@ -132,18 +60,18 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_tasks` (
   PRIMARY KEY (`task_id`),
   INDEX devid_idx (device_id),
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_task_categories` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_maintenance_task_categories` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` BLOB NOT NULL,
   PRIMARY KEY (`category_id`));
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_task_categories_rel` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_maintenance_task_categories_rel` (
   `rel_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `task_id` INT NOT NULL,
@@ -154,22 +82,22 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_maintenance_task_categorie
   INDEX catid_idx (category_id),
   # device id foreign key
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   # task id foreign key
   FOREIGN KEY (task_id)
-    REFERENCES `freepass`.`device_manager_maintenance_tasks`(task_id)
+    REFERENCES `device_manager`.`device_manager_maintenance_tasks`(task_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   # category id foreign key
   FOREIGN KEY (category_id)
-    REFERENCES `freepass`.`device_manager_maintenance_task_categories`(category_id)
+    REFERENCES `device_manager`.`device_manager_maintenance_task_categories`(category_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_reservations_rel` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_reservations_rel` (
   `res_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
@@ -179,16 +107,16 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_reservations_rel` (
   INDEX devid_idx (device_id),
   INDEX usrid_idx (userid),
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   FOREIGN KEY (userid)
-    REFERENCES `freepass`.`users`(userid)
+    REFERENCES `device_manager`.`users`(userid)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_assignments_rel` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_assignments_rel` (
   `ass_id` INT NOT NULL AUTO_INCREMENT,
   `device_id` INT NOT NULL,
   `userid` INT NOT NULL,
@@ -198,16 +126,16 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_assignments_rel` (
   INDEX devid_idx (device_id),
   INDEX usrid_idx (userid),
   FOREIGN KEY (device_id)
-    REFERENCES `freepass`.`device_manager_devices`(device_id)
+    REFERENCES `device_manager`.`device_manager_devices`(device_id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   FOREIGN KEY (userid)
-    REFERENCES `freepass`.`users`(userid)
+    REFERENCES `device_manager`.`users`(userid)
     ON UPDATE CASCADE
     ON DELETE CASCADE
   );
 
-CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_history` (
+CREATE TABLE IF NOT EXISTS `device_manager`.`device_manager_history` (
   `hist_id` INT NOT NULL AUTO_INCREMENT,
   `rel_id` INT NOT NULL, # i.e. res_id, ass_id, maint_id - to get details about the item
   `type` VARCHAR(25) NOT NULL, # i.e. assignment, reservation, maintenance
@@ -215,11 +143,36 @@ CREATE TABLE IF NOT EXISTS `freepass`.`device_manager_history` (
   INDEX type_idx (type)
   );
 
+CREATE TABLE IF NOT EXISTS `device_manager`.`users` (
+  `userid` INT NOT NULL AUTO_INCREMENT,
+  `group_id` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `secret_question_answer` VARCHAR(255) NOT NULL,
+  `is_reset` INT NOT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC));
+
+CREATE TABLE IF NOT EXISTS `device_manager`.`users_quarantine` (
+  `userid` INT NOT NULL AUTO_INCREMENT,
+  `group_id` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `secret_question_answer` VARCHAR(255) NOT NULL,
+  `is_reset` INT NOT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC));
+
+CREATE TABLE IF NOT EXISTS `device_manager`.`usergroups` (
+  `group_id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `desc` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`group_id`));
+
 ##
 # Modify existing Product tables
 # (these changes are already added to the table schemas, should only be run on
 # existing data)
 # 
-
-#alter table device_manager_history drop column value;
-#ALTER TABLE device_manager_history ADD COLUMN value VARCHAR(255) DEFAULT NULL
