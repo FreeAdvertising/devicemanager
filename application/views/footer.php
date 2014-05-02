@@ -1,7 +1,7 @@
 					</div>
 		
 				<div class="panel-footer">
-					&copy; <?php echo date("Y"); ?> Free
+					&copy; <?php echo date("Y"); ?> <?php echo $this->hydra->get("company_name"); ?>
 					<?php if(IS_DEV): ?>
 						<span class="pull-right local-version">current: <span class="commit"><?php echo show_git_status(); ?></span></span>
 					<?php endif; ?>

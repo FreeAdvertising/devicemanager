@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="<?php echo sprintf("%s/bootstrap/css/bootstrap-colorpicker.min.css", $template_path); ?>" />
 		<link rel="stylesheet" href="<?php echo sprintf("%s/bootstrap/css/custom.css", $template_path); ?>" />
 
-		<title><?php echo $this->hydra->get("product_name"); ?> | Free Advertising</title>
+		<title><?php echo $this->hydra->get("product_name"); ?> | <?php echo $this->hydra->get("company_name"); ?></title>
 	</head>
 	<body>
 		<div class="container">
@@ -80,7 +80,7 @@
 				<?php endif; ?>
 			</header>
 			<div class="jumbotron">
-				 <h1>Free</h1>
+				 <h1><?php echo $this->hydra->get("company_name"); ?></h1>
 			</div>
 
 			<div class="panel panel-default">

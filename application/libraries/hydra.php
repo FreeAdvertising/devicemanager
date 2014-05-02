@@ -21,6 +21,8 @@
 			$this->_data->set("u_data_exists", (isset($tmp["user"]) ? true : false));
 			$this->_data->set("u_gid", (isset($tmp["user"]) ? (int) $tmp["user"]->group_id : 0));
 			$this->_data->set("u_product_name", $ci->config->item("product_name"));
+			$this->_data->set("u_company_name", $ci->config->item("company_name"));
+			$this->_data->set("u_valid_domain", $ci->config->item("valid_domain"));
 
 			//set the internal IP address manually in the config file
 			$this->_internal_ip = $ci->config->item("internal_ip");

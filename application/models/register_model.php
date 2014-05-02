@@ -27,7 +27,7 @@
 
 				$passwords_match = ($data["password"] === $data["conf-password"]);
 				$valid_email = (strpos($data["email"], "@") > 0);
-				$valid_email = ($valid_email && strpos($data["email"], "wearefree.ca") > 0); //check against our desired domain
+				$valid_email = ($valid_email && strpos($data["email"], $this->hydra->get("valid_domain")) > 0); //check against our desired domain
 				
 				//there are no users with that email/username combination,
 				//proceed with registration
